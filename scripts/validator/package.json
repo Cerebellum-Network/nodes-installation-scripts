@@ -1,0 +1,23 @@
+{
+  "name": "validator-setup",
+  "version": "1.0.0",
+  "description": "This script will automate the validator setup to the cere node.",
+  "main": "index.js",
+  "scripts": {
+    "add-validator": "npx ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "validator"
+  ],
+  "author": "Team Cere",
+  "license": "ISC",
+  "dependencies": {
+    "@polkadot/api": "^3.11.1",
+    "bn.js": "^4.12.0",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  }
+}

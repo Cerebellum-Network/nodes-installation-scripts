@@ -1,0 +1,17 @@
+testnet-node-1.cere.network:9945  {
+	log stdout
+	errors stderr
+	gzip
+	tls ab@cere.io
+	proxy / boot_node:9944 {
+	     websocket
+	  }
+}
+
+grafana.cere.network  {
+        log stdout
+        errors stderr
+        gzip
+        tls ab@cere.io
+        proxy  / 64.225.102.118:3000
+}
