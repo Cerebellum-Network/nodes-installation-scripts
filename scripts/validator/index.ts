@@ -1,10 +1,14 @@
 import { ApiPromise, Keyring, WsProvider } from "@polkadot/api";
+import { mnemonicGenerate } from "@polkadot/util-crypto";
 import { KeypairType } from "@polkadot/util-crypto/types";
 import { KeyringPair } from "@polkadot/keyring/types";
 import { EventRecord, ExtrinsicStatus } from "@polkadot/types/interfaces";
 import * as dotenv from "dotenv";
 import * as BN from 'bn.js';
+
 dotenv.config();
+
+const MNEMONIC_WORDS_COUNT = 15;
 
 class Validator {
   private api: ApiPromise;
@@ -28,6 +32,23 @@ class Validator {
     console.log(`Connected to: ${chain}\n`);
   }
 
+  public async createAccounts() {
+    console.log('Creating Stash and Controller accounts');
+
+    this.stashAccount = this.generateAccount();
+    this.controllerAccount = this.generateAccount();
+
+    this.stashBalance = await this.getBalance(this.stashAccount);
+    this.controllerBalance = await this.getBalance(this.controllerAccount);
+
+    console.log(
+      `Your Stash Account is ${this.stashAccount.address} and balance is ${this.stashBalance}`
+    );
+    console.log(
+      `Your Controller Account is ${this.controllerAccount.address} and balance is ${this.controllerBalance}\n`
+    );
+  }
+
   /**
    * Load stash and controller accounts.
    */
@@ -42,14 +63,9 @@ class Validator {
       JSON.parse(process.env.CONTROLLER_ACCOUNT_JSON)
     );
     this.controllerAccount.decodePkcs8(process.env.CONTROLLER_ACCOUNT_PASSWORD);
-    const {
-      data: { free: sbalance },
-    } = await this.api.query.system.account(this.stashAccount.address);
-    this.stashBalance = Number(sbalance);
-    const {
-      data: { free: cbalance },
-    } = await this.api.query.system.account(this.controllerAccount.address);
-    this.controllerBalance = Number(cbalance);
+    this.stashBalance = await this.getBalance(this.stashAccount)
+    this.controllerBalance = await this.getBalance(this.controllerAccount)
+
     console.log(
       `Your Stash Account is ${this.stashAccount.address} and balance is ${this.stashBalance}`
     );
@@ -138,6 +154,22 @@ class Validator {
     });
   }
 
+  private generateAccount() {
+    const keyring = new Keyring({ type: "sr25519", ss58Format: 2 });
+    const mnemonic = mnemonicGenerate(MNEMONIC_WORDS_COUNT);
+    const pair = keyring.addFromUri(mnemonic, {}, "ed25519");
+
+    return keyring.addPair(pair);
+  }
+
+  private async getBalance(account: KeyringPair) {
+    const {
+      data: { free: balance },
+    } = await this.api.query.system.account(account.address);
+
+    return Number(balance);
+  }
+
   private sendStatusCb(res, rej, {
     events = [],
     status,
@@ -178,7 +210,11 @@ class Validator {
 async function main() {
   const validator = new Validator();
   await validator.init();
-  await validator.loadAccounts();
+  if (Boolean(process.env.GENERATE_ACCOUNTS)) {
+    await validator.createAccounts();
+  } else {
+    await validator.loadAccounts();
+  }
   await validator.generateSessionKey();
   // await validator.setController();
   await validator.addValidator();

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+VALIDATOR_CONTAINER_NAME=add_validator
+
 ### Function list
 # ============ Functions to print error message in red ============ 
 function print_error {
@@ -50,25 +52,28 @@ function update_configs {
 
 # ============ Start a Validator Node ============ 
 function start_validator_node {
-  # 1. Clone this repo.
-  git clone git@github.com:Cerebellum-Network/validator-instructions.git
-  cd validator-instructions
-  # 2. Add permission to the chain-data folder for the container:
+  # Add permission to the chain-data folder for the container:
   chmod -R 777 ./chain-data
-  # 4. Run the script to confirm your environment is ready for Node:
+  # Run the script to confirm your environment is ready for Node:
   ./scripts/env-host-check.sh --validator
-  # 5. Specify NODE_NAME parameter in the configs/.env.testnet.
-  # 6. Run the command to add a custom validator
 
+  # Specify NODE_NAME parameter in the configs/.env.testnet.
   update_configs
 
+  # Run the command to add a custom validator
   docker-compose --env-file ./configs/${CONFIG_FILE} up -d add_validation_node_custom
-  docker-compose logs --tail="all" | grep "Local node identity is"
 }
 
 # ============ Become a Validator ============ 
 function become_a_validator {
-  docker-compose --env-file ./scripts/validator/.env up add_validator
+  GENERATE_ACCOUNTS="$GENERATE_ACCOUNTS" docker-compose --env-file ./scripts/validator/.env up $VALIDATOR_CONTAINER_NAME
+}
+
+function launch_nodes {
+  define_config_file $NETWORK
+  start_validator_node
+  echo "NODE_NAME=$NODE_NAME" >> configs/${CONFIG_FILE}
+  become_a_validator
 }
 
 # ============ Check number of arguments ============ 
@@ -108,10 +113,16 @@ echo Network = ${NETWORK}
 [[ -z "$BOND_VALUE" ]] && : || echo Bond value = ${BOND_VALUE}
 [[ -z "$REWARD_COMMISSION" ]] && : || echo Reward commission = ${REWARD_COMMISSION}
 
-define_config_file $NETWORK
 
-start_validator_node
-
-echo "NODE_NAME=$NODE_NAME" >> configs/${CONFIG_FILE}
-
-become_a_validator
+if [ "$( docker container inspect -f '{{.State.Status}}' ${VALIDATOR_CONTAINER_NAME} )" == "running" ]; then
+  while true; do
+    read -p "The nodes are already up and running, do you wish to start over (y/n)?: `echo $'\n> '`" yn
+    case $yn in
+        [Yy]* ) source "$(dirname "$0")/clean_validator_node.sh"; launch_nodes; break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+  done
+else 
+  launch_nodes
+fi

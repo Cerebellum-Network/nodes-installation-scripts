@@ -75,6 +75,8 @@ services:
   add_validator:
     container_name: add_validator
     image: add_validator_script
+    environment:
+      - "GENERATE_ACCOUNTS=${GENERATE_ACCOUNTS}"
     logging:
       driver: "json-file"
       options:
