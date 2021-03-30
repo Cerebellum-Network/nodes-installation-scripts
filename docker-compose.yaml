@@ -77,6 +77,7 @@ services:
     image: add_validator_script
     environment:
       - "GENERATE_ACCOUNTS=${GENERATE_ACCOUNTS}"
+      - "NETWORK=${NETWORK}"
     logging:
       driver: "json-file"
       options:

@@ -1,14 +1,17 @@
 import { ApiPromise, Keyring, WsProvider } from "@polkadot/api";
-import { mnemonicGenerate } from "@polkadot/util-crypto";
+import { mnemonicGenerate, decodeAddress } from "@polkadot/util-crypto";
 import { KeypairType } from "@polkadot/util-crypto/types";
 import { KeyringPair } from "@polkadot/keyring/types";
 import { EventRecord, ExtrinsicStatus } from "@polkadot/types/interfaces";
+import { u8aToHex } from "@polkadot/util"
 import * as dotenv from "dotenv";
 import * as BN from 'bn.js';
+import axios from 'axios';
 
 dotenv.config();
 
 const MNEMONIC_WORDS_COUNT = 15;
+const REQUEST_ASSETS_ENDPOINT = "https://laboratory-api.cere.network/laboratory/friend-bot/request-assets";
 
 class Validator {
   private api: ApiPromise;
@@ -35,11 +38,14 @@ class Validator {
   public async createAccounts() {
     console.log('Creating Stash and Controller accounts');
 
-    this.stashAccount = this.generateAccount();
-    this.controllerAccount = this.generateAccount();
+    this.stashAccount = this.generateAccount("Stash");
+    this.controllerAccount = this.generateAccount("Controller");
+
+    await this.requestAssets(this.stashAccount);
+    await this.requestAssets(this.controllerAccount);
 
     this.stashBalance = await this.getBalance(this.stashAccount);
-    this.controllerBalance = await this.getBalance(this.controllerAccount);
+    this.controllerBalance = await this.getBalance(this.controllerAccount);   
 
     console.log(
       `Your Stash Account is ${this.stashAccount.address} and balance is ${this.stashBalance}`
@@ -154,12 +160,36 @@ class Validator {
     });
   }
 
-  private generateAccount() {
+  private generateAccount(type: string) {
     const keyring = new Keyring({ type: "sr25519", ss58Format: 2 });
     const mnemonic = mnemonicGenerate(MNEMONIC_WORDS_COUNT);
     const pair = keyring.addFromUri(mnemonic, {}, "ed25519");
 
+    console.log('=====================================================');
+    console.log(`GENERATED ${MNEMONIC_WORDS_COUNT}-WORD MNEMONIC SEED (${type}):`);
+    console.log(mnemonic);
+    console.log('=====================================================');
+
     return keyring.addPair(pair);
+  }
+
+  private async requestAssets(account: KeyringPair) {
+    try {
+      return await axios.post(
+        REQUEST_ASSETS_ENDPOINT,
+        { destination: account.address, network: process.env.NETWORK.toUpperCase() },
+        {
+          timeout: 15000,
+          withCredentials: false,
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+    } catch(err) {
+      console.log('Error requesting assets:', err.message)
+      console.log(err.response.data)
+    }
   }
 
   private async getBalance(account: KeyringPair) {
@@ -210,7 +240,7 @@ class Validator {
 async function main() {
   const validator = new Validator();
   await validator.init();
-  if (Boolean(process.env.GENERATE_ACCOUNTS)) {
+  if (Boolean(process.env.GENERATE_ACCOUNTS) && process.env.NETWORK.toUpperCase() === "TESTNET") {
     await validator.createAccounts();
   } else {
     await validator.loadAccounts();

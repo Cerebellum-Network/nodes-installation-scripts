@@ -66,7 +66,17 @@ function start_validator_node {
 
 # ============ Become a Validator ============ 
 function become_a_validator {
-  GENERATE_ACCOUNTS="$GENERATE_ACCOUNTS" docker-compose --env-file ./scripts/validator/.env up $VALIDATOR_CONTAINER_NAME
+  GENERATE_ACCOUNTS="$GENERATE_ACCOUNTS" NETOWRK="$NETOWRK" docker-compose --env-file ./scripts/validator/.env up $VALIDATOR_CONTAINER_NAME
+
+  while true; do
+    read -p "Please make sure you have copied your wallet's mnemonic seed (printed above) and keep it in a safe place. 
+      You can use mnemonic to restore your wallet. Keep it carefully not to lose your assets.
+      Did you save your mnemonic seed (y/n)?: `echo $'\n> '`" yn
+    case $yn in
+        [Yy]* ) exit;;
+        * ) echo "Please answer yes or no.";;
+    esac
+  done
 }
 
 function launch_nodes {
