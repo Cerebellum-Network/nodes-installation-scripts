@@ -41,9 +41,15 @@ class Validator {
     this.stashAccount = this.generateAccount("Stash");
     this.controllerAccount = this.generateAccount("Controller");
 
-    await this.requestAssets(this.stashAccount);
-    await this.requestAssets(this.controllerAccount);
+    const stashAssetsResponse = await this.requestAssets(this.stashAccount);
+    console.log('Stash assets transaction:', stashAssetsResponse?.data);
+    const controllerAssetsResponse = await this.requestAssets(this.controllerAccount);
+    console.log('Controller assets transaction:', controllerAssetsResponse?.data);
 
+    console.log('Wait 20s...');
+    await this.sleep(20000);
+
+    console.log('Requesting balance');
     this.stashBalance = await this.getBalance(this.stashAccount);
     this.controllerBalance = await this.getBalance(this.controllerAccount);   
 
@@ -177,12 +183,13 @@ class Validator {
     try {
       return await axios.post(
         REQUEST_ASSETS_ENDPOINT,
-        { destination: account.address, network: process.env.NETWORK.toUpperCase() },
+        { destination: u8aToHex(account.publicKey), network: process.env.NETWORK.toUpperCase() },
         {
           timeout: 15000,
           withCredentials: false,
           headers: {
             Accept: "application/json",
+            Authority: "laboratory-api.cere.network"
           },
         }
       );
@@ -198,6 +205,10 @@ class Validator {
     } = await this.api.query.system.account(account.address);
 
     return Number(balance);
+  }
+
+  private async sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   private sendStatusCb(res, rej, {
