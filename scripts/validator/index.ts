@@ -292,7 +292,7 @@ class Validator {
 async function main() {
   const validator = new Validator();
   await validator.init();
-  if (Boolean(process.env.GENERATE_ACCOUNTS) && validator.getNetworkName() === "TESTNET") {
+  if (Boolean(process.env.GENERATE_ACCOUNTS) && validator.getNetworkName().startsWith("TESTNET")) {
     await validator.createAccounts();
   } else {
     await validator.loadAccounts();
