@@ -7,13 +7,13 @@ The scripts will help the community to up and run Cere Nodes (Validator, Full). 
 Start validator node by running shell script
 
 ```shell
-sh ./scripts/launch_validator_node.sh --node-name=TEST_NODE --network=TESTNET 
+sh ./scripts/launch_validator_node.sh --node-name=TEST_NODE --network=testnet 
 ```
 
 Required parameters are:
 
 - `--node-name` - can by any string.
-- `--network` - should be either TESTNET or TESTNET-DEV.
+- `--network` - should be either "test" or "testnet-dev".
 
 It is possible to pass optional parameters:
 
