@@ -66,7 +66,7 @@ function start_validator_node {
 
 # ============ Become a Validator ============ 
 function become_a_validator {
-  GENERATE_ACCOUNTS="$GENERATE_ACCOUNTS" NETOWRK="$NETOWRK" docker-compose --env-file ./scripts/validator/.env up --build --force-recreate $VALIDATOR_CONTAINER_NAME
+  GENERATE_ACCOUNTS="$GENERATE_ACCOUNTS" NETWORK="$NETWORK" docker-compose --env-file ./scripts/validator/.env up --build --force-recreate $VALIDATOR_CONTAINER_NAME
 
   while true; do
     read -p "Please make sure you have copied your wallet's mnemonic seed (printed above) and keep it in a safe place. 
@@ -126,7 +126,7 @@ echo Network = ${NETWORK}
 
 if [ "$( docker container inspect -f '{{.State.Status}}' ${VALIDATOR_CONTAINER_NAME} )" == "running" ]; then
   while true; do
-    read -p "The nodes are already up and running, do you wish to start over (y/n)?: `echo $'\n> '`" yn
+    read -p "The nodes are already up and running, do you wish to st  art over (y/n)?: `echo $'\n> '`" yn
     case $yn in
         [Yy]* ) source "$(dirname "$0")/clean_validator_node.sh"; launch_nodes; break;;
         [Nn]* ) exit;;
