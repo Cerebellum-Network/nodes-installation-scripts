@@ -33,6 +33,20 @@ class Validator {
     await this.api.isReady;
     const chain = await this.api.rpc.system.chain();
     console.log(`Connected to: ${chain}\n`);
+
+    console.log("Check if syncing...");
+    await this.callWithRetry(this.isSyncing.bind(this), {
+      maxDepth: 100,
+    });
+    console.log("Sync is complete!");
+  }
+  
+  private async isSyncing() {
+    const response = await this.api.rpc.system.health();
+
+        if (response.isSyncing.valueOf()) {
+      throw new Error("Node is syncing")
+    }
   }
 
   public async createAccounts() {
@@ -43,15 +57,11 @@ class Validator {
 
     const stashAssetsResponse = await this.requestAssets(this.stashAccount);
     console.log('Stash assets transaction:', stashAssetsResponse?.data);
+
     const controllerAssetsResponse = await this.requestAssets(this.controllerAccount);
     console.log('Controller assets transaction:', controllerAssetsResponse?.data);
 
-    console.log('Wait 20s...');
-    await this.sleep(20000);
-
-    console.log('Requesting balance');
-    this.stashBalance = await this.getBalance(this.stashAccount);
-    this.controllerBalance = await this.getBalance(this.controllerAccount);   
+    await this.callWithRetry(this.isValidBalance.bind(this)); 
 
     console.log(
       `Your Stash Account is ${this.stashAccount.address} and balance is ${this.stashBalance}`
@@ -166,6 +176,10 @@ class Validator {
     });
   }
 
+  public getNetworkName() {
+    return process.env.NETWORK.toUpperCase().replace("-", "_");
+  }
+
   private generateAccount(type: string) {
     const keyring = new Keyring({ type: "sr25519", ss58Format: 2 });
     const mnemonic = mnemonicGenerate(MNEMONIC_WORDS_COUNT);
@@ -183,7 +197,7 @@ class Validator {
     try {
       return await axios.post(
         REQUEST_ASSETS_ENDPOINT,
-        { destination: u8aToHex(account.publicKey), network: process.env.NETWORK.toUpperCase() },
+        { destination: account.address, network: this.getNetworkName() },
         {
           timeout: 15000,
           withCredentials: false,
@@ -196,19 +210,46 @@ class Validator {
     } catch(err) {
       console.log('Error requesting assets:', err.message)
       console.log(err.response.data)
+      throw err;
+    }
+  }
+
+  private async isValidBalance () {
+    console.log('Requesting balance');
+    this.stashBalance = await this.getBalance(this.stashAccount);
+    this.controllerBalance = await this.getBalance(this.controllerAccount); 
+
+    if (this.stashBalance <= 0) {
+      throw new Error('Stash balance should be above 0');
     }
   }
 
   private async getBalance(account: KeyringPair) {
+    const result = await this.api.query.system.account(account.address);
     const {
       data: { free: balance },
-    } = await this.api.query.system.account(account.address);
+    } = result;
 
     return Number(balance);
   }
 
   private async sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  private async callWithRetry(fn, options = { maxDepth: 5}, depth = 0) {
+    try {
+      return await fn();
+    } catch (e) {
+      if (depth > options.maxDepth) {
+        throw e;
+      }
+      const time = 2 ** depth * 1000;
+      console.log(`Wait ${time / 1000}s.`);
+      await this.sleep(time);
+    
+      return this.callWithRetry(fn, options, depth + 1);
+    }
   }
 
   private sendStatusCb(res, rej, {
@@ -251,7 +292,7 @@ class Validator {
 async function main() {
   const validator = new Validator();
   await validator.init();
-  if (Boolean(process.env.GENERATE_ACCOUNTS) && process.env.NETWORK.toUpperCase() === "TESTNET") {
+  if (Boolean(process.env.GENERATE_ACCOUNTS) && validator.getNetworkName() === "TESTNET") {
     await validator.createAccounts();
   } else {
     await validator.loadAccounts();
