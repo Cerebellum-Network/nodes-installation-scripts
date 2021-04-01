@@ -8,18 +8,16 @@ Start validator node by running shell script
 
 ```shell
 sh ./scripts/launch_validator_node.sh --node-name=TEST_NODE --network=testnet
+
 ```
 
-Required parameters are:
-
-- `--node-name` - can by any string.
-- `--network` - should be either "test" or "testnet-dev".
-
-It is possible to pass optional parameters:
-
-- `--generate-accounts=1` - any value. If it is set, Stash and Controller accounts will be generated automatically and shared with user as a result. By default it will be taken from parameters.
-- `--bond-value` - any number. By default it will be taken from parameters.
-- `--reward-commission` - any number in range 0 - 100. By default it will be taken from parameters.
+| Parameter name    | Required | Possible options             | Example                    | Description                                                                                                                                                |
+|-------------------|----------|------------------------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| node-name         | Yes      | Any string.                  | `--node-name=my-test-node` | A node name.                                                                                                                                               |
+| network           | Yes      | `testnet`, `testnet-dev`     | `--network=testnet`        | A network name.                                                                                                                                            |
+| generate-accounts | No       | Any value.                   | `--generate-accounts=1`    | If it is set, Stash and Controller accounts will be generated automatically and shared with user as a result. By default it will be taken from parameters. |
+| bond-value        | No       | Any number.                  | `--bond-value=999`         | By default it will be taken from parameters.                                                                                                               |
+| reward-commission | No       | Any number in range 0 - 100. | `--reward-commission=10`   | By default it will be taken from parameters.                                                                                                               |
 
 Clean created nodes with
 

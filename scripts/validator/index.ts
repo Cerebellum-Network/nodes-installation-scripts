@@ -8,10 +8,6 @@ import * as BN from 'bn.js';
 import axios from 'axios';
 
 dotenv.config();
-
-const MNEMONIC_WORDS_COUNT = 15;
-const REQUEST_ASSETS_ENDPOINT = "https://laboratory-api.cere.network/laboratory/friend-bot/request-assets";
-
 class Validator {
   private api: ApiPromise;
   private keyRingType: KeypairType;
@@ -181,11 +177,11 @@ class Validator {
 
   private generateAccount(type: string) {
     const keyring = new Keyring({ type: "sr25519", ss58Format: 2 });
-    const mnemonic = mnemonicGenerate(MNEMONIC_WORDS_COUNT);
+    const mnemonic = mnemonicGenerate(process.env.MNEMONIC_WORDS_COUNT);
     const pair = keyring.addFromUri(mnemonic, {}, "ed25519");
 
     console.log('=====================================================');
-    console.log(`GENERATED ${MNEMONIC_WORDS_COUNT}-WORD MNEMONIC SEED (${type}):`);
+    console.log(`GENERATED ${process.env.MNEMONIC_WORDS_COUNT}-WORD MNEMONIC SEED (${type}):`);
     console.log(mnemonic);
     console.log('=====================================================');
 
@@ -195,7 +191,7 @@ class Validator {
   private async requestAssets(account: KeyringPair) {
     try {
       return await axios.post(
-        REQUEST_ASSETS_ENDPOINT,
+        process.env.REQUEST_ASSETS_ENDPOINT,
         { destination: account.address, network: this.getNetworkName() },
         {
           timeout: 15000,
