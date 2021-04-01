@@ -45,7 +45,7 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-size: "2048m"
+        max-size: "20m"
     ports:
       - "9944:9944"
       - "9933:9933"
@@ -62,7 +62,7 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-size: "2048m"
+        max-size: "20m"
     ports:
       - "9944:9944"
       - "9933:9933"
@@ -81,7 +81,7 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-size: "2048m"
+        max-size: "20m"
     build:
       context: ./
       dockerfile: Dockerfile.addValidator
@@ -93,7 +93,7 @@ services:
     logging:
       driver: "json-file"
       options:
-        max-size: "2048m"
+        max-size: "20m"
     ports:
       - "9944:9944"
       - "9933:9933"
