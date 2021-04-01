@@ -3,7 +3,6 @@ import { mnemonicGenerate, decodeAddress } from "@polkadot/util-crypto";
 import { KeypairType } from "@polkadot/util-crypto/types";
 import { KeyringPair } from "@polkadot/keyring/types";
 import { EventRecord, ExtrinsicStatus } from "@polkadot/types/interfaces";
-import { u8aToHex } from "@polkadot/util"
 import * as dotenv from "dotenv";
 import * as BN from 'bn.js';
 import axios from 'axios';
