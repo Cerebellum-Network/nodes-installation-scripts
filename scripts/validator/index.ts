@@ -274,15 +274,17 @@ class Validator {
       console.info(
         `Transaction has been included in blockHash ${hash}`
       );
-      events.forEach(({ event }) => {
-        if (event.method === "ExtrinsicSuccess") {
-          console.info("Transaction succeeded");
-        } else if (event.method === "ExtrinsicFailed") {
-          console.info("Transaction failed");
-          throw new Error("Transaction failed");
-          
-        }
-      });
+
+      if (events?.length) {
+        events.forEach(({ event }) => {
+          if (event.method === "ExtrinsicSuccess") {
+            console.info("Transaction succeeded");
+          } else if (event.method === "ExtrinsicFailed") {
+            console.info("Transaction failed");
+            throw new Error("Transaction failed");
+          }
+        });
+      }
 
       res(hash);
     }

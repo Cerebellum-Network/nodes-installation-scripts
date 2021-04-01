@@ -57,7 +57,7 @@ function start_validator_node {
   # Run the script to confirm your environment is ready for Node:
   ./scripts/env-host-check.sh --validator
 
-  # Specify NODE_NAME parameter in the configs/.env.testnet.
+  # Specify NODE_NAME parameter in the configs/[CONFIG_FILE]
   update_configs
 
   # Run the command to add a custom validator
@@ -68,15 +68,16 @@ function start_validator_node {
 function become_a_validator {
   GENERATE_ACCOUNTS="$GENERATE_ACCOUNTS" NETWORK="$NETWORK" docker-compose --env-file ./scripts/validator/.env up --build --force-recreate $VALIDATOR_CONTAINER_NAME
 
-  while true; do
-    read -p "Please make sure you have copied your wallet's mnemonic seed (printed above) and keep it in a safe place. 
-      You can use mnemonic to restore your wallet. Keep it carefully not to lose your assets.
-      Did you save your mnemonic seed (y/n)?: `echo $'\n> '`" yn
-    case $yn in
-        [Yy]* ) exit;;
-        * ) echo "Please answer yes or no.";;
-    esac
-  done
+  [[ -z "$GENERATE_ACCOUNTS" ]]  && : || 
+    while true; do
+      read -p "Please make sure you have copied your wallet's mnemonic seed (printed above) and keep it in a safe place. 
+        You can use mnemonic to restore your wallet. Keep it carefully not to lose your assets.
+        Did you save your mnemonic seed (y/n)?: `echo $'\n> '`" yn
+      case $yn in
+          [Yy]* ) exit;;
+          * ) echo "Please answer yes (y) or no (n).";;
+      esac
+    done
 }
 
 function launch_nodes {
@@ -126,11 +127,11 @@ echo Network = ${NETWORK}
 
 if [ "$( docker container inspect -f '{{.State.Status}}' ${VALIDATOR_CONTAINER_NAME} )" == "running" ]; then
   while true; do
-    read -p "The nodes are already up and running, do you wish to st  art over (y/n)?: `echo $'\n> '`" yn
+    read -p "The nodes are already up and running, do you wish to start over (y/n)?: `echo $'\n> '`" yn
     case $yn in
         [Yy]* ) source "$(dirname "$0")/clean_validator_node.sh"; launch_nodes; break;;
         [Nn]* ) exit;;
-        * ) echo "Please answer yes or no.";;
+        * ) echo "Please answer yes (y) or no (n).";;
     esac
   done
 else 
