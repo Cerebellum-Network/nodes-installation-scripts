@@ -7,7 +7,7 @@ import * as dotenv from "dotenv";
 import * as BN from 'bn.js';
 import axios from 'axios';
 
-const MNEMONIC_WORDS_COUNT = 15;
+const MNEMONIC_WORDS_COUNT = 12;
 
 dotenv.config();
 class Validator {
