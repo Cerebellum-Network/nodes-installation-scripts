@@ -7,6 +7,8 @@ import * as dotenv from "dotenv";
 import * as BN from 'bn.js';
 import axios from 'axios';
 
+const MNEMONIC_WORDS_COUNT = 15;
+
 dotenv.config();
 class Validator {
   private api: ApiPromise;
@@ -177,11 +179,11 @@ class Validator {
 
   private generateAccount(type: string) {
     const keyring = new Keyring({ type: "sr25519", ss58Format: 2 });
-    const mnemonic = mnemonicGenerate(process.env.MNEMONIC_WORDS_COUNT);
+    const mnemonic = mnemonicGenerate(MNEMONIC_WORDS_COUNT);
     const pair = keyring.addFromUri(mnemonic, {}, "ed25519");
 
     console.log('=====================================================');
-    console.log(`GENERATED ${process.env.MNEMONIC_WORDS_COUNT}-WORD MNEMONIC SEED (${type}):`);
+    console.log(`GENERATED ${MNEMONIC_WORDS_COUNT}-WORD MNEMONIC SEED (${type}):`);
     console.log(mnemonic);
     console.log('=====================================================');
 
@@ -239,9 +241,9 @@ class Validator {
       if (depth > options.maxDepth) {
         throw e;
       }
-      const time = 2 ** depth * 1000;
-      console.log(`Wait ${time / 1000}s.`);
-      await this.sleep(time);
+      const seconds = parseInt(process.env.WAIT_SECONDS, 10);
+      console.log(`Wait ${seconds}s.`);
+      await this.sleep(seconds * 1000);
     
       return this.callWithRetry(fn, options, depth + 1);
     }
