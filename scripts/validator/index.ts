@@ -200,7 +200,6 @@ class Validator {
           withCredentials: false,
           headers: {
             Accept: "application/json",
-            Authority: "laboratory-api.cere.network"
           },
         }
       );
