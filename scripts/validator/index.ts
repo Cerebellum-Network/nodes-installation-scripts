@@ -50,7 +50,9 @@ class Validator {
     console.log('Creating Stash and Controller accounts');
 
     this.stashAccount = this.generateAccount("Stash");
+    console.log(`Stash account public key: ${this.stashAccount.address}`);
     this.controllerAccount = this.generateAccount("Controller");
+    console.log(`Controller account public key ${this.controllerAccount.address}`);
 
     const stashAssetsResponse = await this.requestAssets(this.stashAccount);
     console.log('Stash assets transaction:', stashAssetsResponse?.data);
@@ -196,7 +198,7 @@ class Validator {
         process.env.REQUEST_ASSETS_ENDPOINT,
         { destination: account.address, network: this.getNetworkName() },
         {
-          timeout: 15000,
+          timeout: 50000,
           withCredentials: false,
           headers: {
             Accept: "application/json",
