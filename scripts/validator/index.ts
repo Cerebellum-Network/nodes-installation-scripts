@@ -180,9 +180,9 @@ class Validator {
   }
 
   private generateAccount(type: string) {
-    const keyring = new Keyring({ type: "sr25519", ss58Format: 2 });
+    const keyring = new Keyring({ type: "sr25519"});
     const mnemonic = mnemonicGenerate(MNEMONIC_WORDS_COUNT);
-    const pair = keyring.addFromUri(mnemonic, {}, "ed25519");
+    const pair = keyring.addFromUri(mnemonic, {});
 
     console.log('=====================================================');
     console.log(`GENERATED ${MNEMONIC_WORDS_COUNT}-WORD MNEMONIC SEED (${type}):`);
