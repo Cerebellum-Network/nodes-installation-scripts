@@ -117,26 +117,28 @@ class Validator {
       throw new Error("Bond value needs to be lesser than balance.");
     }
 
-
     const transaction = this.api.tx.staking.bond(
       this.controllerAccount.address,
       bondValue,
-      'Stash'
+      "Staked"
     );
 
     return new Promise((res, rej) => {
-      transaction.signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej))
+      transaction
+        .signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej))
         .catch((err) => rej(err));
     });
-
   }
 
   public async setController() {
     console.log(`\n Setting controller account`);
-    const transaction = this.api.tx.staking.setController(this.controllerAccount.address);
+    const transaction = this.api.tx.staking.setController(
+      this.controllerAccount.address
+    );
 
     return new Promise((res, rej) => {
-      transaction.signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej))
+      transaction
+        .signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej))
         .catch((err) => rej(err));
     });
   }
@@ -154,7 +156,11 @@ class Validator {
     );
 
     return new Promise((res, rej) => {
-      transaction.signAndSend(this.controllerAccount, this.sendStatusCb.bind(this, res, rej))
+      transaction
+        .signAndSend(
+          this.controllerAccount,
+          this.sendStatusCb.bind(this, res, rej)
+        )
         .catch((err) => rej(err));
     });
   }
@@ -165,12 +171,19 @@ class Validator {
    */
   public async setCommission() {
     console.log(`\nSetting reward commission`);
+    // https://github.com/polkadot-js/apps/blob/23dad13c9e67de651e5551e4ce7cba3d63d8bb47/packages/page-staking/src/Actions/partials/Validate.tsx#L53
+    const COMM_MUL = 10000000;
+    const commission = +process.env.REWARD_COMMISSION * COMM_MUL;
     const transaction = this.api.tx.staking.validate({
-      commission: process.env.REWARD_COMMISSION,
+      commission,
     });
 
     return new Promise((res, rej) => {
-      transaction.signAndSend(this.controllerAccount, this.sendStatusCb.bind(this, res, rej))
+      transaction
+        .signAndSend(
+          this.controllerAccount,
+          this.sendStatusCb.bind(this, res, rej)
+        )
         .catch((err) => rej(err));
     });
   }
@@ -269,20 +282,15 @@ class Validator {
       console.info(`Transaction is in block: ${hash}`);
     } else if (status.isFinalized) {
       const hash = status.asFinalized.toHex();
-      console.info(
-        `Transaction has been included in blockHash ${hash}`
-      );
-
-      if (events?.length) {
-        events.forEach(({ event }) => {
-          if (event.method === "ExtrinsicSuccess") {
-            console.info("Transaction succeeded");
-          } else if (event.method === "ExtrinsicFailed") {
-            console.info("Transaction failed");
-            throw new Error("Transaction failed");
-          }
-        });
-      }
+      console.info(`Transaction has been included in blockHash ${hash}`);
+      events.forEach(({ event }) => {
+        if (event.method === "ExtrinsicSuccess") {
+          console.info("Transaction succeeded");
+        } else if (event.method === "ExtrinsicFailed") {
+          console.info("Transaction failed");
+          throw new Error("Transaction failed");
+        }
+      });
 
       res(hash);
     }
@@ -298,12 +306,11 @@ async function main() {
     await validator.loadAccounts();
   }
   await validator.generateSessionKey();
-  // await validator.setController();
   await validator.addValidator();
   await validator.setSessionKey();
   await validator.setCommission();
 
-  console.log('Validator added successfully!');
+  console.log("Validator added successfully!");
 }
 
 main()
