@@ -133,7 +133,7 @@ class Validator {
    */
   public async setCommission() {
     console.log(`\nSetting reward commission`);
-    const commission = +process.env.REWARD_COMMISSION * 10 ** 7;
+    const commission = +process.env.REWARD_COMMISSION * +process.env.REWARD_COMMISSION_MULTIPLIER;
     const transaction = this.api.tx.staking.validate({
       commission,
     });
@@ -190,10 +190,10 @@ async function main() {
   const validator = new Validator();
   await validator.init();
   await validator.loadAccounts();
-  await validator.generateSessionKey();
+  // await validator.generateSessionKey();
   // await validator.setController();
-  await validator.addValidator();
-  await validator.setSessionKey();
+  // await validator.addValidator();
+  // await validator.setSessionKey();
   await validator.setCommission();
 
   console.log("Validator added successfully!");
