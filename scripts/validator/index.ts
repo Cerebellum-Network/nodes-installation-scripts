@@ -191,10 +191,10 @@ async function main() {
   const validator = new Validator();
   await validator.init();
   await validator.loadAccounts();
-  // await validator.generateSessionKey();
-  // await validator.setController();
-  // await validator.addValidator();
-  // await validator.setSessionKey();
+  await validator.generateSessionKey();
+  await validator.setController();
+  await validator.addValidator();
+  await validator.setSessionKey();
   await validator.setCommission();
 
   console.log("Validator added successfully!");
