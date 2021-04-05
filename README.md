@@ -6,10 +6,15 @@ The scripts will help the community to up and run Cere Nodes (Validator, Full). 
 
 Start validator node by running shell script
 
+For MacOS
 ```shell
 sh ./scripts/launch_validator_node.sh --node-name=TEST_NODE --network=testnet
-
 ```
+For Linux / Ubunutu
+```bash
+bash ./scripts/launch_validator_node.sh --node-name=TEST_NODE --network=testnet
+```
+
 
 | Parameter name    | Required | Possible options             | Example                    | Description                                                                                                                                                |
 |-------------------|----------|------------------------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
