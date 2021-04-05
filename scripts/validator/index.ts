@@ -84,7 +84,7 @@ class Validator {
     const transaction = this.api.tx.staking.bond(
       this.controllerAccount.address,
       bondValue,
-      'Stash'
+      'Staked'
     );
 
     return new Promise((res, rej) => {
