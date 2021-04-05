@@ -133,7 +133,8 @@ class Validator {
    */
   public async setCommission() {
     console.log(`\nSetting reward commission`);
-    const commission = +process.env.REWARD_COMMISSION * +process.env.REWARD_COMMISSION_MULTIPLIER;
+    // https://github.com/polkadot-js/apps/blob/23dad13c9e67de651e5551e4ce7cba3d63d8bb47/packages/page-staking/src/Actions/partials/Validate.tsx#L53
+    const commission = +process.env.REWARD_COMMISSION * +process.env.COMM_MUL;
     const transaction = this.api.tx.staking.validate({
       commission,
     });
