@@ -1,10 +1,13 @@
 import * as fs from 'fs';
-
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+import { Keyring } from "@polkadot/api";
+import { mnemonicGenerate, cryptoWaitReady } from "@polkadot/util-crypto";
+import { u8aToHex } from '@polkadot/util';
+import { KeyringPair } from '@polkadot/keyring/types';
 
 class Network {
   public async generateAccounts() {
+    await cryptoWaitReady();
+    
     const dir = __dirname + '/keys';
     if (fs.existsSync(dir)) {
       fs.rmdirSync(dir, { recursive: true });
@@ -125,35 +128,23 @@ class Network {
   }
 
   private async generateSrAccount() {
-    const { stdout, stderr } = await exec('docker-compose up generate_sr_key');
+    const keyring = new Keyring({ type: "sr25519"});
+    const mnemonic = mnemonicGenerate(12);
+    const pair = keyring.addFromUri(mnemonic, {});
 
-    return this.extractKeys(stdout);
+    return this.extractKeys(mnemonic, pair);
   }
 
   private async generateEdAccount(mnemonic: string) {
-    const file = fs.readFileSync('docker-compose.yaml','utf8');
-    const index = file.indexOf('generate_ed_key');
-    const index1 = file.indexOf(`'`, index);
-    const updatedFile = [file.slice(0, index1+1), mnemonic, file.slice(index1+1)].join('');
-    fs.writeFileSync('docker-compose.yaml', updatedFile);
+    const keyring = new Keyring({ type: "ed25519"});
+    const pair = keyring.addFromUri(mnemonic, {});
 
-    const { stdout, stderr } = await exec('docker-compose up generate_ed_key');
-
-    fs.writeFileSync('docker-compose.yaml', file);
-
-    return this.extractKeys(stdout);
+    return this.extractKeys(mnemonic, pair);
   }
 
-  private extractKeys(stdout: string) {
-    const mnemonicFirstQuote = stdout.indexOf(`\``);
-    const mnemonicSecondQuote = stdout.indexOf(`\``, mnemonicFirstQuote + 1);
-    const mnemonic = stdout.substring(mnemonicFirstQuote + 1, mnemonicSecondQuote);
-    const secretSeed = this.getValueFromOutputByKey(stdout, `Secret seed:`, 6, 66);
-    const publicKey = this.getValueFromOutputByKey(stdout, `Public key (hex):`, 1, 66);
-    const accountId = this.getValueFromOutputByKey(stdout, `Account ID:`, 7, 66);
-    const ss58Address = this.getValueFromOutputByKey(stdout, `SS58 Address:`, 5, 48);
+  private extractKeys(mnemonic: string, pair: KeyringPair) {
 
-    return {mnemonic, secretSeed, publicKey, accountId, ss58Address};
+    return {mnemonic, publicKey: u8aToHex(pair.publicKey), accountId: u8aToHex(pair.publicKey), ss58Address: pair.address};
   }
 
   private getValueFromOutputByKey(output: string, key: string, spaces: number, length: number): string {
