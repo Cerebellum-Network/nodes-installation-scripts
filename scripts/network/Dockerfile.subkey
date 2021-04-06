@@ -1,4 +1,0 @@
-FROM paritytech/ci-linux:production
-
-RUN rustup default nightly
-RUN cargo install --force subkey --git https://github.com/paritytech/substrate --version 2.0.0
