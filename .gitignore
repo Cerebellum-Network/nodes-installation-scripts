@@ -4,3 +4,4 @@ scripts/keys
 !scripts/keys/.gitkeep
 !scripts/keys/key_example.json
 scripts/validator/node_modules
+scripts/network/node_modules
