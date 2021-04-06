@@ -1,0 +1,23 @@
+{
+  "name": "network-setup",
+  "version": "1.0.0",
+  "description": "This script will automate the network setup.",
+  "main": "index.js",
+  "scripts": {
+    "launch-network": "npx ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "network"
+  ],
+  "author": "Team Cere",
+  "license": "ISC",
+  "dependencies": {
+    "@polkadot/api": "^3.11.1",
+    "bn.js": "^4.12.0",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  }
+}
