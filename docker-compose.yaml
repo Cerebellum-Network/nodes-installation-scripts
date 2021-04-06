@@ -100,3 +100,21 @@ services:
       - ./spec-data:/cereio/spec-data
       - ./chain-data:/data
     command: bash -c "/usr/local/bin/cere --prometheus-external --prometheus-port 9615 -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} --ws-port 9944 --ws-external --rpc-methods=Auto --rpc-cors all --rpc-external"
+  archive-node:
+    container_name: cere_archive_node
+    image: cerebellumnetwork/pos-node:2.1.0-rc1
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+    ports: 
+      - "9944:9944"
+      - "9933:9933"
+      - "30333:30333"
+      - "9615:9615"
+    volumes:
+      - ./spec-data:/cereio/spec-data
+      - ./chain-data:/data
+    command: bash -c "/usr/local/bin/cere --prometheus-external --prometheus-port 9615 -l${LOG_LEVEL} --name ${NODE_NAME} --pruning archive --chain /cereio/spec-data/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} --ws-port 9944 --ws-external --rpc-methods=Auto --rpc-cors all --rpc-external"
+    
