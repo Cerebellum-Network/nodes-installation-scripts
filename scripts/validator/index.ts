@@ -33,14 +33,8 @@ class Validator {
   public async loadAccounts() {
     console.log(`Loading your accounts`);
     const keyring = new Keyring({ type: "sr25519" });
-    this.stashAccount = keyring.addFromJson(
-      JSON.parse(process.env.STASH_ACCOUNT_JSON)
-    );
-    this.stashAccount.decodePkcs8(process.env.STASH_ACCOUNT_PASSWORD);
-    this.controllerAccount = keyring.addFromJson(
-      JSON.parse(process.env.CONTROLLER_ACCOUNT_JSON)
-    );
-    this.controllerAccount.decodePkcs8(process.env.CONTROLLER_ACCOUNT_PASSWORD);
+    this.stashAccount = keyring.addFromMnemonic(process.env.STASH_ACCOUNT_MNEMONIC);
+    this.controllerAccount = keyring.addFromMnemonic(process.env.CONTROLLER_ACCOUNT_MNEMONIC);
     const {
       data: { free: sbalance },
     } = await this.api.query.system.account(this.stashAccount.address);
