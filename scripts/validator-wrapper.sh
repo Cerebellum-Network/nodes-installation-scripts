@@ -14,7 +14,7 @@ function print_error {
 # ============ Check number of arguments ============ 
 if [[ $# -lt 2 ]]; then
   echo "-------------   Number of params:   $#"
-  print_error "Lack params: --domain and --n are required."
+  print_error "Lack params: --id and --n are required."
   exit 1
 fi
 
@@ -22,7 +22,7 @@ fi
 for arg in "$@"
 do
   case $arg in
-    --domain=*)
+    --id=*)
       export domain=`echo $arg | sed -e 's/^[^=]*=//g'`
       ;;
     --n*)
