@@ -1,14 +1,14 @@
 {
-  "name": "network-setup",
+  "name": "generate-accounts",
   "version": "1.0.0",
-  "description": "This script will automate the network setup.",
+  "description": "This script will automate the accounts generation.",
   "main": "index.js",
   "scripts": {
-    "launch-network": "npx ts-node index.ts",
+    "generate-accounts": "npx ts-node index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "network"
+    "accounts"
   ],
   "author": "Team Cere",
   "license": "ISC",

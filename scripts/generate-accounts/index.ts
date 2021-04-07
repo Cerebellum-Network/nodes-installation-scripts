@@ -4,15 +4,18 @@ import { mnemonicGenerate, cryptoWaitReady } from "@polkadot/util-crypto";
 import { u8aToHex } from '@polkadot/util';
 import { KeyringPair } from '@polkadot/keyring/types';
 
-class Network {
-  public async generateAccounts() {
-    await cryptoWaitReady();
-    
-    const dir = __dirname + '/keys';
+class Accounts {
+  public async generate() {
+    if (!fs.existsSync('accounts')) {
+      fs.mkdirSync('accounts');
+    }
+    const dir = 'accounts/all';
     if (fs.existsSync(dir)) {
       fs.rmdirSync(dir, { recursive: true });
     }
     fs.mkdirSync(dir);
+
+    await cryptoWaitReady();
 
     const rootAccount = await this.generateRootAccount();
     console.log('\n');
@@ -105,7 +108,7 @@ class Network {
   }
 
   public generateFileWithPublicKeys(rootAccount: any, sudoAccount: any, validatorGenesisAccounts) {
-    const filename = 'public';
+    const filename = 'accounts/public';
 
     if (fs.existsSync(filename)) {
       fs.writeFileSync(filename, '');
@@ -155,13 +158,13 @@ class Network {
   }
 
   private writeKeyToFile(filename: string, content: string) {
-    fs.writeFileSync(`keys/${filename}`, content);
+    fs.writeFileSync(`accounts/all/${filename}`, content);
   }
 }
 
 async function main() {
-  const network = new Network();
-  await network.generateAccounts();
+  const accounts = new Accounts();
+  await accounts.generate();
 }
 
 main()
