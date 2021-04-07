@@ -95,6 +95,7 @@ services:
       dockerfile: Dockerfile.generateAccounts
     volumes:
       - ./accounts:/app/accounts
+      - ./scripts/keys:/keys
     command: npm run generate-accounts
   full_node:
     container_name: cere_full_node
