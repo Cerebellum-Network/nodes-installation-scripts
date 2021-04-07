@@ -1,0 +1,16 @@
+{
+  "name": "generate-keyfiles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "generate-keyfiles": "npx ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@polkadot/api": "^3.11.1"
+  }
+}
