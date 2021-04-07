@@ -96,6 +96,19 @@ services:
     volumes:
       - ./accounts:/app/accounts
     command: npm run generate-accounts
+  generate_accounts:
+    container_name: generate_keyfiles
+    image: generate_keyfiles
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+    build:
+      context: ./
+      dockerfile: Dockerfile.generateKeyfiles
+    volumes:
+      - ./keyfiles:/app/keyfiles
+    command: npm run generate-keyfiles
   full_node:
     container_name: cere_full_node
     image: cerebellumnetwork/pos-node:2.1.0-rc1
