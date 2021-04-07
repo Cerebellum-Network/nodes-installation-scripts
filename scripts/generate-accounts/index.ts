@@ -183,7 +183,7 @@ class Keyfiles {
     for (const [key, value] of Object.entries(this.mapping)) {
       console.log(`Creating file ${key} with ${value} contents`);
       const content = fs.readFileSync(
-        `../generate-accounts/accounts/all/${value}`,
+        `./accounts/all/${value}`,
         "utf-8"
       );
       let mnemonicRegex = /(?<="mnemonic":")(.*)(?=","p)/;
