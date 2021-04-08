@@ -3,7 +3,8 @@ import { Keyring } from "@polkadot/api";
 import { mnemonicGenerate, cryptoWaitReady } from "@polkadot/util-crypto";
 import { u8aToHex } from '@polkadot/util';
 import { KeyringPair } from '@polkadot/keyring/types';
-
+import * as dotenv from "dotenv";
+dotenv.config();
 class Accounts {
   public async generate() {
     if (!fs.existsSync('accounts')) {
@@ -23,11 +24,20 @@ class Accounts {
     const sudoAccount = await this.generateSudoAccount();
     console.log('\n');
 
-    const validatorGenesisAccounts = await this.generateGenesisValidatorsAccounts(2);
+    const validatorGenesisAccounts = await this.generateGenesisValidatorsAccounts();
     console.log('\n');
 
-    const validatorAccounts = await this.generateValidatorsAccounts(3);
+    const validatorAccounts = await this.generateValidatorsAccounts();
     console.log('\n');
+
+    const generateDemocracyAccount = await this.generateDemocracyAccounts();
+    console.log(`\n`);
+
+    const generateSocietyAccount = await this.generateSocietyAccounts();
+    console.log(`\n`);
+
+    const generateTechCommAccount = await this.generateTechCommAccounts();
+    console.log(`\n`);
 
     this.generateFileWithPublicKeys(rootAccount, sudoAccount, validatorGenesisAccounts);
   }
@@ -52,9 +62,10 @@ class Accounts {
     return account;
   }
 
-  private async generateGenesisValidatorsAccounts(number: number) {
+  private async generateGenesisValidatorsAccounts() {
     const accounts = [];
 
+    const number = +process.env.GENESIS_VALIDATOR_AMOUNT;
     for (let i = 1; i <= number; i++) {
       const validatorStashAccounts = await this.generateGenesisValidatorAccounts(i, 'stash');
       const validatorControllerAccounts = await this.generateGenesisValidatorAccounts(i, 'controller');
@@ -64,9 +75,10 @@ class Accounts {
     return accounts;
   }
 
-  private async generateValidatorsAccounts(number: number) {
+  private async generateValidatorsAccounts() {
     const accounts = [];
 
+    const number = +process.env.VALIDATOR_AMOUNT;
     for (let i = 1; i <= number; i++) {
       const account = await this.generateValidatorAccounts(i);
       accounts.push(account);
@@ -105,6 +117,48 @@ class Accounts {
     console.log(`Validator ${id} controller account has been written to the '${controllerFilename}' file`);
 
     return {stashAccount, controllerAccount};
+  }
+
+  private async generateDemocracyAccounts() {
+    console.log(`Generating Democracy Account...`);
+
+    const number = +process.env.DEMOCRACY_AMOUNT;
+    for (let i = 1; i <= number; i++) {
+      const srAccount = await this.generateSrAccount();
+      const srFilename = `democracy-${i}`;
+      this.writeKeyToFile(srFilename, JSON.stringify(srAccount));
+      console.log(
+        `Democarcy ${i} sr account has been written to the ${srFilename}`
+      );
+    }
+  }
+
+  private async generateSocietyAccounts() {
+    console.log(`Generating Society Account...`);
+
+    const number = +process.env.SOCIETY_AMOUNT;
+    for (let i = 1; i <= number; i++) {
+      const srAccount = await this.generateSrAccount();
+      const srFilename = `society-${i}`;
+      this.writeKeyToFile(srFilename, JSON.stringify(srAccount));
+      console.log(
+        `Society ${i} sr account has been written to the ${srFilename}`
+      );
+    }
+  }
+
+  private async generateTechCommAccounts() {
+    console.log(`Generating Tech Comm Account...`);
+
+    const number = +process.env.TECH_COMM_AMOUNT;
+    for (let i = 1; i <= number; i++) {
+      const srAccount = await this.generateSrAccount();
+      const srFilename = `tech-comm-${i}`;
+      this.writeKeyToFile(srFilename, JSON.stringify(srAccount));
+      console.log(
+        `Tech Comm ${i} sr account has been written to the ${srFilename}`
+      );
+    }
   }
 
   public generateFileWithPublicKeys(rootAccount: any, sudoAccount: any, validatorGenesisAccounts) {
