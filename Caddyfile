@@ -1,9 +1,17 @@
-testnet-node-1.cere.network:9945  {
+substrate-cere-substrate-node-0.cere.io:9945 {
 	log stdout
 	errors stderr
 	gzip
 	tls ab@cere.io
 	proxy / boot_node:9944 {
 	     websocket
-	  }
+	}
+}
+
+substrate-cere-substrate-node-0.cere.io:443 {
+    log stdout
+    errors stderr
+    gzip
+    tls ab@cere.io
+    proxy / boot_node:9933
 }
