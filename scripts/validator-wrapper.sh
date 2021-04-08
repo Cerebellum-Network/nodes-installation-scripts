@@ -14,7 +14,7 @@ function print_error {
 # ============ Check number of arguments ============ 
 if [[ $# -lt 2 ]]; then
   echo "-------------   Number of params:   $#"
-  print_error "Lack params: --id and --n are required."
+  print_error "Lack params: --domain and --id are required."
   exit 1
 fi
 
@@ -22,11 +22,11 @@ fi
 for arg in "$@"
 do
   case $arg in
-    --id=*)
+    --domain=*)
       export domain=`echo $arg | sed -e 's/^[^=]*=//g'`
       ;;
-    --n*)
-      export n=`echo $arg | sed -e 's/^[^=]*=//g'`
+    --id*)
+      export id=`echo $arg | sed -e 's/^[^=]*=//g'`
       ;;
     *)
       echo "Unexpected option ${arg}" ;;
@@ -34,12 +34,12 @@ do
 done
 
 echo $domain
-echo $n
+echo $id
 
 sed -i '/PROVIDER/d' ./validator/.env
-sed -i "1s/^/PROVIDER=wss:\/\/${domain}\n/" ./validator/.env
-controller_mnemonic=`cat generate-accounts/accounts/all/validator-${n}-controller | grep -Po '(?<="mnemonic":")(.*)(?=","p)'`
-stash_mnemonic=`cat generate-accounts/accounts/all/validator-${n}-stash | grep -Po '(?<="mnemonic":")(.*)(?=","p)'`
+sed -i "1s/^/PROVIDER=wss:\/\/${domain}:9945\n/" ./validator/.env
+controller_mnemonic=`cat generate-accounts/accounts/all/validator-${id}-controller | grep -Po '(?<="mnemonic":")(.*)(?=","p)'`
+stash_mnemonic=`cat generate-accounts/accounts/all/validator-${id}-stash | grep -Po '(?<="mnemonic":")(.*)(?=","p)'`
 echo $controller_mnemonic
 echo $stash_mnemonic
 sed -i '/STASH_ACCOUNT_MNEMONIC/d' ./validator/.env
