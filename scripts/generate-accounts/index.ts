@@ -159,6 +159,7 @@ class Accounts {
         `Tech Comm ${i} sr account has been written to the ${srFilename}`
       );
     }
+  }
 
   public generateFileWithPublicKeys(rootAccount: any, sudoAccount: any, validatorGenesisAccounts) {
     const filename = 'accounts/public';
@@ -270,3 +271,4 @@ async function main() {
 main()
   .catch(console.error)
   .finally(() => process.exit());
+  
