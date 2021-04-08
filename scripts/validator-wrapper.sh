@@ -36,14 +36,12 @@ done
 echo $domain
 echo $id
 
-sed -i "" "/PROVIDER/d" scripts/validator/.env
-sed -i "" "1s/^/PROVIDER=wss:\/\/${domain}:9945\n/" scripts/validator/.env
-controller_mnemonic=`cat ./accounts/all/validator-${id}-controller | grep -Po '(?<="mnemonic":")(.*)(?=","p)'`
-stash_mnemonic=`cat ./accounts/all/validator-${id}-stash | grep -Po '(?<="mnemonic":")(.*)(?=","p)'`
-echo $controller_mnemonic
+sed -i "" "s|PROVIDER=.*|PROVIDER=wss://$domain:9945|" scripts/validator/.env
+stash_mnemonic=`sed -e 's/^.*"mnemonic":"\([^"]*\)".*$/\1/' ./accounts/all/validator-$id-stash`
 echo $stash_mnemonic
-sed -i "" "/STASH_ACCOUNT_MNEMONIC/d" scripts/validator/.env
-sed -i "" "2s|^|STASH_ACCOUNT_MNEMONIC=${stash_mnemonic}\n|" scripts/validator/.env
-sed -i "" "/CONTROLLER_ACCOUNT_MNEMONIC/d" scripts/validator/.env
-sed -i "" "3s|^|CONTROLLER_ACCOUNT_MNEMONIC=${controller_mnemonic}\n|" scripts/validator/.env
+sed -i "" "s|STASH_ACCOUNT_MNEMONIC=.*|STASH_ACCOUNT_MNEMONIC=$stash_mnemonic|" scripts/validator/.env
+controller_mnemonic=`sed -e 's/^.*"mnemonic":"\([^"]*\)".*$/\1/' ./accounts/all/validator-$id-controller`
+echo $controller_mnemonic
+sed -i "" "s|CONTROLLER_ACCOUNT_MNEMONIC=.*|CONTROLLER_ACCOUNT_MNEMONIC=$controller_mnemonic|" scripts/validator/.env
+docker-compose build add_validator
 docker-compose up add_validator
