@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-### Wipe data related to generate-accounts and validator
+### remove account data related to generate-accounts and validator
 
 rm -rf scripts/generate-accounts/accounts
 rm -rf scripts/keys
