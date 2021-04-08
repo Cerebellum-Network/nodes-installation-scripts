@@ -30,13 +30,13 @@ class Accounts {
     const validatorAccounts = await this.generateValidatorsAccounts();
     console.log('\n');
 
-    const generateDemocracyAccount = await this.generateDemocracyAccount();
+    const generateDemocracyAccount = await this.generateDemocracyAccounts();
     console.log(`\n`);
 
-    const generateSocietyAccount = await this.generateSocietyAccount();
+    const generateSocietyAccount = await this.generateSocietyAccounts();
     console.log(`\n`);
 
-    const generateTechCommAccount = await this.generateTechCommAccount();
+    const generateTechCommAccount = await this.generateTechCommAccounts();
     console.log(`\n`);
 
     this.generateFileWithPublicKeys(rootAccount, sudoAccount, validatorGenesisAccounts);
@@ -119,7 +119,7 @@ class Accounts {
     return {stashAccount, controllerAccount};
   }
 
-  private async generateDemocracyAccount() {
+  private async generateDemocracyAccounts() {
     console.log(`Generating Democracy Account...`);
 
     const number = +process.env.DEMOCRACY_AMOUNT;
@@ -133,7 +133,7 @@ class Accounts {
     }
   }
 
-  private async generateSocietyAccount() {
+  private async generateSocietyAccounts() {
     console.log(`Generating Society Account...`);
 
     const number = +process.env.SOCIETY_AMOUNT;
@@ -147,7 +147,7 @@ class Accounts {
     }
   }
 
-  private async generateTechCommAccount() {
+  private async generateTechCommAccounts() {
     console.log(`Generating Tech Comm Account...`);
 
     const number = +process.env.TECH_COMM_AMOUNT;
@@ -271,4 +271,3 @@ async function main() {
 main()
   .catch(console.error)
   .finally(() => process.exit());
-  
