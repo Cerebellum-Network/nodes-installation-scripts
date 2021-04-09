@@ -1,5 +1,6 @@
 chain-data/*
 !chain-data/.gitkeep
+scripts/keys
 !scripts/keys/.gitkeep
 !scripts/keys/key_example.json
 scripts/validator/node_modules
