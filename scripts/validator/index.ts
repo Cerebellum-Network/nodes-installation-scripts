@@ -21,7 +21,11 @@ class Validator {
     const provider = process.env.PROVIDER;
     console.log(`Connecting to blockchain: ${provider}`);
     const wsProvider = new WsProvider(provider);
-    this.api = await ApiPromise.create({ provider: wsProvider });
+    this.api = await ApiPromise.create({ provider: wsProvider, types: {
+        ChainId: 'u8',
+        ResourceId: '[u8; 32]',
+        TokenId: 'U256'
+      }});
     await this.api.isReady;
     const chain = await this.api.rpc.system.chain();
     console.log(`Connected to: ${chain}\n`);

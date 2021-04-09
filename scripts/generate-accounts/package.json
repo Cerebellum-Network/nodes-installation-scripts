@@ -1,0 +1,22 @@
+{
+  "name": "generate-accounts",
+  "version": "1.0.0",
+  "description": "This script will automate the accounts generation.",
+  "main": "index.js",
+  "scripts": {
+    "generate-accounts": "npx ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "accounts"
+  ],
+  "author": "Team Cere",
+  "license": "ISC",
+  "dependencies": {
+    "@polkadot/api": "^3.11.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  }
+}
