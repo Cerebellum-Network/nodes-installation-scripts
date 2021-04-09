@@ -3,13 +3,13 @@ The scripts will help the community to up and run Cere Nodes (Validator, Full). 
 
 # Scripts to launch Network securely
 
-1. Generate accounts by running the following command (you can configure accounts amount in .env file):
+1. Generate accounts by running the following command (you can configure accounts amount in [.env](./scripts/generate-accounts/.env) file):
     ```bash
     docker-compose up -d generate_accounts
     ``` 
 1. Use ./accounts/public to update the chainSpec file.
 1. Confirm Genesis Nodes are up and running.
-1. Update Genesis Nodes IPs in `insert-keys.sh`.
+1. Update Genesis Nodes IPs in [insert-keys.sh](./scripts/insert-keys.sh).
 1. Insert keys by running the following command:
     ```bash
     ./scripts/insert-keys.sh
