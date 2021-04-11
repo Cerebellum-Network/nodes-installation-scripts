@@ -1,0 +1,11 @@
+{
+  "network": {},
+  "emulations": {
+    "sequence": [
+      {
+        "name": "native-tokens-transfer",
+        "amount": 100
+      }
+    ]
+  }
+}
