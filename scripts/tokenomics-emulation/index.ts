@@ -27,8 +27,15 @@ interface IEmulation {
 }
 
 class NativeTokensTransferEmulation implements IEmulation {
+  constructor(private readonly config) {
+  }
+
   public async run(): Promise<void> {
-    console.log('ntt');
+    for (let i = 0; i < this.config.amount; i++) {
+      console.log(`Running ${i} native token transfer...`);
+
+      // add token transfer logic here
+    }
   }
 }
 
@@ -36,7 +43,7 @@ class EmulationsFactory {
   public create(config: { name: string }): IEmulation {
     switch (config.name) {
       case "native-tokens-transfer":
-        return new NativeTokensTransferEmulation();
+        return new NativeTokensTransferEmulation(config);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
