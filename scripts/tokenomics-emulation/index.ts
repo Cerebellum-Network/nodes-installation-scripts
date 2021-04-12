@@ -14,13 +14,13 @@ class Emulations {
     for (let emulationConfig of this.config.emulations.sequence) {
       const emulation = this.emulationsFactory.create(emulationConfig);
       try {
-        console.log(`\nStarting an emulation '${emulationConfig.name}'...`);
+        console.log(`Starting an emulation '${emulationConfig.name}'...\n`);
         await emulation.run();
 
         console.log(`The emulation '${emulationConfig.name}' completed.`);
       } catch (e) {
         console.log(
-          `\nSome error occurred during emulation ${emulationConfig.name} run`
+          `Some error occurred during emulation ${emulationConfig.name} run\n`
         );
         console.error(e);
       }

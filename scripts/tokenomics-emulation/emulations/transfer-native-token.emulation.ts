@@ -12,8 +12,8 @@ class NativeTokensTransferEmulation implements IEmulation {
 
   public async run(): Promise<void> {
     for (let i = 1; i <= this.config.amount; i++) {
-      console.log(`\nRunning ${i} native token transfer...`);
-      const destination = await this.network.generateSrAccount();
+      console.log(`Running ${i} native token transfer...\n`);
+      const destination = await this.account.generateSrAccount();
       const transferAmount = _.random(
         this.config.tokens_range[0],
         this.config.tokens_range[1]
