@@ -1,10 +1,15 @@
 import { ApiPromise, Keyring, WsProvider } from "@polkadot/api";
+import { mnemonicGenerate, decodeAddress } from "@polkadot/util-crypto";
 import { KeypairType } from "@polkadot/util-crypto/types";
 import { KeyringPair } from "@polkadot/keyring/types";
 import { EventRecord, ExtrinsicStatus } from "@polkadot/types/interfaces";
 import * as dotenv from "dotenv";
-dotenv.config();
+import * as BN from 'bn.js';
+import axios from 'axios';
 
+const MNEMONIC_WORDS_COUNT = 12;
+
+dotenv.config();
 class Validator {
   private api: ApiPromise;
   private keyRingType: KeypairType;
@@ -29,6 +34,44 @@ class Validator {
     await this.api.isReady;
     const chain = await this.api.rpc.system.chain();
     console.log(`Connected to: ${chain}\n`);
+
+    console.log("Check if syncing...");
+    await this.callWithRetry(this.isSyncing.bind(this), {
+      maxDepth: 100,
+    });
+    console.log("Sync is complete!");
+  }
+
+  private async isSyncing() {
+    const response = await this.api.rpc.system.health();
+
+        if (response.isSyncing.valueOf()) {
+      throw new Error("Node is syncing")
+    }
+  }
+
+  public async createAccounts() {
+    console.log('Creating Stash and Controller accounts');
+
+    this.stashAccount = this.generateAccount("Stash");
+    console.log(`Stash account public key: ${this.stashAccount.address}`);
+    this.controllerAccount = this.generateAccount("Controller");
+    console.log(`Controller account public key ${this.controllerAccount.address}`);
+
+    const stashAssetsResponse = await this.requestAssets(this.stashAccount);
+    console.log('Stash assets transaction:', stashAssetsResponse?.data);
+
+    const controllerAssetsResponse = await this.requestAssets(this.controllerAccount);
+    console.log('Controller assets transaction:', controllerAssetsResponse?.data);
+
+    await this.callWithRetry(this.isValidBalance.bind(this));
+
+    console.log(
+      `Your Stash Account is ${this.stashAccount.address} and balance is ${this.stashBalance}`
+    );
+    console.log(
+      `Your Controller Account is ${this.controllerAccount.address} and balance is ${this.controllerBalance}\n`
+    );
   }
 
   /**
@@ -39,14 +82,8 @@ class Validator {
     const keyring = new Keyring({ type: "sr25519" });
     this.stashAccount = keyring.addFromMnemonic(process.env.STASH_ACCOUNT_MNEMONIC);
     this.controllerAccount = keyring.addFromMnemonic(process.env.CONTROLLER_ACCOUNT_MNEMONIC);
-    const {
-      data: { free: sbalance },
-    } = await this.api.query.system.account(this.stashAccount.address);
-    this.stashBalance = Number(sbalance);
-    const {
-      data: { free: cbalance },
-    } = await this.api.query.system.account(this.controllerAccount.address);
-    this.controllerBalance = Number(cbalance);
+    this.stashBalance = await this.getBalance(this.stashAccount)
+    this.controllerBalance = await this.getBalance(this.controllerAccount)
     console.log(
       `Your Stash Account is ${this.stashAccount.address} and balance is ${this.stashBalance}`
     );
@@ -148,17 +185,88 @@ class Validator {
     });
   }
 
-  private sendStatusCb(
-    res,
-    rej,
-    {
-      events = [],
-      status,
-    }: {
-      events?: EventRecord[];
-      status: ExtrinsicStatus;
+  public getNetworkName() {
+    return process.env.NETWORK.toUpperCase().replace("-", "_");
+  }
+
+  private generateAccount(type: string) {
+    const keyring = new Keyring({ type: "sr25519"});
+    const mnemonic = mnemonicGenerate(MNEMONIC_WORDS_COUNT);
+    const pair = keyring.addFromUri(mnemonic, {});
+
+    console.log('=====================================================');
+    console.log(`GENERATED ${MNEMONIC_WORDS_COUNT}-WORD MNEMONIC SEED (${type}):`);
+    console.log(mnemonic);
+    console.log('=====================================================');
+
+    return keyring.addPair(pair);
+  }
+
+  private async requestAssets(account: KeyringPair) {
+    try {
+      return await axios.post(
+        process.env.REQUEST_ASSETS_ENDPOINT,
+        { destination: account.address, network: this.getNetworkName() },
+        {
+          timeout: 50000,
+          withCredentials: false,
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+    } catch(err) {
+      console.log('Error requesting assets:', err.message)
+      console.log(err.response.data)
+      throw err;
     }
-  ) {
+  }
+
+  private async isValidBalance () {
+    console.log('Requesting balance');
+    this.stashBalance = await this.getBalance(this.stashAccount);
+    this.controllerBalance = await this.getBalance(this.controllerAccount);
+
+    if (this.stashBalance <= 0) {
+      throw new Error('Stash balance should be above 0');
+    }
+  }
+
+  private async getBalance(account: KeyringPair) {
+    const result = await this.api.query.system.account(account.address);
+    const {
+      data: { free: balance },
+    } = result;
+
+    return Number(balance);
+  }
+
+  private async sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  private async callWithRetry(fn, options = { maxDepth: 5}, depth = 0) {
+    try {
+      return await fn();
+    } catch (e) {
+      if (depth > options.maxDepth) {
+        throw e;
+      }
+      const seconds = parseInt(process.env.WAIT_SECONDS, 10);
+      console.log(`Wait ${seconds}s.`);
+      await this.sleep(seconds * 1000);
+
+      return this.callWithRetry(fn, options, depth + 1);
+    }
+  }
+
+  private sendStatusCb(res, rej, {
+    events = [],
+    status,
+  }: {
+    events?: EventRecord[];
+    status: ExtrinsicStatus;
+  }) {
     if (status.isInvalid) {
       console.info("Transaction invalid");
       rej("Transaction invalid");
@@ -189,7 +297,11 @@ class Validator {
 async function main() {
   const validator = new Validator();
   await validator.init();
-  await validator.loadAccounts();
+  if (Boolean(process.env.GENERATE_ACCOUNTS) && validator.getNetworkName().startsWith("TESTNET")) {
+    await validator.createAccounts();
+  } else {
+    await validator.loadAccounts();
+  }
   await validator.generateSessionKey();
   await validator.addValidator();
   await validator.setSessionKey();
