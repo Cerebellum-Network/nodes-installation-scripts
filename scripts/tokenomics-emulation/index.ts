@@ -1,49 +1,47 @@
-import config from './config.json';
+import { IEmulation } from "./emulations/emulation.interface";
+import config from "./config.json";
+import NativeTokensTransferEmulation from "./emulations/transfer-native-token.emulation";
+import Network from "./network";
+import Accounts from "./accounts";
 
 class Emulations {
-  constructor(private readonly config: any,
-              private readonly emulationsFactory: EmulationsFactory) {
-  }
+  constructor(
+    private readonly config: any,
+    private readonly emulationsFactory: EmulationsFactory
+  ) {}
 
   public async run(): Promise<void> {
-    for (let emulationConfig of this.config.sequence) {
+    for (let emulationConfig of this.config.emulations.sequence) {
       const emulation = this.emulationsFactory.create(emulationConfig);
       try {
-        console.log(`Starting an emulation '${emulationConfig.name}'...`);
-
+        console.log(`Starting an emulation '${emulationConfig.name}'...\n`);
         await emulation.run();
 
         console.log(`The emulation '${emulationConfig.name}' completed.`);
       } catch (e) {
-        console.log(`Some error occurred during emulation ${emulationConfig.name} run`);
+        console.log(
+          `Some error occurred during emulation ${emulationConfig.name} run\n`
+        );
         console.error(e);
       }
     }
   }
 }
 
-interface IEmulation {
-  run(): Promise<void>;
-}
-
-class NativeTokensTransferEmulation implements IEmulation {
-  constructor(private readonly config) {
-  }
-
-  public async run(): Promise<void> {
-    for (let i = 0; i < this.config.amount; i++) {
-      console.log(`Running ${i} native token transfer...`);
-
-      // add token transfer logic here
-    }
-  }
-}
-
 class EmulationsFactory {
+  constructor(
+    private readonly network: Network,
+    private readonly account: Accounts
+  ) {}
+
   public create(config: { name: string }): IEmulation {
     switch (config.name) {
       case "native-tokens-transfer":
-        return new NativeTokensTransferEmulation(config);
+        return new NativeTokensTransferEmulation(
+          config,
+          this.network,
+          this.account
+        );
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
@@ -51,7 +49,13 @@ class EmulationsFactory {
 }
 
 async function main() {
-  const emulations = new Emulations(config.emulations, new EmulationsFactory());
+  const network = new Network(config);
+  await network.setup();
+  const account = new Accounts(config);
+  const emulations = new Emulations(
+    config,
+    new EmulationsFactory(network, account)
+  );
   await emulations.run();
 }
 
