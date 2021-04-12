@@ -2,13 +2,15 @@
   "network": {
     "url": "wss://rpc.testnet.cere.network:9945"
   },
+  "accounts": {
+    "root_account_mnemonic": "bar cousin win change afford letter try omit broom guitar output wasp"
+  },
   "emulations": {
     "sequence": [
       {
         "name": "native-tokens-transfer",
         "amount": 1,
-        "tokens_range": [1, 2],
-        "sender_mnemonic": ""
+        "tokens_range": [1, 2]
       }
     ]
   }
