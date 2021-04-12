@@ -79,6 +79,17 @@ class Network {
   }
 
   /**
+   * Fetch Existential Deposit
+   * @returns existential deposit
+   */
+  public existentialDeposit() {
+    console.log(`About to get Existential Deposit\n`);
+    const existentialDeposit = this.api.consts.balances.existentialDeposit;
+    const value = +existentialDeposit / 10 ** this.config.network.decimals
+    return value;
+  }
+
+  /**
    * Check for send status call back function
    * @param res Promise response object
    * @param rej Promise reject object

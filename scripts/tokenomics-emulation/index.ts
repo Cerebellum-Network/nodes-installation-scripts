@@ -3,6 +3,7 @@ import config from "./config.json";
 import NativeTokensTransferEmulation from "./emulations/transfer-native-token.emulation";
 import Network from "./network";
 import Accounts from "./accounts";
+import ExistentialDepositEmulation from "./emulations/existential-deposit.emulation";
 
 class Emulations {
   constructor(
@@ -42,6 +43,8 @@ class EmulationsFactory {
           this.network,
           this.account
         );
+      case "existential-deposit-transfer":
+        return new ExistentialDepositEmulation(config, this.network, this.account);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }

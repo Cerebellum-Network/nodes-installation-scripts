@@ -24,6 +24,10 @@
         "name": "native-tokens-transfer",
         "amount": 1,
         "tokens_range": [1, 2]
+      },
+      {
+        "name": "existential-deposit-transfer",
+        "amount": 1
       }
     ]
   }
