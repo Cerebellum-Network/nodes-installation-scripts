@@ -1,5 +1,7 @@
 {
-  "network": {},
+  "network": {
+    "nodes_amount": 4
+  },
   "emulations": {
     "sequence": [
       {
