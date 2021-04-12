@@ -5,7 +5,6 @@ import { KeyringPair } from "@polkadot/keyring/types";
 import { ApiPromise, Keyring } from "@polkadot/api";
 import { WsProvider } from "@polkadot/api";
 import { formatBalance, u8aToHex } from "@polkadot/util";
-import { constObj } from "./constants/constants";
 
 class Network {
   private api: ApiPromise;
@@ -34,10 +33,6 @@ class Network {
     });
     await this.api.isReady;
     const chain = await this.api.rpc.system.chain();
-    formatBalance.setDefaults({
-      decimals: 15,
-      unit: "CERE",
-    });
     console.log(`Connected to: ${chain}\n`);
   }
 
@@ -53,7 +48,7 @@ class Network {
     destination: string,
     value: string
   ): Promise<string> {
-    const amount = +value * 10 ** constObj.decimals;
+    const amount = +value * 10 ** this.config.network.decimals;
     console.log(
       `\nAbout to transfer ${amount} native assets to ${destination} from ${sender.address}`
     );
@@ -83,7 +78,7 @@ class Network {
     } = await this.api.query.system.account(address);
     //FIXME: Fix the decimals
     // const decimal = await this.api.registry.chainDecimals;
-    return formatBalance(balance, { decimals: constObj.decimals });
+    return formatBalance(balance, { decimals: this.config.network.decimals });
   }
 
   /**

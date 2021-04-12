@@ -1,13 +1,13 @@
 import { IEmulation } from "./emulation.interface";
 import Network from "../network";
-import Account from "../accounts";
+import Accounts from "../accounts";
 import _ from "lodash";
 
 class NativeTokensTransferEmulation implements IEmulation {
   constructor(
     private readonly config,
     private readonly network: Network,
-    private readonly account: Account
+    private readonly account: Accounts
   ) {}
 
   public async run(): Promise<void> {
@@ -18,11 +18,9 @@ class NativeTokensTransferEmulation implements IEmulation {
         this.config.tokens_range[0],
         this.config.tokens_range[1]
       );
-      const sender = this.account.accounts.find(
-        (item) => item.name === this.config.sender
-      );
+      const sender = this.account.sudoAccount;
       const transfer = await this.network.transfer(
-        sender.account,
+        sender,
         destination.ss58Address,
         transferAmount.toString()
       );

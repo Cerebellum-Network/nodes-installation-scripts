@@ -1,14 +1,19 @@
 {
   "network": {
-    "url": "wss://rpc.testnet.dev.cere.network:9945"
+    "url": "wss://rpc.testnet.dev.cere.network:9945",
+    "decimals": 15
   },
   "accounts": [
     {
-      "name": "root_account",
+      "name": "root",
       "mnemonic": ""
     },
     {
       "name": "sudo",
+      "mnemonic": ""
+    },
+    {
+      "name": "transfer",
       "mnemonic": ""
     }
   ],
@@ -17,8 +22,7 @@
       {
         "name": "native-tokens-transfer",
         "amount": 1,
-        "tokens_range": [1, 2],
-        "sender": "sudo"
+        "tokens_range": [1, 2]
       }
     ]
   }

@@ -2,7 +2,7 @@ import { IEmulation } from "./emulations/emulation.interface";
 import config from "./config.json";
 import NativeTokensTransferEmulation from "./emulations/transfer-native-token.emulation";
 import Network from "./network";
-import Account from "./accounts";
+import Accounts from "./accounts";
 
 class Emulations {
   constructor(
@@ -31,7 +31,7 @@ class Emulations {
 class EmulationsFactory {
   constructor(
     private readonly network: Network,
-    private readonly account: Account
+    private readonly account: Accounts
   ) {}
 
   public create(config: { name: string }): IEmulation {
@@ -51,8 +51,7 @@ class EmulationsFactory {
 async function main() {
   const network = new Network(config);
   await network.setup();
-  const account = new Account(config);
-  await account.loadAccount();
+  const account = new Accounts(config);
   const emulations = new Emulations(
     config,
     new EmulationsFactory(network, account)
