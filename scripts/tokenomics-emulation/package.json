@@ -14,9 +14,12 @@
   "license": "ISC",
   "dependencies": {
     "@polkadot/api": "^3.11.1",
-    "dotenv": "^8.2.0"
+    "@polkadot/util": "^5.9.2",
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.168",
     "typescript": "^4.2.3"
   }
 }
