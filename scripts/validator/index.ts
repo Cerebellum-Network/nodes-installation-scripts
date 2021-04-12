@@ -26,7 +26,11 @@ class Validator {
     const provider = process.env.PROVIDER;
     console.log(`Connecting to blockchain: ${provider}`);
     const wsProvider = new WsProvider(provider);
-    this.api = await ApiPromise.create({ provider: wsProvider });
+    this.api = await ApiPromise.create({ provider: wsProvider, types: {
+        ChainId: 'u8',
+        ResourceId: '[u8; 32]',
+        TokenId: 'U256'
+      }});
     await this.api.isReady;
     const chain = await this.api.rpc.system.chain();
     console.log(`Connected to: ${chain}\n`);
@@ -37,7 +41,7 @@ class Validator {
     });
     console.log("Sync is complete!");
   }
-  
+
   private async isSyncing() {
     const response = await this.api.rpc.system.health();
 
@@ -60,7 +64,7 @@ class Validator {
     const controllerAssetsResponse = await this.requestAssets(this.controllerAccount);
     console.log('Controller assets transaction:', controllerAssetsResponse?.data);
 
-    await this.callWithRetry(this.isValidBalance.bind(this)); 
+    await this.callWithRetry(this.isValidBalance.bind(this));
 
     console.log(
       `Your Stash Account is ${this.stashAccount.address} and balance is ${this.stashBalance}`
@@ -76,17 +80,10 @@ class Validator {
   public async loadAccounts() {
     console.log(`Loading your accounts`);
     const keyring = new Keyring({ type: "sr25519" });
-    this.stashAccount = keyring.addFromJson(
-      JSON.parse(process.env.STASH_ACCOUNT_JSON)
-    );
-    this.stashAccount.decodePkcs8(process.env.STASH_ACCOUNT_PASSWORD);
-    this.controllerAccount = keyring.addFromJson(
-      JSON.parse(process.env.CONTROLLER_ACCOUNT_JSON)
-    );
-    this.controllerAccount.decodePkcs8(process.env.CONTROLLER_ACCOUNT_PASSWORD);
+    this.stashAccount = keyring.addFromMnemonic(process.env.STASH_ACCOUNT_MNEMONIC);
+    this.controllerAccount = keyring.addFromMnemonic(process.env.CONTROLLER_ACCOUNT_MNEMONIC);
     this.stashBalance = await this.getBalance(this.stashAccount)
     this.controllerBalance = await this.getBalance(this.controllerAccount)
-
     console.log(
       `Your Stash Account is ${this.stashAccount.address} and balance is ${this.stashBalance}`
     );
@@ -228,7 +225,7 @@ class Validator {
   private async isValidBalance () {
     console.log('Requesting balance');
     this.stashBalance = await this.getBalance(this.stashAccount);
-    this.controllerBalance = await this.getBalance(this.controllerAccount); 
+    this.controllerBalance = await this.getBalance(this.controllerAccount);
 
     if (this.stashBalance <= 0) {
       throw new Error('Stash balance should be above 0');
@@ -258,7 +255,7 @@ class Validator {
       const seconds = parseInt(process.env.WAIT_SECONDS, 10);
       console.log(`Wait ${seconds}s.`);
       await this.sleep(seconds * 1000);
-    
+
       return this.callWithRetry(fn, options, depth + 1);
     }
   }
