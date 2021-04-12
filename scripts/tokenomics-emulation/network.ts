@@ -2,22 +2,19 @@ import { mnemonicGenerate } from "@polkadot/util-crypto";
 import { ExtrinsicStatus } from "@polkadot/types/interfaces";
 import { EventRecord } from "@polkadot/types/interfaces";
 import { KeyringPair } from "@polkadot/keyring/types";
-import { KeypairType } from "@polkadot/util-crypto/types";
 import { ApiPromise, Keyring } from "@polkadot/api";
 import { WsProvider } from "@polkadot/api";
 import { formatBalance, u8aToHex } from "@polkadot/util";
+import { constObj } from "./constants/constants";
 
 class Network {
   private api: ApiPromise;
-  private keyRingType: KeypairType;
-  private senderAccount: KeyringPair;
 
   constructor(private readonly config: any) {}
 
-  public async setupNetwork() {
+  public async setup() {
     console.log("\nAbout to initializing network");
     await this.init(this.config.network.url);
-    await this.loadAccount(this.config.accounts.root_account_mnemonic);
   }
 
   /**
@@ -45,33 +42,31 @@ class Network {
   }
 
   /**
-   * Load the senders account from config file.
-   * @param api API Promise
-   */
-  private async loadAccount(mnemonic: string) {
-    console.log(`\nAbout to loading accounts`);
-    const keyring = new Keyring({ type: "sr25519" });
-    this.senderAccount = keyring.addFromMnemonic(mnemonic);
-    console.log(`${this.senderAccount.address} loaded`);
-  }
-
-  /**
    * Transfer native assets
-   * @param address destination address
+   * @param sender sender keyringpair
+   * @param destination destination address
    * @param value amount to be transfered
    * @returns hash
    */
-  public async transfer(address: string, value: string): Promise<string> {
-    const amount = +value * 10 ** 15;
-    console.log(`\nAbout to transfer ${amount} native assets to ${address}`);
-    const { nonce } = await this.api.query.system.account(
-      this.senderAccount.address
+  public async transfer(
+    sender: KeyringPair,
+    destination: string,
+    value: string
+  ): Promise<string> {
+    const amount = +value * 10 ** constObj.decimals;
+    console.log(
+      `\nAbout to transfer ${amount} native assets to ${destination} from ${sender.address}`
     );
+    const { nonce } = await this.api.query.system.account(sender.address);
 
-    const transfer = this.api.tx.balances.transfer(address, amount);
+    const transfer = this.api.tx.balances.transfer(destination, amount);
     return new Promise((res, rej) => {
       transfer
-        .signAndSend(this.senderAccount, this.sendStatusCb.bind(this, res, rej))
+        .signAndSend(
+          sender,
+          { nonce: nonce },
+          this.sendStatusCb.bind(this, res, rej)
+        )
         .catch((err) => rej(err));
     });
   }
@@ -79,7 +74,7 @@ class Network {
   /**
    * Fetch native token balance
    * @param address account addess
-   * @returns 
+   * @returns
    */
   public async getBalance(address: string) {
     console.log(`\nAbout to get balance for: ${address}`);
@@ -88,7 +83,7 @@ class Network {
     } = await this.api.query.system.account(address);
     //FIXME: Fix the decimals
     // const decimal = await this.api.registry.chainDecimals;
-    return formatBalance(balance, { decimals: 15 });
+    return formatBalance(balance, { decimals: constObj.decimals });
   }
 
   /**
@@ -117,7 +112,7 @@ class Network {
    * @param res Promise response object
    * @param rej Promise reject object
    */
-  private sendStatusCb(
+   private sendStatusCb(
     res,
     rej,
     {

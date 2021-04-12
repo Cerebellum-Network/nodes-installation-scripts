@@ -1,7 +1,9 @@
 import { IEmulation } from "./emulations/emulation.interface";
 import config from "./config.json";
-import NativeTokensTransferEmulation from "./emulations/transfer-native-token";
+import NativeTokensTransferEmulation from "./emulations/transfer-native-token.emulation";
 import Network from "./network";
+import Account from "./accounts";
+
 class Emulations {
   constructor(
     private readonly config: any,
@@ -27,12 +29,19 @@ class Emulations {
 }
 
 class EmulationsFactory {
-  constructor(private readonly network: Network) {}
+  constructor(
+    private readonly network: Network,
+    private readonly account: Account
+  ) {}
 
   public create(config: { name: string }): IEmulation {
     switch (config.name) {
       case "native-tokens-transfer":
-        return new NativeTokensTransferEmulation(config, this.network);
+        return new NativeTokensTransferEmulation(
+          config,
+          this.network,
+          this.account
+        );
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
@@ -41,8 +50,13 @@ class EmulationsFactory {
 
 async function main() {
   const network = new Network(config);
-  await network.setupNetwork();
-  const emulations = new Emulations(config, new EmulationsFactory(network));
+  await network.setup();
+  const account = new Account(config);
+  await account.loadAccount();
+  const emulations = new Emulations(
+    config,
+    new EmulationsFactory(network, account)
+  );
   await emulations.run();
 }
 
