@@ -1,6 +1,10 @@
 {
   "network": {
-    "nodes_amount": 4
+    "nodes_amount": 4,
+    "total_supply": 1000000,
+    "decimals": 10,
+    "genesis_validators_amount": 2,
+    "validators_staked_tokens_percent": 35
   },
   "emulations": {
     "sequence": [
