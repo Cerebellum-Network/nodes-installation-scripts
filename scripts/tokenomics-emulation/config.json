@@ -1,10 +1,13 @@
 {
-  "network": {},
+  "network": {
+    "url": "wss://rpc.testnet.cere.network:9945"
+  },
   "emulations": {
     "sequence": [
       {
-        "name": "native-tokens-transfer",
-        "amount": 100
+        "name": "existential-deposit-transfer",
+        "amount": 1,
+        "sender_mnemonic": ""
       }
     ]
   }
