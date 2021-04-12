@@ -17,8 +17,7 @@
       "mnemonic": ""
     }
   ],
-    "nodes_amount": 4
-  },
+  "nodes_amount": 4,
   "emulations": {
     "sequence": [
       {
