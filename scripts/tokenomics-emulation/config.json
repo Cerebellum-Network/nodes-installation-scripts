@@ -1,20 +1,20 @@
 {
   "network": {
-    "url": "wss://rpc.testnet.dev.cere.network:9945",
+    "url": "wss://rpc.testnet.cere.network:9945",
     "decimals": 15
   },
   "accounts": [
     {
       "name": "root",
-      "mnemonic": ""
+      "mnemonic": "bar cousin win change afford letter try omit broom guitar output wasp"
     },
     {
       "name": "sudo",
-      "mnemonic": ""
+      "mnemonic": "bar cousin win change afford letter try omit broom guitar output wasp"
     },
     {
       "name": "transfer",
-      "mnemonic": ""
+      "mnemonic": "bar cousin win change afford letter try omit broom guitar output wasp"
     }
   ],
   "nodes_amount": 4,
