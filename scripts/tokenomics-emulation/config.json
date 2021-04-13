@@ -53,6 +53,11 @@
         "data_rep": 1024,
         "req_rec": 10,
         "req_rep": 10
+      },
+      {
+        "name": "ddc-subscribe",
+        "amount": 1,
+        "tier_id": 10
       }
     ]
   }
