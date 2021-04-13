@@ -18,7 +18,7 @@ class NativeTokensTransferEmulation implements IEmulation {
         this.config.tokens_range[0],
         this.config.tokens_range[1]
       );
-      const sender = this.account.sudoAccount;
+      const sender = this.account.rootAccount;
       const transfer = await this.network.transfer(
         sender,
         destination.ss58Address,
