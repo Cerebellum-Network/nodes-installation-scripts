@@ -40,13 +40,16 @@ class ChainSpecGenerator {
         }
         const totalGenesisValidatorsStake = config.network.genesis_validators_amount * config.network.genesis_validators_stake;
 
+        const COUNCIL_MULTIPLIER = 2;
         for (let i = 1; i <= config.network.genesis_councils_amount; i++) {
             const councilAccount = this.readAccount(`democracy-${i}`);
-            spec.genesis.runtime.palletBalances.balances.push([councilAccount.ss58Address, 2 * (10 ** spec.properties.tokenDecimals) * config.network.genesis_councils_stake]);
+            spec.genesis.runtime.palletBalances.balances.push([councilAccount.ss58Address, COUNCIL_MULTIPLIER * (10 ** spec.properties.tokenDecimals) * config.network.genesis_councils_stake]);
         }
         const totalGenesisCouncilsStake = config.network.genesis_councils_amount * config.network.genesis_councils_stake;
 
-        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - 2 * totalGenesisCouncilsStake;
+        const treasuryStake = 10000;
+
+        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - COUNCIL_MULTIPLIER * totalGenesisCouncilsStake - treasuryStake;
         spec.genesis.runtime.palletBalances.balances.push([rootAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
     }
 
