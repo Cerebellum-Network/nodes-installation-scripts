@@ -4,13 +4,9 @@ import { KeyringPair } from "@polkadot/keyring/types";
 import { ApiPromise } from "@polkadot/api";
 import { WsProvider } from "@polkadot/api";
 import { formatBalance } from "@polkadot/util";
-import { ContractPromise } from "@polkadot/api-contract";
-import cere02Abi from './contract/cere02-metadata.json';
 
 class Network {
-  private api: ApiPromise;
-
-  private contract: ContractPromise;
+  public api: ApiPromise;
 
   constructor(private readonly config: any) {}
 
@@ -35,12 +31,6 @@ class Network {
       },
     });
     await this.api.isReady;
-    const cere02SCAddress = this.config.network.ddc_sc_address;
-    this.contract = new ContractPromise(
-      this.api,
-      cere02Abi,
-      cere02SCAddress
-    );
     const chain = await this.api.rpc.system.chain();
     console.log(`Connected to: ${chain}\n`);
   }
@@ -112,34 +102,6 @@ class Network {
     );
 
     let txnObj = await this.api.tx.cereDdcModule.sendData(destination, data);
-
-    return new Promise((res, rej) => {
-      txnObj
-        .signAndSend(sender, this.sendStatusCb.bind(this, res, rej))
-        .catch((err) => rej(err));
-    });
-  }
-
-  /**
-   * Calls the report_metrics function in cere02 smart contract
-   * @param sender Sender
-   * @param dataRec Data Rec
-   * @param dataRep Data Rep
-   * @param reqRec Request Rec
-   * @param reqRep Request Rep
-   * @returns hash
-   */
-  public async ddcReportMetrics(sender: KeyringPair, dataRec: string, dataRep: string, reqRec: string, reqRep: string) {
-    console.log(`About to call report_metrics in ddc sm from ${sender.address}`);
-    const gasLimit = +this.config.network.gas_limit;
-    const value = +this.config.network.value;
-    const txnObj = await this.contract.tx.reportMetrics(
-      { value, gasLimit },
-      dataRec,
-      dataRep,
-      reqRec,
-      reqRep
-    );
 
     return new Promise((res, rej) => {
       txnObj

@@ -1,12 +1,12 @@
 import { IEmulation } from "./emulation.interface";
-import Network from "../network";
 import Accounts from "../accounts";
+import DdcSmartContract from "../ddc-smart-contract";
 
 class DdcReportMetricsEmulation implements IEmulation {
   constructor(
     private readonly config,
-    private readonly network: Network,
-    private readonly account: Accounts
+    private readonly account: Accounts,
+    private readonly ddcContract: DdcSmartContract
   ) {}
 
   public async run(): Promise<void> {
@@ -16,7 +16,7 @@ class DdcReportMetricsEmulation implements IEmulation {
     const dataReq = this.config.data_rep;
     const reqRec = this.config.req_rec;
     const reqReq = this.config.req_rep;
-    const sendTxn = await this.network.ddcReportMetrics(
+    const sendTxn = await this.ddcContract.ddcReportMetrics(
       sender,
       dataRec,
       dataReq,
