@@ -5,6 +5,7 @@ import Network from "./network";
 import Accounts from "./accounts";
 import ExistentialDepositEmulation from "./emulations/existential-deposit.emulation";
 import SendDdcTxnEmulation from "./emulations/ddc-send-txn-emulation";
+import DdcReportMetricsEmulation from "./emulations/ddc-report-metrics-emulation";
 
 class Emulations {
   constructor(
@@ -48,6 +49,8 @@ class EmulationsFactory {
         return new ExistentialDepositEmulation(config, this.network, this.account);
       case "send-ddc-transaction":
         return new SendDdcTxnEmulation(config, this.network, this.account);
+      case "ddc-metrics-report":
+        return new DdcReportMetricsEmulation(config, this.network, this.account);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }

@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@polkadot/api": "^3.11.1",
+    "@polkadot/api-contract": "^3.11.1",
     "@polkadot/util": "^5.9.2",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.21"
