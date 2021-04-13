@@ -9,6 +9,7 @@ import SendDdcTxnEmulation from "./emulations/ddc-send-txn-emulation";
 class Emulations {
   constructor(
     private readonly config: any,
+    private readonly network: Network,
     private readonly emulationsFactory: EmulationsFactory
   ) {}
 
@@ -18,7 +19,8 @@ class Emulations {
       try {
         console.log(`Starting an emulation '${emulationConfig.name}'...\n`);
         await emulation.run();
-
+        const treasuryBalance = await this.network.treasuryBalance();
+        console.log(`The treasury balance is ${treasuryBalance}`);
         console.log(`The emulation '${emulationConfig.name}' completed.`);
       } catch (e) {
         console.log(
@@ -60,6 +62,7 @@ async function main() {
   const account = new Accounts(config);
   const emulations = new Emulations(
     config,
+    network,
     new EmulationsFactory(network, account)
   );
   await emulations.run();

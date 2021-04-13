@@ -3,7 +3,7 @@ import { EventRecord } from "@polkadot/types/interfaces";
 import { KeyringPair } from "@polkadot/keyring/types";
 import { ApiPromise } from "@polkadot/api";
 import { WsProvider } from "@polkadot/api";
-import { formatBalance } from "@polkadot/util";
+import { formatBalance, stringToU8a } from "@polkadot/util";
 
 class Network {
   private api: ApiPromise;
@@ -108,6 +108,21 @@ class Network {
         .signAndSend(sender, this.sendStatusCb.bind(this, res, rej))
         .catch((err) => rej(err));
     });
+  }
+
+  /**
+   * Get Treasury balance
+   * @returns Balance
+   */
+  public async treasuryBalance() {
+    const treasuryAccount = stringToU8a("modlpy/trsry".padEnd(32, "\0"));
+    const {
+      data: { free: balance },
+    } = await this.api.query.system.account(treasuryAccount);
+    const formatedBalance = formatBalance(balance, {
+      decimals: this.config.network.decimals,
+    });
+    return formatedBalance;
   }
 
   /**
