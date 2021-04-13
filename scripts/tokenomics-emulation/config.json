@@ -48,6 +48,7 @@
       },
       {
         "name": "ddc-metrics-report",
+        "amount": 1,
         "data_rec": 1024,
         "data_rep": 1024,
         "req_rec": 10,

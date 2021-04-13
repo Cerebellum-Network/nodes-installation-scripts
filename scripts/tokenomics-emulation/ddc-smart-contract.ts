@@ -45,52 +45,11 @@ class DdcSmartContract {
 
     return new Promise((res, rej) => {
       txnObj
-        .signAndSend(sender, this.sendStatusCb.bind(this, res, rej))
+        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
         .catch((err) => rej(err));
     });
   }
 
-  /**
-   * Check for send status call back function
-   * @param res Promise response object
-   * @param rej Promise reject object
-   */
-  private sendStatusCb(
-    res,
-    rej,
-    {
-      events = [],
-      status,
-    }: {
-      events?: EventRecord[];
-      status: ExtrinsicStatus;
-    }
-  ) {
-    if (status.isInvalid) {
-      console.info("Transaction invalid");
-      rej("Transaction invalid");
-    } else if (status.isReady) {
-      console.info("Transaction is ready");
-    } else if (status.isBroadcast) {
-      console.info("Transaction has been broadcasted");
-    } else if (status.isInBlock) {
-      const hash = status.asInBlock.toHex();
-      console.info(`Transaction is in block: ${hash}`);
-    } else if (status.isFinalized) {
-      const hash = status.asFinalized.toHex();
-      console.info(`Transaction has been included in blockHash ${hash}`);
-      events.forEach(({ event }) => {
-        if (event.method === "ExtrinsicSuccess") {
-          console.info("Transaction succeeded");
-        } else if (event.method === "ExtrinsicFailed") {
-          console.info("Transaction failed");
-          throw new Error("Transaction failed");
-        }
-      });
-
-      res(hash);
-    }
-  }
 }
 
 export default DdcSmartContract;
