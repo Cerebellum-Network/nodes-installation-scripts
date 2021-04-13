@@ -1,4 +1,3 @@
-import spec from './customSpecN.json';
 import config from './config.json';
 import * as fs from 'fs';
 
@@ -8,6 +7,8 @@ class ChainSpecGenerator {
         this.generateProperties(spec, config);
         this.generatePalletBalances(spec, config);
         this.generatePalletStaking(spec, config);
+        this.generatePalletSession(spec, config);
+        this.generatePalletElectionsPhragmen(spec, config);
     }
 
     private generateIds(spec) {
@@ -32,11 +33,20 @@ class ChainSpecGenerator {
             aliceBalance = config.network.alice.stake;
             spec.genesis.runtime.palletBalances.balances.push(["5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", (10 ** spec.properties.tokenDecimals) * aliceBalance]);
         }
+
         for (let i = 1; i <= config.network.genesis_validators_amount; i++) {
             const genesisStashSrAccount = this.readAccount(`validator-${i}-stash-sr`);
             spec.genesis.runtime.palletBalances.balances.push([genesisStashSrAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * config.network.genesis_validators_stake]);
         }
-        const rootAccountBalance = config.network.total_supply - aliceBalance - config.network.genesis_validators_stake * config.network.genesis_validators_amount;
+        const totalGenesisValidatorsStake = config.network.genesis_validators_amount * config.network.genesis_validators_stake;
+
+        for (let i = 1; i <= config.network.genesis_councils_amount; i++) {
+            const councilAccount = this.readAccount(`democracy-${i}`);
+            spec.genesis.runtime.palletBalances.balances.push([councilAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * config.network.genesis_councils_stake]);
+        }
+        const totalGemnesisCouncilsStake = config.network.genesis_councils_amount * config.network.genesis_councils_stake;
+
+        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - totalGemnesisCouncilsStake;
         spec.genesis.runtime.palletBalances.balances.push([rootAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
     }
 
@@ -69,16 +79,26 @@ class ChainSpecGenerator {
         }
     }
 
+    private generatePalletElectionsPhragmen(spec, config) {
+        spec.genesis.runtime.palletElectionsPhragmen.members = [];
+        for (let i = 1; i <= config.network.genesis_councils_amount; i++) {
+            const councilAccount = this.readAccount(`democracy-${i}`);
+            spec.genesis.runtime.palletElectionsPhragmen.members.push([councilAccount.ss58Address, (10 ** config.network.decimals) * config.network.genesis_councils_amount]);
+        }
+    }
+
     private readAccount(name: string) {
         return JSON.parse(fs.readFileSync(`${__dirname}/accounts/all/${name}`, "utf-8"));
     }
 }
 
 async function main() {
+    const spec = JSON.parse(fs.readFileSync(`${__dirname}/spec-data/customSpec.json`, "utf-8"));
+
     const generator = new ChainSpecGenerator();
     generator.generate(spec, config);
     
-    fs.writeFileSync(`${__dirname}/spec-data/customSpecN.json`, JSON.stringify(spec, null, 2));
+    fs.writeFileSync(`${__dirname}/spec-data/customSpec.json`, JSON.stringify(spec, null, 2));
 }
 
 main()
