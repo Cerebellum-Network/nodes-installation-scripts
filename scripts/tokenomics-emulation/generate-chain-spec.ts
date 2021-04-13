@@ -83,7 +83,7 @@ class ChainSpecGenerator {
         spec.genesis.runtime.palletElectionsPhragmen.members = [];
         for (let i = 1; i <= config.network.genesis_councils_amount; i++) {
             const councilAccount = this.readAccount(`democracy-${i}`);
-            spec.genesis.runtime.palletElectionsPhragmen.members.push([councilAccount.ss58Address, (10 ** config.network.decimals) * config.network.genesis_councils_amount]);
+            spec.genesis.runtime.palletElectionsPhragmen.members.push([councilAccount.ss58Address, (10 ** config.network.decimals) * config.network.genesis_councils_stake]);
         }
     }
 
