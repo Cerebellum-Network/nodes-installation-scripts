@@ -2,7 +2,7 @@ import { IEmulation } from "./emulation.interface";
 import Network from "../network";
 import Accounts from "../accounts";
 
-class sendDDCTxnEmulation implements IEmulation {
+class SendDdcTxnEmulation implements IEmulation {
   constructor(
     private readonly config,
     private readonly network: Network,
@@ -24,4 +24,4 @@ class sendDDCTxnEmulation implements IEmulation {
   }
 }
 
-export default sendDDCTxnEmulation;
+export default SendDdcTxnEmulation;
