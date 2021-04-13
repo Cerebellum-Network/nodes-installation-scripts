@@ -6,7 +6,7 @@ import { WsProvider } from "@polkadot/api";
 import { formatBalance, stringToU8a } from "@polkadot/util";
 
 class Network {
-  private api: ApiPromise;
+  public api: ApiPromise;
 
   constructor(private readonly config: any) {}
 
@@ -59,7 +59,7 @@ class Network {
         .signAndSend(
           sender,
           { nonce: nonce },
-          this.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej)
         )
         .catch((err) => rej(err));
     });
@@ -105,7 +105,7 @@ class Network {
 
     return new Promise((res, rej) => {
       txnObj
-        .signAndSend(sender, this.sendStatusCb.bind(this, res, rej))
+        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
         .catch((err) => rej(err));
     });
   }
@@ -130,7 +130,7 @@ class Network {
    * @param res Promise response object
    * @param rej Promise reject object
    */
-  private sendStatusCb(
+  public static sendStatusCb(
     res,
     rej,
     {
