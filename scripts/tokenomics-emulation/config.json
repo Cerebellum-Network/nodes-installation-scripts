@@ -1,5 +1,6 @@
 {
   "network": {
+    "url": "wss://rpc.testnet.dev.cere.network:9945",
     "nodes_amount": 4,
     "total_supply": 1000000,
     "decimals": 10,
@@ -11,11 +12,36 @@
       "stake": 700000
     }
   },
+  "accounts": [
+    {
+      "name": "root",
+      "mnemonic": ""
+    },
+    {
+      "name": "sudo",
+      "mnemonic": ""
+    },
+    {
+      "name": "transfer",
+      "mnemonic": ""
+    }
+  ],
+  "nodes_amount": 4,
   "emulations": {
     "sequence": [
       {
         "name": "native-tokens-transfer",
-        "amount": 100
+        "amount": 1,
+        "tokens_range": [1, 2]
+      },
+      {
+        "name": "existential-deposit-transfer",
+        "amount": 1
+      },
+      {
+        "name": "send-ddc-transaction",
+        "amount": 1,
+        "sendData": "This is test data"
       }
     ]
   }
