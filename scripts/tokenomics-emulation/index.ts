@@ -21,9 +21,9 @@ class Emulations {
       try {
         console.log(`Starting an emulation '${emulationConfig.name}'...\n`);
         await emulation.run();
+        console.log(`The emulation '${emulationConfig.name}' completed.\n`);
         const treasuryBalance = await this.network.treasuryBalance();
         console.log(`The treasury balance is ${treasuryBalance}`);
-        console.log(`The emulation '${emulationConfig.name}' completed.`);
       } catch (e) {
         console.log(
           `Some error occurred during emulation ${emulationConfig.name} run\n`
