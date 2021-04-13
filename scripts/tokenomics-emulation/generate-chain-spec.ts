@@ -44,9 +44,9 @@ class ChainSpecGenerator {
             const councilAccount = this.readAccount(`democracy-${i}`);
             spec.genesis.runtime.palletBalances.balances.push([councilAccount.ss58Address, 2 * (10 ** spec.properties.tokenDecimals) * config.network.genesis_councils_stake]);
         }
-        const totalGemnesisCouncilsStake = config.network.genesis_councils_amount * config.network.genesis_councils_stake;
+        const totalGenesisCouncilsStake = config.network.genesis_councils_amount * config.network.genesis_councils_stake;
 
-        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - totalGemnesisCouncilsStake;
+        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - 2 * totalGenesisCouncilsStake;
         spec.genesis.runtime.palletBalances.balances.push([rootAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
     }
 
