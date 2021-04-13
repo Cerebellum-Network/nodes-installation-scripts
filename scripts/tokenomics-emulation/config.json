@@ -1,9 +1,12 @@
 {
   "network": {
     "url": "wss://rpc.testnet.dev.cere.network:9945",
+    "decimals": 10,
+    "ddc_sc_address": "5FE4RyFK5NuK5GSkebp23fgJNGCg1imCsYTGjLQBQPybJQEU",
+    "gas_limit": -1,
+    "smart_contract_cere_token_amount_default": 0,
     "nodes_amount": 4,
     "total_supply": 1000000,
-    "decimals": 10,
     "genesis_validators_amount": 2,
     "genesis_validators_stake": 10000,
     "genesis_councils_amount": 1,
@@ -42,6 +45,14 @@
         "name": "send-ddc-transaction",
         "amount": 1,
         "sendData": "This is test data"
+      },
+      {
+        "name": "ddc-metrics-report",
+        "amount": 1,
+        "data_rec": 1024,
+        "data_rep": 1024,
+        "req_rec": 10,
+        "req_rep": 10
       }
     ]
   }
