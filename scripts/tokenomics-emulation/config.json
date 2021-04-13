@@ -4,7 +4,7 @@
     "decimals": 15,
     "ddc_sc_address": "5FE4RyFK5NuK5GSkebp23fgJNGCg1imCsYTGjLQBQPybJQEU",
     "gas_limit": -1,
-    "value": 0,
+    "token_amount": 0,
     "nodes_amount": 4,
     "total_supply": 1000000,
     "genesis_validators_amount": 2,

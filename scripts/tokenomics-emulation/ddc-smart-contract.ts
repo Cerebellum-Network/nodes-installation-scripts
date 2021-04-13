@@ -8,8 +8,7 @@ import cere02Abi from "./contract/cere02-metadata.json";
 class DdcSmartContract {
   private ddcContract: ContractPromise;
 
-  constructor(private readonly config: any, private readonly network: Network) {
-    const api = this.network.api;
+  constructor(private readonly config: any, private readonly api: any) {
     const cere02SCAddress = this.config.network.ddc_sc_address;
     this.ddcContract = new ContractPromise(api, cere02Abi, cere02SCAddress);
   }
@@ -34,7 +33,7 @@ class DdcSmartContract {
       `About to call report_metrics in ddc sm from ${sender.address}`
     );
     const gasLimit = +this.config.network.gas_limit;
-    const value = +this.config.network.value;
+    const value = +this.config.network.token_amount;
     const txnObj = await this.ddcContract.tx.reportMetrics(
       { value, gasLimit },
       dataRec,

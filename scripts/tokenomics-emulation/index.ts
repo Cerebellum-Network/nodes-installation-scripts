@@ -63,7 +63,7 @@ async function main() {
   const network = new Network(config);
   await network.setup();
   const account = new Accounts(config);
-  const ddcContract = new DdcSmartContract(config, network);
+  const ddcContract = new DdcSmartContract(config, network.api);
   const emulations = new Emulations(
     config,
     new EmulationsFactory(network, account, ddcContract)
