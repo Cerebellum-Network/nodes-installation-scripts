@@ -4,7 +4,16 @@
     "decimals": 15,
     "ddc_sc_address": "5FE4RyFK5NuK5GSkebp23fgJNGCg1imCsYTGjLQBQPybJQEU",
     "gas_limit": -1,
-    "value": 0
+    "value": 0,
+    "nodes_amount": 4,
+    "total_supply": 1000000,
+    "genesis_validators_amount": 2,
+    "genesis_validators_stake": 10000,
+    "genesis_councils_amount": 1,
+    "genesis_councils_stake": 100000,
+    "alice": {
+      "stake": 700000
+    }
   },
   "accounts": [
     {

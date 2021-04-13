@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "tokenomics-emulation": "npx ts-node index.ts",
+    "generate-chain-spec": "npx ts-node generate-chain-spec.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
