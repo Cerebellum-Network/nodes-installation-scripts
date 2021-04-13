@@ -11,6 +11,7 @@ import DdcSmartContract from "./ddc-smart-contract";
 class Emulations {
   constructor(
     private readonly config: any,
+    private readonly network: Network,
     private readonly emulationsFactory: EmulationsFactory
   ) {}
 
@@ -20,8 +21,9 @@ class Emulations {
       try {
         console.log(`Starting an emulation '${emulationConfig.name}'...\n`);
         await emulation.run();
-
-        console.log(`The emulation '${emulationConfig.name}' completed.`);
+        console.log(`The emulation '${emulationConfig.name}' completed.\n`);
+        const treasuryBalance = await this.network.treasuryBalance();
+        console.log(`The treasury balance is ${treasuryBalance}`);
       } catch (e) {
         console.log(
           `Some error occurred during emulation ${emulationConfig.name} run\n`
@@ -66,6 +68,7 @@ async function main() {
   const ddcContract = new DdcSmartContract(config, network.api);
   const emulations = new Emulations(
     config,
+    network,
     new EmulationsFactory(network, account, ddcContract)
   );
   await emulations.run();
