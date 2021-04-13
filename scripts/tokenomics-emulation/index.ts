@@ -4,6 +4,7 @@ import NativeTokensTransferEmulation from "./emulations/transfer-native-token.em
 import Network from "./network";
 import Accounts from "./accounts";
 import ExistentialDepositEmulation from "./emulations/existential-deposit.emulation";
+import sendDDCTxnEmulation from "./emulations/ddc-send-txn-emulation";
 
 class Emulations {
   constructor(
@@ -45,6 +46,8 @@ class EmulationsFactory {
         );
       case "existential-deposit-transfer":
         return new ExistentialDepositEmulation(config, this.network, this.account);
+      case "send-ddc-transaction":
+        return new sendDDCTxnEmulation(config, this.network, this.account);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }

@@ -85,8 +85,29 @@ class Network {
   public existentialDeposit() {
     console.log(`About to get Existential Deposit\n`);
     const existentialDeposit = this.api.consts.balances.existentialDeposit;
-    const value = +existentialDeposit / 10 ** this.config.network.decimals
+    const value = +existentialDeposit / 10 ** this.config.network.decimals;
     return value;
+  }
+
+  /**
+   * send ddc transaction
+   * @param sender senders keyringpair
+   * @param destination destination address
+   * @param data data to be added
+   * @returns hash
+   */
+  public async sendDDC(sender: KeyringPair, destination: string, data: string) {
+    console.log(
+      `About to send ddc transaction from ${sender.address} to ${destination} as ${data}\n`
+    );
+
+    let txnObj = await this.api.tx.cereDdcModule.sendData(destination, data);
+
+    return new Promise((res, rej) => {
+      txnObj
+        .signAndSend(sender, this.sendStatusCb.bind(this, res, rej))
+        .catch((err) => rej(err));
+    });
   }
 
   /**
@@ -94,7 +115,7 @@ class Network {
    * @param res Promise response object
    * @param rej Promise reject object
    */
-   private sendStatusCb(
+  private sendStatusCb(
     res,
     rej,
     {
