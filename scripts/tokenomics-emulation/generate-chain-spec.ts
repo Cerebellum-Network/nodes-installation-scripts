@@ -42,7 +42,7 @@ class ChainSpecGenerator {
 
         for (let i = 1; i <= config.network.genesis_councils_amount; i++) {
             const councilAccount = this.readAccount(`democracy-${i}`);
-            spec.genesis.runtime.palletBalances.balances.push([councilAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * config.network.genesis_councils_stake]);
+            spec.genesis.runtime.palletBalances.balances.push([councilAccount.ss58Address, 2 * (10 ** spec.properties.tokenDecimals) * config.network.genesis_councils_stake]);
         }
         const totalGemnesisCouncilsStake = config.network.genesis_councils_amount * config.network.genesis_councils_stake;
 

@@ -4,9 +4,11 @@
     "total_supply": 1000000,
     "decimals": 10,
     "genesis_validators_amount": 2,
-    "genesis_validators_stake": 1,
+    "genesis_validators_stake": 10000,
+    "genesis_councils_amount": 1,
+    "genesis_councils_stake": 100000,
     "alice": {
-      "stake": 100000
+      "stake": 700000
     }
   },
   "emulations": {
