@@ -28,6 +28,11 @@
       {
         "name": "existential-deposit-transfer",
         "amount": 1
+      },
+      {
+        "name": "send-ddc-transaction",
+        "amount": 1,
+        "sendData": "This is test data"
       }
     ]
   }
