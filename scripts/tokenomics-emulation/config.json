@@ -1,10 +1,10 @@
 {
   "network": {
     "url": "wss://rpc.testnet.dev.cere.network:9945",
-    "decimals": 15,
+    "decimals": 10,
     "ddc_sc_address": "5FE4RyFK5NuK5GSkebp23fgJNGCg1imCsYTGjLQBQPybJQEU",
     "gas_limit": -1,
-    "token_amount": 0,
+    "smart_contract_cere_token_amount_default": 0,
     "nodes_amount": 4,
     "total_supply": 1000000,
     "genesis_validators_amount": 2,

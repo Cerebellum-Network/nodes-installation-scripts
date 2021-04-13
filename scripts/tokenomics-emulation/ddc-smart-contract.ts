@@ -1,6 +1,5 @@
+import { ApiPromise } from '@polkadot/api';
 import { KeyringPair } from "@polkadot/keyring/types";
-import { ExtrinsicStatus } from "@polkadot/types/interfaces";
-import { EventRecord } from "@polkadot/types/interfaces";
 import Network from "./network";
 import { ContractPromise } from "@polkadot/api-contract";
 import cere02Abi from "./contract/cere02-metadata.json";
@@ -8,7 +7,7 @@ import cere02Abi from "./contract/cere02-metadata.json";
 class DdcSmartContract {
   private ddcContract: ContractPromise;
 
-  constructor(private readonly config: any, private readonly api: any) {
+  constructor(private readonly config: any, private readonly api: ApiPromise) {
     const cere02SCAddress = this.config.network.ddc_sc_address;
     this.ddcContract = new ContractPromise(api, cere02Abi, cere02SCAddress);
   }
@@ -33,7 +32,7 @@ class DdcSmartContract {
       `About to call report_metrics in ddc sm from ${sender.address}`
     );
     const gasLimit = +this.config.network.gas_limit;
-    const value = +this.config.network.token_amount;
+    const value = +this.config.network.smart_contract_cere_token_amount_default;
     const txnObj = await this.ddcContract.tx.reportMetrics(
       { value, gasLimit },
       dataRec,
