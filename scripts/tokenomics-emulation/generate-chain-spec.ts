@@ -27,13 +27,17 @@ class ChainSpecGenerator {
     private generatePalletBalances(spec, config) {
         spec.genesis.runtime.palletBalances.balances = [];
         const rootAccount = JSON.parse(fs.readFileSync("../../accounts/all/root", "utf-8"));
-        const rootAccountBalance = (100 - config.network.validators_staked_tokens_percent) / 100 * config.network.total_supply;
-        spec.genesis.runtime.palletBalances.balances.push([rootAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
-        const genesisValidatorStake = config.network.validators_staked_tokens_percent / 100 * config.network.total_supply / config.network.genesis_validators_amount;
+        let aliceBalance = 0;
+        if (config.network.alice) {
+            aliceBalance = config.network.alice.stake;
+            spec.genesis.runtime.palletBalances.balances.push(["5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY", (10 ** spec.properties.tokenDecimals) * aliceBalance]);
+        }
         for (let i = 1; i <= config.network.genesis_validators_amount; i++) {
             const genesisStashSrAccount = JSON.parse(fs.readFileSync(`../../accounts/all/validator-${i}-stash-sr`, "utf-8"));
-            spec.genesis.runtime.palletBalances.balances.push([genesisStashSrAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * genesisValidatorStake]);
+            spec.genesis.runtime.palletBalances.balances.push([genesisStashSrAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * config.network.genesis_validators_stake]);
         }
+        const rootAccountBalance = config.network.total_supply - aliceBalance - config.network.genesis_validators_stake * config.network.genesis_validators_amount;
+        spec.genesis.runtime.palletBalances.balances.push([rootAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
     }
 
     private generatePalletStaking(spec, config) {
@@ -42,12 +46,11 @@ class ChainSpecGenerator {
             const genesisStashSrAccount = JSON.parse(fs.readFileSync(`../../accounts/all/validator-${i}-stash-sr`, "utf-8"));
             spec.genesis.runtime.palletStaking.invulnerables.push(genesisStashSrAccount.ss58Address);
         }
-        const genesisValidatorStake = config.network.validators_staked_tokens_percent / 100 * config.network.total_supply / config.network.genesis_validators_amount;
         spec.genesis.runtime.palletStaking.stakers = [];
         for (let i = 1; i <= config.network.genesis_validators_amount; i++) {
             const genesisStashSrAccount = JSON.parse(fs.readFileSync(`../../accounts/all/validator-${i}-stash-sr`, "utf-8"));
             const genesisControllerSrAccount = JSON.parse(fs.readFileSync(`../../accounts/all/validator-${i}-controller-sr`, "utf-8"));
-            spec.genesis.runtime.palletStaking.stakers.push([genesisStashSrAccount.ss58Address, genesisControllerSrAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * genesisValidatorStake, "Validator"])
+            spec.genesis.runtime.palletStaking.stakers.push([genesisStashSrAccount.ss58Address, genesisControllerSrAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * config.network.genesis_validators_stake, "Validator"])
         }
     }
 

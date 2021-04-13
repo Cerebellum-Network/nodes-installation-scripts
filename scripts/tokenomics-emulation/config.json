@@ -4,7 +4,10 @@
     "total_supply": 1000000,
     "decimals": 10,
     "genesis_validators_amount": 2,
-    "validators_staked_tokens_percent": 35
+    "genesis_validators_stake": 1,
+    "alice": {
+      "stake": 100000
+    }
   },
   "emulations": {
     "sequence": [
