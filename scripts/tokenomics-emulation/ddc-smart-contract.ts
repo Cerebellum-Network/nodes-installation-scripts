@@ -48,6 +48,30 @@ class DdcSmartContract {
     });
   }
 
+  /**
+   * Subscribe to DDC
+   * @param sender Sender
+   * @param tierId Tier ID
+   * @returns 
+   */
+  public async subscribe(sender: KeyringPair, tierId: string) {
+    console.log(
+      `About to call subscribe in ddc sm from ${sender.address}`
+    );
+    const gasLimit = +this.config.network.gas_limit;
+    const value = +this.config.network.smart_contract_cere_token_amount_default;
+    const txnObj = await this.ddcContract.tx.subscribe(
+      { value, gasLimit },
+      tierId
+    );
+
+    return new Promise((res, rej) => {
+      txnObj
+        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
+        .catch((err) => rej(err));
+    });
+  }
+
 }
 
 export default DdcSmartContract;

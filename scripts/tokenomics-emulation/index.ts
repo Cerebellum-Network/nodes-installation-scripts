@@ -7,6 +7,7 @@ import ExistentialDepositEmulation from "./emulations/existential-deposit.emulat
 import SendDdcTxnEmulation from "./emulations/ddc-send-txn-emulation";
 import DdcReportMetricsEmulation from "./emulations/ddc-report-metrics-emulation";
 import DdcSmartContract from "./ddc-smart-contract";
+import DdcSubscribeEmulation from "./emulations/ddc-subscribe-emulation";
 
 class Emulations {
   constructor(
@@ -55,6 +56,8 @@ class EmulationsFactory {
         return new SendDdcTxnEmulation(config, this.network, this.account);
       case "ddc-metrics-report":
         return new DdcReportMetricsEmulation(config, this.account, this.ddcContract);
+      case "ddc-subscribe":
+        return new DdcSubscribeEmulation(config, this.account, this.ddcContract);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
