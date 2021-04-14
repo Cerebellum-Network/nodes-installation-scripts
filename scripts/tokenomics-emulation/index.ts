@@ -7,7 +7,10 @@ import ExistentialDepositEmulation from "./emulations/existential-deposit.emulat
 import SendDdcTxnEmulation from "./emulations/ddc-send-txn-emulation";
 import DdcReportMetricsEmulation from "./emulations/ddc-report-metrics-emulation";
 import DdcSmartContract from "./ddc-smart-contract";
+import CereSmartContract from "./cere-smart-contract";
 import DdcSubscribeEmulation from "./emulations/ddc-subscribe-emulation";
+import CereAppToUserEmulation from "./emulations/cere-app-to-user-emulation";
+import CereUserToAppEmulation from "./emulations/cere-user-to-app-emulation";
 
 class Emulations {
   constructor(
@@ -39,7 +42,8 @@ class EmulationsFactory {
   constructor(
     private readonly network: Network,
     private readonly account: Accounts,
-    private readonly ddcContract: DdcSmartContract
+    private readonly ddcContract: DdcSmartContract,
+    private readonly cereContract: CereSmartContract
   ) {}
 
   public create(config: { name: string }): IEmulation {
@@ -58,6 +62,10 @@ class EmulationsFactory {
         return new DdcReportMetricsEmulation(config, this.account, this.ddcContract);
       case "ddc-subscribe":
         return new DdcSubscribeEmulation(config, this.account, this.ddcContract);
+      case "cere-app-to-user":
+        return new CereAppToUserEmulation(config, this.account, this.cereContract);
+      case "cere-user-to-app":
+        return new CereUserToAppEmulation(config, this.account, this.cereContract);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
@@ -69,10 +77,11 @@ async function main() {
   await network.setup();
   const account = new Accounts(config);
   const ddcContract = new DdcSmartContract(config, network.api);
+  const cereContract = new CereSmartContract(config, network.api);
   const emulations = new Emulations(
     config,
     network,
-    new EmulationsFactory(network, account, ddcContract)
+    new EmulationsFactory(network, account, ddcContract, cereContract)
   );
   await emulations.run();
 }
