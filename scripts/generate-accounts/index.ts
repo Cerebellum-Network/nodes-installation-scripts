@@ -39,6 +39,9 @@ class Accounts {
     const generateTechCommAccount = await this.generateTechCommAccounts();
     console.log(`\n`);
 
+    const generateNominatorAccount = await this.generateNominatorAccounts();
+    console.log(`\n`);
+
     this.generateFileWithPublicKeys(rootAccount, sudoAccount, validatorGenesisAccounts);
   }
 
@@ -157,6 +160,20 @@ class Accounts {
       this.writeKeyToFile(srFilename, JSON.stringify(srAccount));
       console.log(
         `Tech Comm ${i} sr account has been written to the ${srFilename}`
+      );
+    }
+  }
+
+  private async generateNominatorAccounts() {
+    console.log(`Generating Nominator Account...`);
+
+    const number = +process.env.NOMINATOR_AMOUNT;
+    for (let i = 1; i <= number; i++) {
+      const srAccount = await this.generateSrAccount();
+      const srFilename = `nominator-${i}`;
+      this.writeKeyToFile(srFilename, JSON.stringify(srAccount));
+      console.log(
+        `Nominator ${i} sr account has been written to the ${srFilename}`
       );
     }
   }
