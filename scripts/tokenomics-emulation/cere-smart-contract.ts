@@ -1,3 +1,4 @@
+import { KeypairType } from "@polkadot/util-crypto/types";
 import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
 import Network from "./network";
@@ -45,6 +46,30 @@ class CereSmartContract {
         .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
         .catch((err) => rej(err));
     });
+  }
+
+  /**
+   * Estimate transaction fee
+   * @param sender sender
+   * @param destination destination account
+   * @param amount amonunt
+   * @returns Transaction fee
+   */
+  public async estimateTxnFee(
+    sender: KeyringPair,
+    destination: string,
+    amount: string
+  ) {
+    console.log(
+      `About to estimate transaction fee for smart contract transfer`
+    );
+    const gasLimit = +this.config.network.gas_limit;
+    const value = +this.config.network.smart_contract_cere_token_amount_default;
+
+    const {partialFee: txnFee} = await this.cereContract.tx
+      .transfer({ value, gasLimit },destination, amount, 0)
+      .paymentInfo(sender);
+    return txnFee;
   }
 }
 

@@ -2,7 +2,7 @@ import { IEmulation } from "./emulation.interface";
 import Accounts from "../accounts";
 import CereSmartContract from "../cere-smart-contract";
 
-class CereIntegrationsEmulation implements IEmulation {
+class CereUserToAppEmulation implements IEmulation {
   constructor(
     private readonly config,
     private readonly account: Accounts,
@@ -11,19 +11,19 @@ class CereIntegrationsEmulation implements IEmulation {
 
   public async run(): Promise<void> {
     for (let i = 1; i <= this.config.amount; i++) {
-      console.log(`Running ${i} cere app to user transfer...\n`);
+      console.log(`Running ${i} cere user to app transfer...\n`);
       const sender = this.account.sudoAccount;
       const destination = await this.account.generateSrAccount();
       const tokenValue = await this.config.token_value;
-      const txnFee = await this.config.txn_fee;
+      const txnFee = await this.cereContract.estimateTxnFee(sender, destination.ss58Address, tokenValue);
       const sendTxn = await this.cereContract.transfer(
         sender,
         destination.ss58Address,
         tokenValue,
-        txnFee
+        txnFee.toString()
       );
     }
   }
 }
 
-export default CereIntegrationsEmulation;
+export default CereUserToAppEmulation;
