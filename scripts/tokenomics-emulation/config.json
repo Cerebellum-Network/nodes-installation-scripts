@@ -29,15 +29,15 @@
   "accounts": [
     {
       "name": "root",
-      "mnemonic": ""
+      "mnemonic": "resource pear inquiry goose column huge elite prevent define lock gossip token"
     },
     {
       "name": "sudo",
-      "mnemonic": ""
+      "mnemonic": "resource pear inquiry goose column huge elite prevent define lock gossip token"
     },
     {
       "name": "transfer",
-      "mnemonic": ""
+      "mnemonic": "resource pear inquiry goose column huge elite prevent define lock gossip token"
     }
   ],
   "nodes_amount": 4,
@@ -45,40 +45,36 @@
     "sequence": [
       {
         "name": "native-tokens-transfer",
-        "amount": 1,
+        "amount": 100,
         "tokens_range": [1, 2]
       },
       {
-        "name": "existential-deposit-transfer",
-        "amount": 1
-      },
-      {
         "name": "send-ddc-transaction",
-        "amount": 1,
+        "amount": 100,
         "sendData": "This is test data"
       },
       {
+        "name": "ddc-subscribe",
+        "amount": 10,
+        "tier_id": 3
+      },
+      {
         "name": "ddc-metrics-report",
-        "amount": 1,
+        "amount": 100,
         "data_rec": 1024,
         "data_rep": 1024,
         "req_rec": 10,
         "req_rep": 10
       },
       {
-        "name": "ddc-subscribe",
-        "amount": 1,
-        "tier_id": 10
-      },
-      {
         "name": "cere-app-to-user",
-        "amount": 1,
+        "amount": 100,
         "token_value": 1,
         "txn_fee": 0
       },
       {
         "name": "cere-user-to-app",
-        "amount": 1,
+        "amount": 100,
         "token_value": 1
       }
     ]
