@@ -63,6 +63,8 @@ class EmulationsFactory {
         return new DdcSubscribeEmulation(config, this.account, this.ddcContract);
       case "cere-app-to-user":
         return new CereApptoUserEmulation(config, this.account, this.cereContract);
+      case "cere-user-to-app":
+        return new CereApptoUserEmulation(config, this.account, this.cereContract);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
