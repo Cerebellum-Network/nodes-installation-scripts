@@ -2,7 +2,7 @@ import { IEmulation } from "./emulation.interface";
 import Accounts from "../accounts";
 import CereSmartContract from "../cere-smart-contract";
 
-class CereApptoUserEmulation implements IEmulation {
+class CereIntegrationsEmulation implements IEmulation {
   constructor(
     private readonly config,
     private readonly account: Accounts,
@@ -26,4 +26,4 @@ class CereApptoUserEmulation implements IEmulation {
   }
 }
 
-export default CereApptoUserEmulation;
+export default CereIntegrationsEmulation;

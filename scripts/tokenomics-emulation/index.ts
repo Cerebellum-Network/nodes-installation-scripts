@@ -9,7 +9,7 @@ import DdcReportMetricsEmulation from "./emulations/ddc-report-metrics-emulation
 import DdcSmartContract from "./ddc-smart-contract";
 import CereSmartContract from "./cere-smart-contract";
 import DdcSubscribeEmulation from "./emulations/ddc-subscribe-emulation";
-import CereApptoUserEmulation from "./emulations/cere-app-to-user-emulation";
+import CereIntegrationsEmulation from "./emulations/cere-integrations-emulation";
 
 class Emulations {
   constructor(
@@ -62,9 +62,9 @@ class EmulationsFactory {
       case "ddc-subscribe":
         return new DdcSubscribeEmulation(config, this.account, this.ddcContract);
       case "cere-app-to-user":
-        return new CereApptoUserEmulation(config, this.account, this.cereContract);
+        return new CereIntegrationsEmulation(config, this.account, this.cereContract);
       case "cere-user-to-app":
-        return new CereApptoUserEmulation(config, this.account, this.cereContract);
+        return new CereIntegrationsEmulation(config, this.account, this.cereContract);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
