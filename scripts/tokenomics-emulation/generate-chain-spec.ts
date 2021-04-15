@@ -40,6 +40,26 @@ class ChainSpecGenerator {
         }
         const totalGenesisValidatorsStake = config.network.genesis_validators_amount * config.network.genesis_validators_stake;
 
+        for (let i = 1; i <= config.network.validators.amount; i++) {
+            const validatorStashAccount = this.readAccount(`validator-${i}-stash`);
+            spec.genesis.runtime.palletBalances.balances.push([validatorStashAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * config.network.validators.stash_stake]);
+            const validatorControllerAccount = this.readAccount(`validator-${i}-controller`);
+            spec.genesis.runtime.palletBalances.balances.push([validatorControllerAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * config.network.validators.controller_stake]) 
+        }
+        const validatorsStake = config.network.validators.amount * config.network.validators.stash_stake;
+        const validatorsController = config.network.validators.amount * config.network.validators.controller_stake;
+        const totalValidatorsStake = validatorsStake + validatorsController;
+
+        for (let i = 1; i <= config.network.nominators.amount; i++) {
+            const nominatorStashAccount = this.readAccount(`nominator-${i}-stash`);
+            spec.genesis.runtime.palletBalances.balances.push([nominatorStashAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * config.network.nominators.stash_stake]);
+            const nominatorControllerAccount = this.readAccount(`nominator-${i}-controller`);
+            spec.genesis.runtime.palletBalances.balances.push([nominatorControllerAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * config.network.nominators.controller_stake]) 
+        }
+        const nominatorsStake = config.network.nominators.amount * config.network.nominators.stash_stake;
+        const nominatorsController = config.network.nominators.amount * config.network.nominators.controller_stake;
+        const totalNominatorsStake = nominatorsStake + nominatorsController;
+
         const COUNCIL_MULTIPLIER = 2;
         for (let i = 1; i <= config.network.genesis_councils_amount; i++) {
             const councilAccount = this.readAccount(`democracy-${i}`);
@@ -49,7 +69,7 @@ class ChainSpecGenerator {
 
         const treasuryStake = 10000;
 
-        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - COUNCIL_MULTIPLIER * totalGenesisCouncilsStake - treasuryStake;
+        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - totalNominatorsStake - totalValidatorsStake - COUNCIL_MULTIPLIER * totalGenesisCouncilsStake - treasuryStake;
         spec.genesis.runtime.palletBalances.balances.push([rootAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
     }
 

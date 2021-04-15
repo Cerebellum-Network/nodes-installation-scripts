@@ -14,6 +14,16 @@
     "genesis_councils_stake": 100000,
     "alice": {
       "stake": 700000
+    },
+    "validators":{
+      "amount": 3,
+      "stash_stake": 10,
+      "controller_stake": 10
+    },
+    "nominators":{
+      "amount": 3,
+      "stash_stake": 10,
+      "controller_stake": 10
     }
   },
   "accounts": [
