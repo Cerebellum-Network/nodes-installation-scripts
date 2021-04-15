@@ -59,17 +59,16 @@ class ChainSpecGenerator {
         const nominatorsStake = config.network.nominators.amount * config.network.nominators.stash_stake;
         const nominatorsController = config.network.nominators.amount * config.network.nominators.controller_stake;
         const totalNominatorsStake = nominatorsStake + nominatorsController;
-
-        const COUNCIL_MULTIPLIER = 2;
+        
         for (let i = 1; i <= config.network.genesis_councils_amount; i++) {
             const councilAccount = this.readAccount(`democracy-${i}`);
-            spec.genesis.runtime.palletBalances.balances.push([councilAccount.ss58Address, COUNCIL_MULTIPLIER * (10 ** spec.properties.tokenDecimals) * config.network.genesis_councils_stake]);
+            spec.genesis.runtime.palletBalances.balances.push([councilAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * config.network.genesis_councils_stake]);
         }
         const totalGenesisCouncilsStake = config.network.genesis_councils_amount * config.network.genesis_councils_stake;
 
-        const treasuryStake = 10000;
+        const treasuryStake = 1;
 
-        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - totalNominatorsStake - totalValidatorsStake - COUNCIL_MULTIPLIER * totalGenesisCouncilsStake - treasuryStake;
+        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - totalNominatorsStake - totalValidatorsStake - totalGenesisCouncilsStake - treasuryStake;
         spec.genesis.runtime.palletBalances.balances.push([rootAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
     }
 
