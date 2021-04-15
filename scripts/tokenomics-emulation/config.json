@@ -11,7 +11,7 @@
     "genesis_validators_amount": 2,
     "genesis_validators_stake": 10000,
     "genesis_councils_amount": 2,
-    "genesis_councils_stake": 100000,
+    "genesis_councils_stake": 200000,
     "validators":{
       "amount": 5,
       "stash_stake": 400000010,
