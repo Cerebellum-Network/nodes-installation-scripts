@@ -83,7 +83,7 @@ class Accounts {
     const number = +process.env.VALIDATOR_AMOUNT;
     console.log(`Generating Validator accounts of ${number}`);
     for (let i = 1; i <= number; i++) {
-      const account = await this.generateStashControllerAccounts(i, 'validator');
+      const account = await this.generateStashAndControllerAccounts(i, 'validator');
       accounts.push(account);
     }
 
@@ -111,13 +111,13 @@ class Accounts {
     const number = +process.env.NOMINATOR_AMOUNT;
     console.log(`Generating Nominator accounts of ${number}`);
     for (let i = 1; i <= number; i++) {
-      const account = await this.generateStashControllerAccounts(i, 'nominator');
+      const account = await this.generateStashAndControllerAccounts(i, 'nominator');
       accounts.push(account);
     }
     return accounts;
   }
 
-  private async generateStashControllerAccounts(id: number, name: string) {
+  private async generateStashAndControllerAccounts(id: number, name: string) {
     console.log(`Generating stash and Controller accounts...`);
 
     const stashAccount = await this.generateSrAccount();
