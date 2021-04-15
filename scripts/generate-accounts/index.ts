@@ -39,7 +39,7 @@ class Accounts {
     const generateTechCommAccount = await this.generateTechCommAccounts();
     console.log(`\n`);
 
-    const generateNominatorAccount = await this.generateNominatorAccounts();
+    const generateNominatorAccount = await this.generateNominatorsAccounts();
     console.log(`\n`);
 
     this.generateFileWithPublicKeys(rootAccount, sudoAccount, validatorGenesisAccounts);
@@ -164,25 +164,30 @@ class Accounts {
     }
   }
 
-  private async generateNominatorAccounts() {
-    console.log(`Generating Nominator Account...`);
-
+  private async generateNominatorsAccounts() {
+    const accounts = [];
     const number = +process.env.NOMINATOR_AMOUNT;
     for (let i = 1; i <= number; i++) {
-      const stashAccount = await this.generateSrAccount();
-      const stashAccountFilename = `nominator-${i}-stash`;
-      this.writeKeyToFile(stashAccountFilename, JSON.stringify(stashAccount));
-      console.log(
-        `Nominator ${i} stash account has been written to the ${stashAccountFilename}`
-      );
-
-      const controllerAccount = await this.generateSrAccount();
-      const controllerAccountFilename = `nominator-${i}-controller`;
-      this.writeKeyToFile(controllerAccountFilename, JSON.stringify(controllerAccount));
-      console.log(
-          `Nominator ${i} controller account has been written to the ${controllerAccountFilename}`
-      );
+      const account = await this.generateNominatorAccount(i);
+      accounts.push(account);
     }
+    return accounts;
+  }
+
+  private async generateNominatorAccount(id) {
+    console.log(`Generating Nominator accounts...`);
+
+    const stashAccount = await this.generateSrAccount();
+    const stashFilename = `nominator-${id}-stash`;
+    this.writeKeyToFile(stashFilename, JSON.stringify(stashAccount));
+    console.log(`Nominator ${id} stash account has been written to the '${stashFilename}' file`);
+
+    const controllerFilename = `nominator-${id}-controller`;
+    const controllerAccount = await this.generateSrAccount();
+    this.writeKeyToFile(controllerFilename, JSON.stringify(controllerAccount));
+    console.log(`Nominator ${id} controller account has been written to the '${controllerFilename}' file`);
+
+    return {stashAccount, controllerAccount};
   }
 
   public generateFileWithPublicKeys(rootAccount: any, sudoAccount: any, validatorGenesisAccounts) {
