@@ -7,22 +7,19 @@
     "gas_limit": -1,
     "smart_contract_cere_token_amount_default": 0,
     "nodes_amount": 4,
-    "total_supply": 1000000000,
+    "total_supply": 10000000000,
     "genesis_validators_amount": 2,
     "genesis_validators_stake": 10000,
     "genesis_councils_amount": 2,
     "genesis_councils_stake": 100000,
-    "alice": {
-      "stake": 700000000
-    },
     "validators":{
-      "amount": 3,
-      "stash_stake": 10,
+      "amount": 5,
+      "stash_stake": 400000010,
       "controller_stake": 10
     },
     "nominators":{
-      "amount": 3,
-      "stash_stake": 10,
+      "amount": 5,
+      "stash_stake": 700000010,
       "controller_stake": 10
     }
   },
@@ -40,7 +37,7 @@
       "mnemonic": "resource pear inquiry goose column huge elite prevent define lock gossip token"
     }
   ],
-  "nodes_amount": 4,
+  "nodes_amount": 5,
   "emulations": {
     "sequence": [
       {
