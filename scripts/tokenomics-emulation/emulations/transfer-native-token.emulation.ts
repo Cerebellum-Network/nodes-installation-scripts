@@ -11,21 +11,35 @@ class NativeTokensTransferEmulation implements IEmulation {
   ) {}
 
   public async run(): Promise<void> {
-    for (let i = 1; i <= this.config.amount; i++) {
-      console.log(`Running ${i} native token transfer...\n`);
-      const destination = await this.account.generateSrAccount();
-      const transferAmount = _.random(
-        this.config.tokens_range[0],
-        this.config.tokens_range[1]
+    const total = this.config.amount;
+    const range = total / this.config.batch_count;
+    const sender = this.account.rootAccount;
+    let transactionCount = 1;
+    for (let batchCount = 1; batchCount <= Math.ceil(range); batchCount++) {
+      let transaction = [];
+
+      for (let i = 1; i <= range; i++) {
+        if (transactionCount <= total) {
+          const destination = await this.account.generateSrAccount();
+          const transferAmount = _.random(
+            this.config.tokens_range[0],
+            this.config.tokens_range[1]
+          );
+          const transfer = await this.network.transfer(
+            sender,
+            destination.ss58Address,
+            transferAmount.toString()
+          );
+          transaction.push(transfer);
+          transactionCount = transactionCount + 1;
+        } else {
+          break;
+        }
+      }
+      const sendTransaction = await this.network.signAndSendBathTxn(
+        transaction,
+        sender
       );
-      const sender = this.account.rootAccount;
-      const transfer = await this.network.transfer(
-        sender,
-        destination.ss58Address,
-        transferAmount.toString()
-      );
-      const balance = await this.network.getBalance(destination.ss58Address);
-      console.log(`Balance of ${destination.ss58Address} is ${balance}`);
     }
   }
 }

@@ -46,7 +46,7 @@ class Network {
     sender: KeyringPair,
     destination: string,
     value: string
-  ): Promise<string> {
+  ): Promise<any> {
     const amount = +value * 10 ** this.config.network.decimals;
     console.log(
       `About to transfer ${amount} native assets to ${destination} from ${sender.address}\n`
@@ -54,15 +54,7 @@ class Network {
     const { nonce } = await this.api.query.system.account(sender.address);
 
     const transfer = this.api.tx.balances.transfer(destination, amount);
-    return new Promise((res, rej) => {
-      transfer
-        .signAndSend(
-          sender,
-          { nonce: nonce },
-          Network.sendStatusCb.bind(this, res, rej)
-        )
-        .catch((err) => rej(err));
-    });
+    return transfer;
   }
 
   /**
@@ -123,6 +115,17 @@ class Network {
       decimals: this.config.network.decimals,
     });
     return formatedBalance;
+  }
+
+  public async signAndSendBathTxn(txs: any, sender: KeyringPair) {
+    console.log(`Sending batch transaction`);
+    const nonce = await this.api.rpc.system.accountNextIndex(sender.address);
+    console.log(`nonce: ${nonce}`);
+    this.api.tx.utility.batch(txs).signAndSend(sender,{nonce} , ({ status }) => {
+      if (status.isInBlock) {
+        console.log(`included in ${status.asInBlock}`);
+      }
+    });
   }
 
   /**
