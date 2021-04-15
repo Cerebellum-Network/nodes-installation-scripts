@@ -48,7 +48,7 @@ class ChainSpecGenerator {
         }
         const validatorsStake = config.network.validators.amount * config.network.validators.stash_stake;
         const validatorsController = config.network.validators.amount * config.network.validators.controller_stake;
-        const totalValidators = validatorsStake + validatorsController;
+        const totalValidatorsStake = validatorsStake + validatorsController;
 
         for (let i = 1; i <= config.network.nominators.amount; i++) {
             const nominatorStashAccount = this.readAccount(`nominator-${i}-stash`);
@@ -58,7 +58,7 @@ class ChainSpecGenerator {
         }
         const nominatorsStake = config.network.nominators.amount * config.network.nominators.stash_stake;
         const nominatorsController = config.network.nominators.amount * config.network.nominators.controller_stake;
-        const totalNominators = nominatorsStake + nominatorsController;
+        const totalNominatorsStake = nominatorsStake + nominatorsController;
 
         const COUNCIL_MULTIPLIER = 2;
         for (let i = 1; i <= config.network.genesis_councils_amount; i++) {
@@ -69,7 +69,7 @@ class ChainSpecGenerator {
 
         const treasuryStake = 10000;
 
-        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - totalNominators - totalValidators - COUNCIL_MULTIPLIER * totalGenesisCouncilsStake - treasuryStake;
+        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - totalNominatorsStake - totalValidatorsStake - COUNCIL_MULTIPLIER * totalGenesisCouncilsStake - treasuryStake;
         spec.genesis.runtime.palletBalances.balances.push([rootAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
     }
 
