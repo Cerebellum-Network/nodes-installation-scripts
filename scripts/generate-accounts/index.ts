@@ -39,7 +39,7 @@ class Accounts {
     const generateTechCommAccount = await this.generateTechCommAccounts();
     console.log(`\n`);
 
-    const generateNominatorAccount = await this.generateNominatorAccounts();
+    const generateNominatorAccount = await this.generateNominatorsAccounts();
     console.log(`\n`);
 
     this.generateFileWithPublicKeys(rootAccount, sudoAccount, validatorGenesisAccounts);
@@ -80,10 +80,10 @@ class Accounts {
 
   private async generateValidatorsAccounts() {
     const accounts = [];
-
     const number = +process.env.VALIDATOR_AMOUNT;
+    console.log(`Generating Validator accounts of ${number}`);
     for (let i = 1; i <= number; i++) {
-      const account = await this.generateValidatorAccounts(i);
+      const account = await this.generateStashAndControllerAccounts(i, 'validator');
       accounts.push(account);
     }
 
@@ -106,18 +106,29 @@ class Accounts {
     return {srAccount, edAccount};
   }
 
-  private async generateValidatorAccounts(id) {
-    console.log(`Generating Validator accounts...`);
+  private async generateNominatorsAccounts() {
+    const accounts = [];
+    const number = +process.env.NOMINATOR_AMOUNT;
+    console.log(`Generating Nominator accounts of ${number}`);
+    for (let i = 1; i <= number; i++) {
+      const account = await this.generateStashAndControllerAccounts(i, 'nominator');
+      accounts.push(account);
+    }
+    return accounts;
+  }
+
+  private async generateStashAndControllerAccounts(id: number, name: string) {
+    console.log(`Generating stash and Controller accounts...`);
 
     const stashAccount = await this.generateSrAccount();
-    const stashFilename = `validator-${id}-stash`;
+    const stashFilename = `${name}-${id}-stash`;
     this.writeKeyToFile(stashFilename, JSON.stringify(stashAccount));
-    console.log(`Validator ${id} stash account has been written to the '${stashFilename}' file`);
+    console.log(`${name} ${id} stash account has been written to the '${stashFilename}' file`);
 
-    const controllerFilename = `validator-${id}-controller`;
+    const controllerFilename = `${name}-${id}-controller`;
     const controllerAccount = await this.generateSrAccount();
     this.writeKeyToFile(controllerFilename, JSON.stringify(controllerAccount));
-    console.log(`Validator ${id} controller account has been written to the '${controllerFilename}' file`);
+    console.log(`${name} ${id} controller account has been written to the '${controllerFilename}' file`);
 
     return {stashAccount, controllerAccount};
   }
@@ -160,27 +171,6 @@ class Accounts {
       this.writeKeyToFile(srFilename, JSON.stringify(srAccount));
       console.log(
         `Tech Comm ${i} sr account has been written to the ${srFilename}`
-      );
-    }
-  }
-
-  private async generateNominatorAccounts() {
-    console.log(`Generating Nominator Account...`);
-
-    const number = +process.env.NOMINATOR_AMOUNT;
-    for (let i = 1; i <= number; i++) {
-      const stashAccount = await this.generateSrAccount();
-      const stashAccountFilename = `nominator-${i}-stash`;
-      this.writeKeyToFile(stashAccountFilename, JSON.stringify(stashAccount));
-      console.log(
-        `Nominator ${i} stash account has been written to the ${stashAccountFilename}`
-      );
-
-      const controllerAccount = await this.generateSrAccount();
-      const controllerAccountFilename = `nominator-${i}-controller`;
-      this.writeKeyToFile(controllerAccountFilename, JSON.stringify(controllerAccount));
-      console.log(
-          `Nominator ${i} controller account has been written to the ${controllerAccountFilename}`
       );
     }
   }
