@@ -11,6 +11,7 @@ import CereSmartContract from "./cere-smart-contract";
 import DdcSubscribeEmulation from "./emulations/ddc-subscribe-emulation";
 import CereAppToUserEmulation from "./emulations/cere-app-to-user-emulation";
 import CereUserToAppEmulation from "./emulations/cere-user-to-app-emulation";
+import Batcher from "./emulations/batcher";
 
 class Emulations {
   constructor(
@@ -21,7 +22,7 @@ class Emulations {
 
   public async run(): Promise<void> {
     for (let emulationConfig of this.config.emulations.sequence) {
-      const emulation = this.emulationsFactory.create(emulationConfig, +this.config.emulations.batch_count);
+      const emulation = this.emulationsFactory.create(emulationConfig);
       try {
         console.log(`Starting an emulation '${emulationConfig.name}'...\n`);
         await emulation.run();
@@ -43,17 +44,18 @@ class EmulationsFactory {
     private readonly network: Network,
     private readonly account: Accounts,
     private readonly ddcContract: DdcSmartContract,
-    private readonly cereContract: CereSmartContract
+    private readonly cereContract: CereSmartContract,
+    private readonly batcher: Batcher
   ) {}
 
-  public create(config: { name: string }, batchCount: Number): IEmulation {
+  public create(config: { name: string }): IEmulation {
     switch (config.name) {
       case "native-tokens-transfer":
         return new NativeTokensTransferEmulation(
           config,
-          batchCount,
           this.network,
-          this.account
+          this.account,
+          this.batcher
         );
       case "existential-deposit-transfer":
         return new ExistentialDepositEmulation(config, this.network, this.account);
@@ -79,10 +81,11 @@ async function main() {
   const account = new Accounts(config);
   const ddcContract = new DdcSmartContract(config, network.api);
   const cereContract = new CereSmartContract(config, network.api);
+  const batcher = new Batcher(config.emulations.batch_count);
   const emulations = new Emulations(
     config,
     network,
-    new EmulationsFactory(network, account, ddcContract, cereContract)
+    new EmulationsFactory(network, account, ddcContract, cereContract, batcher),
   );
   await emulations.run();
 }

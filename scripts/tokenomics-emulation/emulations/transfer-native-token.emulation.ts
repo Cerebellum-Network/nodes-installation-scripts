@@ -7,20 +7,18 @@ import Batcher from "./batcher";
 class NativeTokensTransferEmulation implements IEmulation {
   constructor(
     private readonly config,
-    private readonly batchCount,
     private readonly network: Network,
-    private readonly account: Accounts
+    private readonly account: Accounts,
+    private readonly batcher: Batcher
   ) {}
 
   public async run(): Promise<void> {
-    const batcher = new Batcher();
     const sender = this.account.rootAccount;
     const total = +this.config.amount;
-    await batcher.batchProcessing(
+    await this.batcher.batchProcessing(
       sender,
       this.network,
       total,
-      this.batchCount,
       async () => {
         const sender = this.account.rootAccount;
         const destination = await this.account.generateSrAccount();

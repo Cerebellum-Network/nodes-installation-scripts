@@ -2,14 +2,14 @@ import { KeyringPair } from "@polkadot/keyring/types";
 import Network from "../network";
 
 class Batcher {
+  constructor(private readonly batchCount: number){}
   public async batchProcessing(
     sender: KeyringPair,
     network: Network,
     total: number,
-    batchCount: number,
     method: Function
   ) {
-    const range = total / batchCount;
+    const range = total / this.batchCount;
     let transactionCount = 1;
     for (let batch = 1; batch <= Math.ceil(range); batch++) {
       console.log(`Processing batch ${batch}`);
