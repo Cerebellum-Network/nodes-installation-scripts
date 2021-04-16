@@ -2,31 +2,38 @@ import { IEmulation } from "./emulation.interface";
 import Network from "../network";
 import Accounts from "../accounts";
 import _ from "lodash";
+import Batcher from "./batcher";
 
 class NativeTokensTransferEmulation implements IEmulation {
   constructor(
     private readonly config,
     private readonly network: Network,
-    private readonly account: Accounts
+    private readonly account: Accounts,
+    private readonly batcher: Batcher
   ) {}
 
   public async run(): Promise<void> {
-    for (let i = 1; i <= this.config.amount; i++) {
-      console.log(`Running ${i} native token transfer...\n`);
-      const destination = await this.account.generateSrAccount();
-      const transferAmount = _.random(
-        this.config.tokens_range[0],
-        this.config.tokens_range[1]
-      );
-      const sender = this.account.rootAccount;
-      const transfer = await this.network.transfer(
-        sender,
-        destination.ss58Address,
-        transferAmount.toString()
-      );
-      const balance = await this.network.getBalance(destination.ss58Address);
-      console.log(`Balance of ${destination.ss58Address} is ${balance}`);
-    }
+    console.log(`Running emulation for native token transfer`);
+    const sender = this.account.rootAccount;
+    const total = +this.config.amount;
+    await this.batcher.batchProcessing(
+      sender,
+      this.network,
+      total,
+      async () => {
+        const sender = this.account.rootAccount;
+        const destination = await this.account.generateSrAccount();
+        const transferAmount = _.random(
+          this.config.tokens_range[0],
+          this.config.tokens_range[1]
+        );
+        const transfer = await this.network.transfer(
+          sender,
+          destination.ss58Address,
+          transferAmount.toString()
+        );
+      }
+    );
   }
 }
 

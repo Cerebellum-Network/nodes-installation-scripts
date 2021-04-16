@@ -46,7 +46,7 @@ class Network {
     sender: KeyringPair,
     destination: string,
     value: string
-  ): Promise<string> {
+  ): Promise<any> {
     const amount = +value * 10 ** this.config.network.decimals;
     console.log(
       `About to transfer ${amount} native assets to ${destination} from ${sender.address}\n`
@@ -54,15 +54,7 @@ class Network {
     const { nonce } = await this.api.query.system.account(sender.address);
 
     const transfer = this.api.tx.balances.transfer(destination, amount);
-    return new Promise((res, rej) => {
-      transfer
-        .signAndSend(
-          sender,
-          { nonce: nonce },
-          Network.sendStatusCb.bind(this, res, rej)
-        )
-        .catch((err) => rej(err));
-    });
+    return transfer;
   }
 
   /**
@@ -94,20 +86,16 @@ class Network {
    * @param sender senders keyringpair
    * @param destination destination address
    * @param data data to be added
-   * @returns hash
+   * @returns Transaction
    */
   public async sendDDC(sender: KeyringPair, destination: string, data: string) {
     console.log(
       `About to send ddc transaction from ${sender.address} to ${destination} as ${data}\n`
     );
 
-    let txnObj = await this.api.tx.cereDdcModule.sendData(destination, data);
+    const txnObj = await this.api.tx.cereDdcModule.sendData(destination, data);
 
-    return new Promise((res, rej) => {
-      txnObj
-        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
-        .catch((err) => rej(err));
-    });
+    return txnObj;
   }
 
   /**
@@ -123,6 +111,36 @@ class Network {
       decimals: this.config.network.decimals,
     });
     return formatedBalance;
+  }
+
+  public async signAndSendTxn(txn: any, sender: KeyringPair) {
+    console.log(`Signing and sending transaction`);
+    const { nonce } = await this.api.query.system.account(sender.address);
+    return new Promise((res, rej) => {
+      txn
+        .signAndSend(
+          sender,
+          { nonce },
+          Network.sendStatusCb.bind(this, res, rej)
+        )
+        .catch((err) => rej(err));
+    });
+  }
+
+  public async signAndSendBathTxn(txs: any, sender: KeyringPair) {
+    console.log(`Sending batch transaction`);
+    const nonce = await this.api.rpc.system.accountNextIndex(sender.address);
+    console.log(`nonce: ${nonce}`);
+    return new Promise((res, rej) => {
+      this.api.tx.utility
+        .batch(txs)
+        .signAndSend(
+          sender,
+          { nonce },
+          Network.sendStatusCb.bind(this, res, rej)
+        )
+        .catch((err) => rej(err));
+    });
   }
 
   /**

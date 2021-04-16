@@ -19,7 +19,7 @@ class DdcSmartContract {
    * @param dataRep Data Rep
    * @param reqRec Request Rec
    * @param reqRep Request Rep
-   * @returns hash
+   * @returns Transaction
    */
   public async ddcReportMetrics(
     sender: KeyringPair,
@@ -40,19 +40,14 @@ class DdcSmartContract {
       reqRec,
       reqRep
     );
-
-    return new Promise((res, rej) => {
-      txnObj
-        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
-        .catch((err) => rej(err));
-    });
+    return txnObj;
   }
 
   /**
    * Subscribe to DDC
    * @param sender Sender
    * @param tierId Tier ID
-   * @returns 
+   * @returns Transaction
    */
   public async subscribe(sender: KeyringPair, tierId: string) {
     console.log(
@@ -64,12 +59,7 @@ class DdcSmartContract {
       { value, gasLimit },
       tierId
     );
-
-    return new Promise((res, rej) => {
-      txnObj
-        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
-        .catch((err) => rej(err));
-    });
+    return txnObj;
   }
 
 }

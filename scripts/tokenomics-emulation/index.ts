@@ -11,6 +11,7 @@ import CereSmartContract from "./cere-smart-contract";
 import DdcSubscribeEmulation from "./emulations/ddc-subscribe-emulation";
 import CereAppToUserEmulation from "./emulations/cere-app-to-user-emulation";
 import CereUserToAppEmulation from "./emulations/cere-user-to-app-emulation";
+import Batcher from "./emulations/batcher";
 
 class Emulations {
   constructor(
@@ -43,7 +44,8 @@ class EmulationsFactory {
     private readonly network: Network,
     private readonly account: Accounts,
     private readonly ddcContract: DdcSmartContract,
-    private readonly cereContract: CereSmartContract
+    private readonly cereContract: CereSmartContract,
+    private readonly batcher: Batcher
   ) {}
 
   public create(config: { name: string }): IEmulation {
@@ -52,20 +54,21 @@ class EmulationsFactory {
         return new NativeTokensTransferEmulation(
           config,
           this.network,
-          this.account
+          this.account,
+          this.batcher
         );
       case "existential-deposit-transfer":
-        return new ExistentialDepositEmulation(config, this.network, this.account);
+        return new ExistentialDepositEmulation(config, this.network, this.account, this.batcher);
       case "send-ddc-transaction":
-        return new SendDdcTxnEmulation(config, this.network, this.account);
+        return new SendDdcTxnEmulation(config, this.network, this.account, this.batcher);
       case "ddc-metrics-report":
-        return new DdcReportMetricsEmulation(config, this.account, this.ddcContract);
+        return new DdcReportMetricsEmulation(config, this.account, this.network, this.ddcContract, this.batcher);
       case "ddc-subscribe":
-        return new DdcSubscribeEmulation(config, this.account, this.ddcContract);
+        return new DdcSubscribeEmulation(config, this.account, this.network, this.ddcContract, this.batcher);
       case "cere-app-to-user":
-        return new CereAppToUserEmulation(config, this.account, this.cereContract);
+        return new CereAppToUserEmulation(config, this.account,this.network, this.cereContract, this.batcher);
       case "cere-user-to-app":
-        return new CereUserToAppEmulation(config, this.account, this.cereContract);
+        return new CereUserToAppEmulation(config, this.account,this.network, this.cereContract, this.batcher);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
@@ -78,10 +81,11 @@ async function main() {
   const account = new Accounts(config);
   const ddcContract = new DdcSmartContract(config, network.api);
   const cereContract = new CereSmartContract(config, network.api);
+  const batcher = new Batcher(config.emulations.batch_count);
   const emulations = new Emulations(
     config,
     network,
-    new EmulationsFactory(network, account, ddcContract, cereContract)
+    new EmulationsFactory(network, account, ddcContract, cereContract, batcher),
   );
   await emulations.run();
 }
