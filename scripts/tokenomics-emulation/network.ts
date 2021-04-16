@@ -121,10 +121,15 @@ class Network {
     console.log(`Sending batch transaction`);
     const nonce = await this.api.rpc.system.accountNextIndex(sender.address);
     console.log(`nonce: ${nonce}`);
-    this.api.tx.utility.batch(txs).signAndSend(sender,{nonce} , ({ status }) => {
-      if (status.isInBlock) {
-        console.log(`included in ${status.asInBlock}`);
-      }
+    return new Promise((res, rej) => {
+      this.api.tx.utility
+        .batch(txs)
+        .signAndSend(
+          sender,
+          { nonce },
+          Network.sendStatusCb.bind(this, res, rej)
+        )
+        .catch((err) => rej(err));
     });
   }
 
