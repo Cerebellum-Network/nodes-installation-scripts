@@ -29,6 +29,8 @@ class Emulations {
         console.log(`The emulation '${emulationConfig.name}' completed.\n`);
         const treasuryBalance = await this.network.treasuryBalance();
         console.log(`The treasury balance is ${treasuryBalance}`);
+        const era = await this.network.eraTime();
+        console.log(`Era Timing ${era}`);
       } catch (e) {
         console.log(
           `Some error occurred during emulation ${emulationConfig.name} run\n`
