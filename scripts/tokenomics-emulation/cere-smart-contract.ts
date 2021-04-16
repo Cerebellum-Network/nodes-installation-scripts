@@ -19,7 +19,7 @@ class CereSmartContract {
    * @param destination Destination account
    * @param amount Token value
    * @param txnFee Transaction fee
-   * @returns hash
+   * @returns Transaction
    */
   public async transfer(
     sender: KeyringPair,
@@ -41,11 +41,7 @@ class CereSmartContract {
       txnFee
     );
 
-    return new Promise((res, rej) => {
-      txnObj
-        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
-        .catch((err) => rej(err));
-    });
+    return txnObj;
   }
 
   /**

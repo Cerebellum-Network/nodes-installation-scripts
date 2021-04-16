@@ -86,20 +86,16 @@ class Network {
    * @param sender senders keyringpair
    * @param destination destination address
    * @param data data to be added
-   * @returns hash
+   * @returns Transaction
    */
   public async sendDDC(sender: KeyringPair, destination: string, data: string) {
     console.log(
       `About to send ddc transaction from ${sender.address} to ${destination} as ${data}\n`
     );
 
-    let txnObj = await this.api.tx.cereDdcModule.sendData(destination, data);
+    const txnObj = await this.api.tx.cereDdcModule.sendData(destination, data);
 
-    return new Promise((res, rej) => {
-      txnObj
-        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
-        .catch((err) => rej(err));
-    });
+    return txnObj;
   }
 
   /**

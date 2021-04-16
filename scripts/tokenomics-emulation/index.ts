@@ -58,17 +58,17 @@ class EmulationsFactory {
           this.batcher
         );
       case "existential-deposit-transfer":
-        return new ExistentialDepositEmulation(config, this.network, this.account);
+        return new ExistentialDepositEmulation(config, this.network, this.account, this.batcher);
       case "send-ddc-transaction":
-        return new SendDdcTxnEmulation(config, this.network, this.account);
+        return new SendDdcTxnEmulation(config, this.network, this.account, this.batcher);
       case "ddc-metrics-report":
-        return new DdcReportMetricsEmulation(config, this.account, this.ddcContract);
+        return new DdcReportMetricsEmulation(config, this.account, this.network, this.ddcContract, this.batcher);
       case "ddc-subscribe":
-        return new DdcSubscribeEmulation(config, this.account, this.ddcContract);
+        return new DdcSubscribeEmulation(config, this.account, this.network, this.ddcContract, this.batcher);
       case "cere-app-to-user":
-        return new CereAppToUserEmulation(config, this.account, this.cereContract);
+        return new CereAppToUserEmulation(config, this.account,this.network, this.cereContract, this.batcher);
       case "cere-user-to-app":
-        return new CereUserToAppEmulation(config, this.account, this.cereContract);
+        return new CereUserToAppEmulation(config, this.account,this.network, this.cereContract, this.batcher);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }

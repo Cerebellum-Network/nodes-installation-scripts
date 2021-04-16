@@ -13,6 +13,7 @@ class NativeTokensTransferEmulation implements IEmulation {
   ) {}
 
   public async run(): Promise<void> {
+    console.log(`Running emulation for native token transfer`);
     const sender = this.account.rootAccount;
     const total = +this.config.amount;
     await this.batcher.batchProcessing(
