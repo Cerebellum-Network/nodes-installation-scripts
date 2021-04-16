@@ -21,7 +21,7 @@ class Emulations {
 
   public async run(): Promise<void> {
     for (let emulationConfig of this.config.emulations.sequence) {
-      const emulation = this.emulationsFactory.create(emulationConfig, +this.config.batch_count);
+      const emulation = this.emulationsFactory.create(emulationConfig, +this.config.emulations.batch_count);
       try {
         console.log(`Starting an emulation '${emulationConfig.name}'...\n`);
         await emulation.run();

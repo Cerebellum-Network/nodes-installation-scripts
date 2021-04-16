@@ -31,14 +31,13 @@
     }
   ],
   "nodes_amount": 4,
-  "batch_count": 2,
   "emulations": {
+    "batch_count": 2,
     "sequence": [
       {
         "name": "native-tokens-transfer",
         "amount": 1,
-        "tokens_range": [1, 2],
-        "batch_count": 2
+        "tokens_range": [1, 2]
       },
       {
         "name": "existential-deposit-transfer",

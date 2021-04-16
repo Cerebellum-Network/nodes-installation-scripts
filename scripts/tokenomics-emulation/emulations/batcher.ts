@@ -15,8 +15,8 @@ class Batcher {
       console.log(`Processing batch ${batch}`);
       let transactions = [];
       for (let i = 1; i <= range; i++) {
-        console.log(`Processing transaction ${i}`);
         if (transactionCount <= total) {
+          console.log(`Processing transaction ${i}`);
           const txn = await method();
           transactions.push(txn);
           transactionCount = transactionCount + 1;
