@@ -21,7 +21,7 @@ class Emulations {
 
   public async run(): Promise<void> {
     for (let emulationConfig of this.config.emulations.sequence) {
-      const emulation = this.emulationsFactory.create(emulationConfig);
+      const emulation = this.emulationsFactory.create(emulationConfig, +this.config.batch_count);
       try {
         console.log(`Starting an emulation '${emulationConfig.name}'...\n`);
         await emulation.run();
@@ -46,11 +46,12 @@ class EmulationsFactory {
     private readonly cereContract: CereSmartContract
   ) {}
 
-  public create(config: { name: string }): IEmulation {
+  public create(config: { name: string }, batchCount: Number): IEmulation {
     switch (config.name) {
       case "native-tokens-transfer":
         return new NativeTokensTransferEmulation(
           config,
+          batchCount,
           this.network,
           this.account
         );

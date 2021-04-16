@@ -117,6 +117,20 @@ class Network {
     return formatedBalance;
   }
 
+  public async signAndSendTxn(txn: any, sender: KeyringPair) {
+    console.log(`Signing and sending transaction`);
+    const { nonce } = await this.api.query.system.account(sender.address);
+    return new Promise((res, rej) => {
+      txn
+        .signAndSend(
+          sender,
+          { nonce },
+          Network.sendStatusCb.bind(this, res, rej)
+        )
+        .catch((err) => rej(err));
+    });
+  }
+
   public async signAndSendBathTxn(txs: any, sender: KeyringPair) {
     console.log(`Sending batch transaction`);
     const nonce = await this.api.rpc.system.accountNextIndex(sender.address);
