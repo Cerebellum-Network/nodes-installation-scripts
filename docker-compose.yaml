@@ -54,7 +54,7 @@ services:
     volumes:
       - ./spec-data:/cereio/spec-data
       - ./chain-data:/data
-    command: bash -c "/usr/local/bin/cere --prometheus-external --prometheus-port 9615 -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --validator --ws-port 9944 --rpc-methods=Unsafe --ws-external --unsafe-ws-external --rpc-cors all --rpc-external"
+    command: bash -c "/usr/local/bin/cere --prometheus-external --prometheus-port 9615 -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --validator --ws-port 9944 --rpc-methods=Unsafe --ws-external --unsafe-ws-external --rpc-cors localhost --rpc-external"
   add_validation_node_custom:
     container_name: add_validation_node_custom
     image: cerebellumnetwork/pos-node:2.1.0-rc1
@@ -71,7 +71,7 @@ services:
     volumes:
       - ./spec-data:/cereio/spec-data
       - ./chain-data:/data
-    command: bash -c "/usr/local/bin/cere --prometheus-external --prometheus-port 9615 -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --validator --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} --ws-port 9944 --rpc-methods=Unsafe --ws-external  --unsafe-ws-external --rpc-cors all --rpc-external"
+    command: bash -c "/usr/local/bin/cere --prometheus-external --prometheus-port 9615 -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --validator --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} --ws-port 9944 --rpc-methods=Unsafe --ws-external  --unsafe-ws-external --rpc-cors localhost --rpc-external"
   add_validator:
     container_name: add_validator
     image: add_validator_script
