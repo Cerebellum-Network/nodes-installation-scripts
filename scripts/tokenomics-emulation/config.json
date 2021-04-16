@@ -1,25 +1,25 @@
 {
   "network": {
     "url": "wss://testnet-node-2.dev1.cere.network:9945",
-    "decimals": 10,
+    "decimals": 15,
     "ddc_sc_address": "5GtmW4WxiWwx1kEwauA2qBpUFKNCpXuURNFwQHusbMBxNHKW",
     "cere_sc_address": "5CZTo5WvYhV2UCjpaof5N5Eu3ZreeovJVxx2MFPrH5zEA8uB",
     "gas_limit": -1,
     "smart_contract_cere_token_amount_default": 0,
     "nodes_amount": 4,
-    "total_supply": 10000000000,
+    "total_supply": 1000000,
     "genesis_validators_amount": 2,
-    "genesis_validators_stake": 10000,
+    "genesis_validators_stake": 1,
     "genesis_councils_amount": 2,
-    "genesis_councils_stake": 200000,
+    "genesis_councils_stake": 20,
     "validators":{
       "amount": 5,
-      "stash_stake": 400000010,
+      "stash_stake": 40010,
       "controller_stake": 10
     },
     "nominators":{
       "amount": 5,
-      "stash_stake": 700000010,
+      "stash_stake": 70010,
       "controller_stake": 10
     }
   },
