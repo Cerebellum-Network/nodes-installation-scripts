@@ -23,7 +23,7 @@ class CereUserToAppEmulation implements IEmulation {
       total,
       async () => {
         const destination = await this.account.generateSrAccount();
-        const tokenValue = await this.config.token_value;
+        const tokenValue = this.config.token_value;
         const txnFee = await this.cereContract.estimateTxnFee(
           sender,
           destination.ss58Address,
