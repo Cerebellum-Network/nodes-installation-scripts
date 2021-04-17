@@ -1,4 +1,5 @@
 chain-data/*
+chain-data-1/*
 !chain-data/.gitkeep
 scripts/keys
 !scripts/keys/.gitkeep
