@@ -3,7 +3,7 @@
     "url": "wss://testnet-node-2.dev1.cere.network:9945",
     "decimals": 10,
     "ddc_sc_address": "5Fg8ZMrnUxJjtiergxHQLrvgx2Mpw3DZB7T6yW6GafA1Z53R",
-    "cere_sc_address": "5CZTo5WvYhV2UCjpaof5N5Eu3ZreeovJVxx2MFPrH5zEA8uB",
+    "cere_sc_address": "5GbyYXWubi6xWC1HHsSbnbyqwc4S5B4aYJVoHE8tgRwwEm2E",
     "gas_limit": -1,
     "smart_contract_cere_token_amount_default": 0,
     "nodes_amount": 4,
