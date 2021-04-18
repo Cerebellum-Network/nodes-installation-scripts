@@ -7,3 +7,4 @@ scripts/validator/node_modules
 scripts/generate-accounts/node_modules
 scripts/tokenomics-emulation/node_modules
 .idea
+accounts
