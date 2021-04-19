@@ -144,20 +144,29 @@ class Network {
   }
 
   /**
-   * Calculate the remaining ERA time. 
-   * @returns Era Start time
+   *  Era Wait Time
+   * @returns Boolean after new era started
    */
-  public async eraTime() {
-    console.log(`Calculating remaining ERA time`);
-    let era = await this.api.query.staking.currentEra();
-    let currentEra = +JSON.stringify(era);
+  public async eraWaitTime() {
+    console.log(`Fetch the current ERA index.`);
+    let era = await this.currentEra();
+    let currentEra = era;
     console.log(`Current Era ${currentEra}`);
-    while (+currentEra !== (+currentEra + 1)) {
-      console.log('Pooling ERA')
-      currentEra = +JSON.stringify(await this.api.query.staking.currentEra());
+    while (+currentEra !== +currentEra + 1) {
+      console.log("Pooling ERA");
+      currentEra = await this.currentEra();
     }
     console.log(`Current Era updates as ${currentEra}`);
     return true;
+  }
+
+  /**
+   * Fetch current era index
+   * @returns current era index
+   */
+  private async currentEra() {
+    const currentEra = await this.api.query.staking.currentEra();
+    return JSON.stringify(currentEra);
   }
 
   /**
