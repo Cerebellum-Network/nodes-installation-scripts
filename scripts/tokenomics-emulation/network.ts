@@ -4,7 +4,6 @@ import { KeyringPair } from "@polkadot/keyring/types";
 import { ApiPromise } from "@polkadot/api";
 import { WsProvider } from "@polkadot/api";
 import { formatBalance, stringToU8a } from "@polkadot/util";
-import dayjs from 'dayjs';
 
 class Network {
   public api: ApiPromise;
