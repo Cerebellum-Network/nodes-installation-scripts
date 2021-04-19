@@ -35,7 +35,7 @@ class Emulations {
         );
         console.error(e);
       }
-    } 
+    }
   }
 }
 
@@ -85,7 +85,7 @@ async function main() {
   const emulations = new Emulations(
     config,
     network,
-    new EmulationsFactory(network, account, ddcContract, cereContract, batcher)
+    new EmulationsFactory(network, account, ddcContract, cereContract, batcher),
   );
   await emulations.run();
   const era = await network.eraTime();
