@@ -24,10 +24,10 @@ class Batcher {
           break;
         }
       }
-      const sendTransaction = await network.signAndSendBathTxn(
-        transactions,
-        sender
-      );
+      // const sendTransaction = await network.signAndSendBathTxn(
+      //   transactions,
+      //   sender
+      // );
     }
   }
 }

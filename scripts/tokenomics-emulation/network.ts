@@ -158,7 +158,8 @@ class Network {
     const currentTime = dayjs(new Date);
     const diff = currentTime.diff(start, "minutes");
     const eraTime = +this.config.network.era_time;
-    return eraTime - diff;
+    return 1;
+    // return eraTime - diff;
   }
 
   /**
