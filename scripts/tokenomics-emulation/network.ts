@@ -150,16 +150,15 @@ class Network {
    */
   public async eraTime() {
     console.log(`Calculating remaining ERA time`);
-    const era = await this.api.query.staking.activeEra();
-    const pr = JSON.stringify(era)
-    const sr = JSON.parse(pr);
-    const startTime = sr.start;
-    const start = dayjs(startTime).format();
-    const currentTime = dayjs(new Date);
-    const diff = currentTime.diff(start, "minutes");
-    const eraTime = +this.config.network.era_time;
-    return 1;
-    // return eraTime - diff;
+    let era = await this.api.query.staking.currentEra();
+    let currentEra = +JSON.stringify(era);
+    console.log(`Current Era ${currentEra}`);
+    while (+currentEra !== (+currentEra + 1)) {
+      console.log('Pooling ERA')
+      currentEra = +JSON.stringify(await this.api.query.staking.currentEra());
+    }
+    console.log(`Current Era updates as ${currentEra}`);
+    return true;
   }
 
   /**

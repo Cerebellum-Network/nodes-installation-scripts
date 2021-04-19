@@ -26,25 +26,9 @@ class Emulations {
       try {
         console.log(`Starting an emulation '${emulationConfig.name}'...\n`);
         await emulation.run();
-        // const delay = ms => {
-        //   console.log(ms);
-        //   new Promise(res => setTimeout(res, ms))
-        // };
-        const era = await this.network.eraTime();
-        const minutesToMilliSeconds = era * 60000;
-        console.log(minutesToMilliSeconds);
-        setTimeout(async () => {
-          const treasuryBalance = await this.network.treasuryBalance();
-          console.log(`The treasury balance is ${treasuryBalance}`);
-          console.log('Unsubscribed');
-        }, 20000);
-        // await setTimeout(async () => {
-        //   const treasuryBalance = await this.network.treasuryBalance();
-        // console.log(`The treasury balance is ${treasuryBalance}`);
-        // }, minutesToMilliSeconds);
-        // console.log(`The emulation '${emulationConfig.name}' completed.\n`);
-        // const treasuryBalance = await this.network.treasuryBalance();
-        // console.log(`The treasury balance is ${treasuryBalance}`);
+        console.log(`The emulation '${emulationConfig.name}' completed.\n`);
+        const treasuryBalance = await this.network.treasuryBalance();
+        console.log(`The treasury balance is ${treasuryBalance}`);
       } catch (e) {
         console.log(
           `Some error occurred during emulation ${emulationConfig.name} run\n`
@@ -106,12 +90,7 @@ async function main() {
     new EmulationsFactory(network, account, ddcContract, cereContract, batcher),
   );
   await emulations.run();
-  console.log('ear stop');
-  setTimeout(async function(){
-    const treasuryBalance = await network.treasuryBalance();
-    console.log(`The treasury balance is ${treasuryBalance}`);
-    console.log('Unsubscribed');
-  }, 2000);
+  const era = await network.eraTime();
   }
 
 main()
