@@ -18,7 +18,7 @@ class Emulations {
     private readonly config: any,
     private readonly network: Network,
     private readonly emulationsFactory: EmulationsFactory
-  ) { }
+  ) {}
 
   public async run(): Promise<void> {
     for (let emulationConfig of this.config.emulations.sequence) {
@@ -35,9 +35,7 @@ class Emulations {
         );
         console.error(e);
       }
-    }
-
-    
+    } 
   }
 }
 
@@ -87,11 +85,11 @@ async function main() {
   const emulations = new Emulations(
     config,
     network,
-    new EmulationsFactory(network, account, ddcContract, cereContract, batcher),
+    new EmulationsFactory(network, account, ddcContract, cereContract, batcher)
   );
   await emulations.run();
   const era = await network.eraTime();
-  }
+}
 
 main()
   .catch(console.error)

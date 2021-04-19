@@ -24,8 +24,7 @@
       "amount": 3,
       "stash_stake": 10,
       "controller_stake": 10
-    },
-    "era_time" : 60
+    }
   },
   "accounts": [
     {
