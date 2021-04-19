@@ -144,6 +144,32 @@ class Network {
   }
 
   /**
+   * Wait for a new ERA
+   * @returns Boolean after new era started
+   */
+  public async waitForANewEra() {
+    console.log(`Fetch the current ERA index.`);
+    let era = await this.currentEra();
+    let currentEra = era;
+    console.log(`Current Era ${currentEra}`);
+    while (+currentEra !== +currentEra + 1) {
+      console.log("Pooling ERA");
+      currentEra = await this.currentEra();
+    }
+    console.log(`Current Era updates as ${currentEra}`);
+    return true;
+  }
+
+  /**
+   * Fetch current era index
+   * @returns current era index
+   */
+  private async currentEra() {
+    const currentEra = await this.api.query.staking.currentEra();
+    return JSON.stringify(currentEra);
+  }
+
+  /**
    * Check for send status call back function
    * @param res Promise response object
    * @param rej Promise reject object

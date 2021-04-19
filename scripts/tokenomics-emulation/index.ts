@@ -88,6 +88,7 @@ async function main() {
     new EmulationsFactory(network, account, ddcContract, cereContract, batcher),
   );
   await emulations.run();
+  const era = await network.waitForANewEra();
 }
 
 main()
