@@ -144,10 +144,10 @@ class Network {
   }
 
   /**
-   *  Era Wait Time
+   * Wait for a new ERA
    * @returns Boolean after new era started
    */
-  public async eraWaitTime() {
+  public async waitForANewEra() {
     console.log(`Fetch the current ERA index.`);
     let era = await this.currentEra();
     let currentEra = era;
