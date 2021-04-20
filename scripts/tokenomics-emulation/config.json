@@ -2,11 +2,11 @@
   "network": {
     "hosts": [
       {
-        "name": "generic-validator-1",
+        "name": "genesis-validator-1",
         "ip": ""
       },
       {
-        "name": "generic-validator-2",
+        "name": "genesis-validator-2",
         "ip": ""
       },
       {
