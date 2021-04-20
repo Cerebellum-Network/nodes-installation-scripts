@@ -4,7 +4,7 @@ import Accounts from "../accounts";
 import Validator from "../validator";
 import fs from "fs";
 
-class ValidatorsEmulation implements IEmulation {
+class AddValidatorsEmulation implements IEmulation {
   constructor(
     private readonly account: Accounts,
     private readonly networkConfig: any
@@ -41,4 +41,4 @@ class ValidatorsEmulation implements IEmulation {
   }
 }
 
-export default ValidatorsEmulation;
+export default AddValidatorsEmulation;

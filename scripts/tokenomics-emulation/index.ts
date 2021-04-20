@@ -12,8 +12,8 @@ import DdcSubscribeEmulation from "./emulations/ddc-subscribe-emulation";
 import CereAppToUserEmulation from "./emulations/cere-app-to-user-emulation";
 import CereUserToAppEmulation from "./emulations/cere-user-to-app-emulation";
 import Batcher from "./emulations/batcher";
-import ValidatorsEmulation from "./emulations/validators.emulation";
 import WaitForNewEraEmulation from "./emulations/wait-for-new-era-emulation";
+import AddValidatorsEmulation from "./emulations/add-validators.emulation";
 
 class Emulations {
   constructor(
@@ -73,7 +73,7 @@ class EmulationsFactory {
       case "cere-user-to-app":
         return new CereUserToAppEmulation(config, this.account, this.network, this.cereContract, this.batcher);
       case "add-validator":
-        return new ValidatorsEmulation(this.account, this.networkConfig );
+        return new AddValidatorsEmulation(this.account, this.networkConfig );
       case "wait-for-new-era":
         return new WaitForNewEraEmulation(this.network);
       default:
