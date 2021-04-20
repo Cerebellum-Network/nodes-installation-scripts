@@ -20,6 +20,7 @@ class ValidatorsEmulation implements IEmulation {
       await network.setup();
       const validator = new Validator(this.config, network, this.account);
       console.log(`Adding validators to network .. ${i}\n`);
+      await validator.start(this.config.network.sync_wait_time);
       const stashAccountFile = fs.readFileSync(`../generate-accounts/accounts/all/validator-${i}-stash`);
       const controllerAccountFile = fs.readFileSync(`../generate-accounts/accounts/all/validator-${i}-controller`);
       const stashAccountMnemonic = JSON.parse(stashAccountFile.toString()).mnemonic;

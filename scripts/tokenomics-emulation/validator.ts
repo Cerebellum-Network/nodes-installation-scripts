@@ -15,16 +15,43 @@ class Validator {
   ) { }
 
   /**
+   * wait till node sync
+   * @param waitSeconds wait seconds
+   */
+  public async start(waitSeconds: string) {
+    console.log("Check if syncing...");
+    await this.callWithRetry(
+      this.isSyncing.bind(this),
+      {
+        maxDepth: 100,
+      },
+      0,
+      waitSeconds
+    );
+    console.log("Sync is complete!");
+  }
+
+  /**
    * Load stash and controller accounts.
    */
   public async loadAccounts(stashMnemonic: string, controllerMnemonic: string) {
     console.log(`Loading your stash and controller accounts\n`);
     this.stashAccount = await this.accounts.loadAccount(stashMnemonic);
-    this.controllerAccount = await this.accounts.loadAccount(controllerMnemonic);
-    this.stashBalance = await this.network.getBalance(this.stashAccount.address);
-    this.controllerBalance = await this.network.getBalance(this.controllerAccount.address);
-    console.log(`Stash Account is ${this.stashAccount.address} and balance is ${this.stashBalance}`);
-    console.log(`Controller Account is ${this.controllerAccount.address} and balance is ${this.controllerBalance}\n`);
+    this.controllerAccount = await this.accounts.loadAccount(
+      controllerMnemonic
+    );
+    this.stashBalance = await this.network.getBalance(
+      this.stashAccount.address
+    );
+    this.controllerBalance = await this.network.getBalance(
+      this.controllerAccount.address
+    );
+    console.log(
+      `Stash Account is ${this.stashAccount.address} and balance is ${this.stashBalance}`
+    );
+    console.log(
+      `Controller Account is ${this.controllerAccount.address} and balance is ${this.controllerBalance}\n`
+    );
   }
 
   /**
@@ -56,7 +83,10 @@ class Validator {
 
     return new Promise((res, rej) => {
       transaction
-        .signAndSend(this.stashAccount, Network.sendStatusCb.bind(this, res, rej))
+        .signAndSend(
+          this.stashAccount,
+          Network.sendStatusCb.bind(this, res, rej)
+        )
         .catch((err) => rej(err));
     });
   }
@@ -69,7 +99,10 @@ class Validator {
 
     return new Promise((res, rej) => {
       transaction
-        .signAndSend(this.stashAccount, Network.sendStatusCb.bind(this, res, rej))
+        .signAndSend(
+          this.stashAccount,
+          Network.sendStatusCb.bind(this, res, rej)
+        )
         .catch((err) => rej(err));
     });
   }
@@ -117,6 +150,52 @@ class Validator {
         )
         .catch((err) => rej(err));
     });
+  }
+
+  /**
+   * Check if node is syning or synced.
+   */
+  private async isSyncing() {
+    const response = await this.network.api.rpc.system.health();
+    if (response.isSyncing.valueOf()) {
+      throw new Error("Node is syncing");
+    }
+  }
+
+  /**
+   * Function to be looped
+   * @param fn function which needs to be looped
+   * @param options
+   * @param depth
+   * @returns
+   */
+  private async callWithRetry(
+    fn,
+    options = { maxDepth: 5 },
+    depth = 0,
+    waitSeconds: string
+  ) {
+    try {
+      return await fn();
+    } catch (e) {
+      if (depth > options.maxDepth) {
+        throw e;
+      }
+      const seconds = parseInt(waitSeconds, 10);
+      console.log(`Wait ${seconds}s.`);
+      await this.sleep(15 * 1000);
+
+      return this.callWithRetry(fn, options, depth + 1, waitSeconds);
+    }
+  }
+
+  /**
+   * Sleep
+   * @param ms Time in milli second
+   * @returns promise
+   */
+  private async sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
 
