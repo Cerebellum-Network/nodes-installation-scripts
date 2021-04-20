@@ -9,9 +9,9 @@ class Validator {
   private controllerBalance: string;
 
   constructor(
-    private readonly config: any,
     private readonly network: Network,
-    private readonly accounts: Accounts
+    private readonly accounts: Accounts,
+    private readonly decimals: number
   ) { }
 
   /**
@@ -58,7 +58,7 @@ class Validator {
    * Generate session key
    */
   public async generateSessionKey() {
-    console.log(`\nGenerating Session Key`);
+    console.log(`Generating Session Key\n`);
     this.sessionKey = await this.network.api.rpc.author.rotateKeys();
     console.log(`Session Key: ${this.sessionKey}`);
   }
@@ -69,8 +69,9 @@ class Validator {
    * @param payee The rewards destination account
    */
   public addValidator(bondValue: number) {
-    console.log(`\nAdding validator`);
+    console.log(`Adding validator\n`);
     console.log(`Bond value is ${bondValue}`);
+    const value = bondValue * 10 ** this.decimals;
     if (+this.stashBalance <= Number(bondValue)) {
       throw new Error("Bond value needs to be lesser than balance.");
     }
@@ -92,7 +93,7 @@ class Validator {
   }
 
   public async setController() {
-    console.log(`\n Setting controller account`);
+    console.log(`Setting controller account\n`);
     const transaction = this.network.api.tx.staking.setController(
       this.controllerAccount.address
     );
@@ -112,7 +113,7 @@ class Validator {
    * @param sessionKey session key
    */
   public async setSessionKey() {
-    console.log(`\nSetting session key`);
+    console.log(`Setting session key\n`);
     const EMPTY_PROOF = new Uint8Array();
     const transaction = this.network.api.tx.session.setKeys(
       this.sessionKey,
@@ -134,7 +135,7 @@ class Validator {
    * @param REWARD_COMMISSION rewards commission
    */
   public async setCommission(commissionValue: number) {
-    console.log(`\nSetting reward commission`);
+    console.log(`Setting reward commission\n`);
     // https://github.com/polkadot-js/apps/blob/23dad13c9e67de651e5551e4ce7cba3d63d8bb47/packages/page-staking/src/Actions/partials/Validate.tsx#L53
     const COMM_MUL = 10000000;
     const commission = commissionValue * COMM_MUL;

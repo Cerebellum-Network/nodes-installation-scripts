@@ -13,6 +13,7 @@ import CereAppToUserEmulation from "./emulations/cere-app-to-user-emulation";
 import CereUserToAppEmulation from "./emulations/cere-user-to-app-emulation";
 import Batcher from "./emulations/batcher";
 import ValidatorsEmulation from "./emulations/validators.emulation";
+import WaitForNewEraEmulation from "./emulations/wait-for-new-era-emulation";
 
 class Emulations {
   constructor(
@@ -46,7 +47,8 @@ class EmulationsFactory {
     private readonly account: Accounts,
     private readonly ddcContract: DdcSmartContract,
     private readonly cereContract: CereSmartContract,
-    private readonly batcher: Batcher
+    private readonly batcher: Batcher,
+    private readonly networkConfig: any
   ) {}
 
   public create(config: { name: string }): IEmulation {
@@ -69,7 +71,11 @@ class EmulationsFactory {
       case "cere-app-to-user":
         return new CereAppToUserEmulation(config, this.account,this.network, this.cereContract, this.batcher);
       case "cere-user-to-app":
-        return new CereUserToAppEmulation(config, this.account,this.network, this.cereContract, this.batcher);
+        return new CereUserToAppEmulation(config, this.account, this.network, this.cereContract, this.batcher);
+      case "add-validator":
+        return new ValidatorsEmulation(this.account, this.networkConfig );
+      case "wait-for-new-era":
+        return new WaitForNewEraEmulation(this.network);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
@@ -86,12 +92,9 @@ async function main() {
   const emulations = new Emulations(
     config,
     network,
-    new EmulationsFactory(network, account, ddcContract, cereContract, batcher),
+    new EmulationsFactory(network, account, ddcContract, cereContract, batcher, config.network),
   );
   await emulations.run();
-  const validator = new ValidatorsEmulation(config, account);
-  await validator.run();
-  const era = await network.waitForANewEra();
 }
 
 main()
