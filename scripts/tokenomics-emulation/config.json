@@ -1,5 +1,15 @@
 {
   "network": {
+    "hosts": [
+      {
+        "name": "validator-1",
+        "ip": ""
+      },
+      {
+        "name": "validator-2",
+        "ip": ""
+      }
+    ],
     "url": "wss://rpc.testnet.cere.network:9945",
     "decimals": 10,
     "ddc_sc_address": "5FE4RyFK5NuK5GSkebp23fgJNGCg1imCsYTGjLQBQPybJQEU",
@@ -15,7 +25,8 @@
     "validators":{
       "amount": 3,
       "stash_stake": 10000,
-      "controller_stake": 10000
+      "controller_stake": 10000,
+      "commission": 10000
     },
     "nominators":{
       "amount": 3,

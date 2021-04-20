@@ -27,26 +27,37 @@ class Accounts {
     });
   }
 
-    /**
+  /**
    * Generate account in SR type.
    * @returns Mnemonic, public Key, account id, SS58Address
    */
-     public async generateSrAccount() {
-      const keyring = new Keyring({ type: "sr25519" });
-      const mnemonic = mnemonicGenerate(12);
-      const pair = keyring.addFromUri(mnemonic, {});
-  
-      return this.extractKeys(mnemonic, pair);
-    }
-  
-    private extractKeys(mnemonic: string, pair: KeyringPair) {
-      return {
-        mnemonic,
-        publicKey: u8aToHex(pair.publicKey),
-        accountId: u8aToHex(pair.publicKey),
-        ss58Address: pair.address,
-      };
-    }
+  public async generateSrAccount() {
+    const keyring = new Keyring({ type: "sr25519" });
+    const mnemonic = mnemonicGenerate(12);
+    const pair = keyring.addFromUri(mnemonic, {});
+
+    return this.extractKeys(mnemonic, pair);
+  }
+
+  /**
+   * Load Account
+   * @param mnemonic string
+   * @returns account keyringpair
+   */
+  public async loadAccount(mnemonic: string) {
+    const keyring = new Keyring({ type: "sr25519" });
+    const account: KeyringPair = await keyring.addFromMnemonic(mnemonic);
+    return account;
+  }
+
+  private extractKeys(mnemonic: string, pair: KeyringPair) {
+    return {
+      mnemonic,
+      publicKey: u8aToHex(pair.publicKey),
+      accountId: u8aToHex(pair.publicKey),
+      ss58Address: pair.address,
+    };
+  }
 }
 
 export default Accounts;

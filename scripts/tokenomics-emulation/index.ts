@@ -12,6 +12,7 @@ import DdcSubscribeEmulation from "./emulations/ddc-subscribe-emulation";
 import CereAppToUserEmulation from "./emulations/cere-app-to-user-emulation";
 import CereUserToAppEmulation from "./emulations/cere-user-to-app-emulation";
 import Batcher from "./emulations/batcher";
+import ValidatorsEmulation from "./emulations/validators.emulation";
 
 class Emulations {
   constructor(
@@ -76,7 +77,7 @@ class EmulationsFactory {
 }
 
 async function main() {
-  const network = new Network(config);
+  const network = new Network(config.network.url, config.network.decimals);
   await network.setup();
   const account = new Accounts(config);
   const ddcContract = new DdcSmartContract(config, network.api);
@@ -88,6 +89,8 @@ async function main() {
     new EmulationsFactory(network, account, ddcContract, cereContract, batcher),
   );
   await emulations.run();
+  const validator = new ValidatorsEmulation(config, account);
+  await validator.run();
   const era = await network.waitForANewEra();
 }
 
