@@ -81,6 +81,21 @@ class Network {
     return value;
   }
 
+
+  /**
+   * Fetch native token balance
+   * @param address account addess
+   * @returns raw balance
+   */
+  public async getRawBalance(address: string) {
+    console.log(`About to get balance for: ${address}`);
+    const {
+      data: { free: balance },
+    } = await this.api.query.system.account(address);
+    const formatedBalance = (+balance / 10 ** this.decimals).toFixed(10);
+    return formatedBalance;
+  }
+
   /**
    * send ddc transaction
    * @param sender senders keyringpair
