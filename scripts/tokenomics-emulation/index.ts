@@ -14,6 +14,7 @@ import CereUserToAppEmulation from "./emulations/cere-user-to-app-emulation";
 import Batcher from "./emulations/batcher";
 import WaitForNewEraEmulation from "./emulations/wait-for-new-era-emulation";
 import AddValidatorsEmulation from "./emulations/add-validators.emulation";
+import AddNominatorsEmulation from "./emulations/add-nominator.emulation";
 
 class Emulations {
   constructor(
@@ -76,6 +77,8 @@ class EmulationsFactory {
         return new AddValidatorsEmulation(this.account, this.networkConfig );
       case "wait-for-new-era":
         return new WaitForNewEraEmulation(this.network);
+      case "add-nominator":
+        return new AddNominatorsEmulation(this.account, this.networkConfig);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
