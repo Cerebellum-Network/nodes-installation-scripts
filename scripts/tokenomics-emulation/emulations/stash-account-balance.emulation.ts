@@ -40,7 +40,7 @@ class StashAccountBalanceEmulation implements IEmulation {
     const stashAccount = JSON.parse(
       fs.readFileSync(`../generate-accounts/accounts/all/${name}`, "utf-8")
     );
-    const balance = await this.network.getRawBalance(stashAccount.ss58Address, this.networkConfig.format_balance_decimals);
+    const balance = await this.network.getRawBalance(stashAccount.ss58Address);
     console.log(`The balance of ${stashAccount.ss58Address} is ${balance}\n`);
   }
 }
