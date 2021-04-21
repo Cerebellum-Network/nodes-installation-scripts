@@ -16,7 +16,7 @@ class AddNominatorsEmulation implements IEmulation {
     await network.setup();
     const nominator = new Nominator(network, this.account, this.networkConfig.decimals);
     const validatorsCount = this.networkConfig.validators.amount;
-    const validators = await nominator.fetchValidators(validatorsCount);
+    const validators = await network.fetchValidators(validatorsCount);
     const nominatorsCount = this.networkConfig.nominators.amount;
     let validatorTurn: number = 0;
 

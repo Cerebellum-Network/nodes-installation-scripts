@@ -69,10 +69,10 @@
         "name": "add-validator"
       },
       {
-        "name": "wait-for-new-era"
+        "name": "add-nominator"
       },
       {
-        "name": "add-nominator"
+        "name": "wait-for-new-era"
       },
       {
         "name": "native-tokens-transfer",

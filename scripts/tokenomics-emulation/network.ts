@@ -4,6 +4,7 @@ import { KeyringPair } from "@polkadot/keyring/types";
 import { ApiPromise } from "@polkadot/api";
 import { WsProvider } from "@polkadot/api";
 import { formatBalance, stringToU8a } from "@polkadot/util";
+import fs from "fs";
 
 class Network {
   public api: ApiPromise;
@@ -160,6 +161,24 @@ class Network {
     return true;
   }
 
+    /**
+   * Fetch current active validators.
+   * @returns validators list
+   */
+     public async fetchValidators(validatorsCount: number) {
+      console.log(`Fetch validators`);
+      let validators = [];
+      for (let validator = 1; validator <= validatorsCount; validator++) {
+        const stashAccountFile = fs.readFileSync(
+          `../generate-accounts/accounts/all/validator-${validator}-stash`
+        );
+        const stashAccountAddress = JSON.parse(stashAccountFile.toString())
+          .ss58Address;
+        validators.push(stashAccountAddress);
+      }
+      return validators;
+     }
+  
   /**
    * Fetch current era index
    * @returns current era index
