@@ -11,7 +11,7 @@ class AddNominatorsEmulation implements IEmulation {
   ) {}
 
   public async run(): Promise<void> {
-    const wsProvider = `wss://rpc.testnet.cere.network:9945`;
+    const wsProvider = this.networkConfig.url;
     const network = new Network(wsProvider, this.networkConfig.decimals);
     await network.setup();
     const nominator = new Nominator(network, this.account, 10);
