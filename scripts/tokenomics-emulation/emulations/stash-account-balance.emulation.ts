@@ -14,53 +14,34 @@ class StashAccountBalanceEmulation implements IEmulation {
     const nominatorsCount = this.networkConfig.nominators.amount;
     const genesisValidatorsCount = this.networkConfig.genesis_validators_amount;
 
-    console.log(`About to fetch balance of Genesis Validators stash account - ${genesisValidatorsCount}\n`);
+    console.log(
+      `About to fetch balance of Genesis Validators stash account - ${genesisValidatorsCount}\n`
+    );
     for (let i = 1; i <= genesisValidatorsCount; i++) {
-      const validatorStashAccount = JSON.parse(
-        fs.readFileSync(
-          `../generate-accounts/accounts/all/validator-${i}-stash-sr`,
-          "utf-8"
-        )
-      );
-      const balance = await this.network.getRawBalance(
-        validatorStashAccount.ss58Address
-      );
-      console.log(
-        `The balance of ${validatorStashAccount.ss58Address} is ${balance}\n`
-      );
+      await this.processAccount(`validator-${i}-stash-sr`);
     }
 
-    console.log(`About to fetch balance of Generic Validators stash account - ${genericValidatorsCount}\n`);
+    console.log(
+      `About to fetch balance of Generic Validators stash account - ${genericValidatorsCount}\n`
+    );
     for (let i = 1; i <= genericValidatorsCount; i++) {
-      const validatorStashAccount = JSON.parse(
-        fs.readFileSync(
-          `../generate-accounts/accounts/all/validator-${i}-stash`,
-          "utf-8"
-        )
-      );
-      const balance = await this.network.getRawBalance(
-        validatorStashAccount.ss58Address
-      );
-      console.log(
-        `The balance of ${validatorStashAccount.ss58Address} is ${balance}\n`
-      );
+      await this.processAccount(`validator-${i}-stash`);
     }
 
-    console.log(`About to fetch balance of Nominator stash account - ${nominatorsCount}\n`);
+    console.log(
+      `About to fetch balance of Nominator stash account - ${nominatorsCount}\n`
+    );
     for (let i = 1; i <= nominatorsCount; i++) {
-      const nominatorStashAccount = JSON.parse(
-        fs.readFileSync(
-          `../generate-accounts/accounts/all/nominator-${i}-stash`,
-          "utf-8"
-        )
-      );
-      const balance = await this.network.getRawBalance(
-        nominatorStashAccount.ss58Address
-      );
-      console.log(
-        `The balance of ${nominatorStashAccount.ss58Address} is ${balance}\n`
-      );
+      await this.processAccount(`nominator-${i}-stash`);
     }
+  }
+
+  private async processAccount(name: string) {
+    const stashAccount = JSON.parse(
+      fs.readFileSync(`../generate-accounts/accounts/all/${name}`, "utf-8")
+    );
+    const balance = await this.network.getRawBalance(stashAccount.ss58Address, this.networkConfig.format_balance_decimals);
+    console.log(`The balance of ${stashAccount.ss58Address} is ${balance}\n`);
   }
 }
 

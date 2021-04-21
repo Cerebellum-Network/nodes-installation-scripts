@@ -87,12 +87,12 @@ class Network {
    * @param address account addess
    * @returns raw balance
    */
-  public async getRawBalance(address: string) {
+  public async getRawBalance(address: string, decimals: number) {
     console.log(`About to get balance for: ${address}`);
     const {
       data: { free: balance },
     } = await this.api.query.system.account(address);
-    const formatedBalance = (+balance / 10 ** this.decimals).toFixed(10);
+    const formatedBalance = (+balance / 10 ** this.decimals).toFixed(decimals);
     return formatedBalance;
   }
 

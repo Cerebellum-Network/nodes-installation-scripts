@@ -28,6 +28,7 @@
     "cere_sc_address": "5C8VXSSmizvyUoKaTkyYTsqrchj3rAgjNHbNPJANhZkXqSfR",
     "gas_limit": -1,
     "smart_contract_cere_token_amount_default": 0,
+    "format_balance_decimals": 10,
     "nodes_amount": 4,
     "total_supply": 1000000,
     "genesis_validators_amount": 2,
