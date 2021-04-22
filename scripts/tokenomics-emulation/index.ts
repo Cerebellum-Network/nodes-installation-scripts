@@ -15,7 +15,7 @@ import Batcher from "./emulations/batcher";
 import WaitForNewEraEmulation from "./emulations/wait-for-new-era-emulation";
 import AddValidatorsEmulation from "./emulations/add-validators.emulation";
 import StashAccountBalanceEmulation from "./emulations/stash-account-balance.emulation";
-import TotalIssuanceEmulation from "./emulations/total-issuance.emulation";
+import FetchTotalIssuanceEmulation from "./emulations/fetch-total-issuance.emulation";
 
 class Emulations {
   constructor(
@@ -80,8 +80,8 @@ class EmulationsFactory {
         return new WaitForNewEraEmulation(this.network);
       case "validator-nominator-stash-balance":
         return new StashAccountBalanceEmulation(this.networkConfig, this.network);
-      case "total-issuance":
-        return new TotalIssuanceEmulation(this.network);
+      case "fetch-total-issuance":
+        return new FetchTotalIssuanceEmulation(this.network);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }

@@ -1,7 +1,7 @@
 import { IEmulation } from "./emulation.interface";
 import Network from "../network";
 
-class TotalIssuanceEmulation implements IEmulation {
+class FetchTotalIssuanceEmulation implements IEmulation {
   constructor(
     private readonly network: Network,
   ) {}
@@ -13,4 +13,4 @@ class TotalIssuanceEmulation implements IEmulation {
   }
 }
 
-export default TotalIssuanceEmulation;
+export default FetchTotalIssuanceEmulation;
