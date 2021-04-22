@@ -5,6 +5,7 @@ scripts/keys
 !scripts/keys/key_example.json
 scripts/validator/node_modules
 scripts/generate-accounts/node_modules
-scripts/generate-accounts/accounts/
+scripts/generate-accounts/accounts
 scripts/tokenomics-emulation/node_modules
 .idea
+accounts

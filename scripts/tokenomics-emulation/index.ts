@@ -13,6 +13,10 @@ import CereAppToUserEmulation from "./emulations/cere-app-to-user-emulation";
 import CereUserToAppEmulation from "./emulations/cere-user-to-app-emulation";
 import Batcher from "./emulations/batcher";
 import DeployCereScEmulation from "./emulations/deploy-cere01-sc.emulations";
+import WaitForNewEraEmulation from "./emulations/wait-for-new-era-emulation";
+import AddValidatorsEmulation from "./emulations/add-validators.emulation";
+import StashAccountBalanceEmulation from "./emulations/stash-account-balance.emulation";
+
 
 class Emulations {
   constructor(
@@ -46,7 +50,8 @@ class EmulationsFactory {
     private readonly account: Accounts,
     private readonly ddcContract: DdcSmartContract,
     private readonly cereContract: CereSmartContract,
-    private readonly batcher: Batcher
+    private readonly batcher: Batcher,
+    private readonly networkConfig: any
   ) {}
 
   public create(config: { name: string }): IEmulation {
@@ -72,6 +77,12 @@ class EmulationsFactory {
         return new CereUserToAppEmulation(config, this.account, this.network, this.cereContract, this.batcher);
       case "deploy-cere-smart-contract":
         return new DeployCereScEmulation(config, this.account, this.cereContract);
+      case "add-validator":
+        return new AddValidatorsEmulation(this.account, this.networkConfig );
+      case "wait-for-new-era":
+        return new WaitForNewEraEmulation(this.network);
+      case "validator-nominator-stash-balance":
+        return new StashAccountBalanceEmulation(this.networkConfig, this.network);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
@@ -79,7 +90,7 @@ class EmulationsFactory {
 }
 
 async function main() {
-  const network = new Network(config);
+  const network = new Network(config.network.url, config.network.decimals);
   await network.setup();
   const account = new Accounts(config);
   const ddcContract = new DdcSmartContract(config, network.api);
@@ -88,7 +99,7 @@ async function main() {
   const emulations = new Emulations(
     config,
     network,
-    new EmulationsFactory(network, account, ddcContract, cereContract, batcher),
+    new EmulationsFactory(network, account, ddcContract, cereContract, batcher, config.network),
   );
   await emulations.run();
 }

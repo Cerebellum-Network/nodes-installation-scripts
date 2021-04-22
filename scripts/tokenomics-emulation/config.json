@@ -1,5 +1,27 @@
 {
   "network": {
+    "hosts": [
+      {
+        "name": "genesis-validator-1",
+        "ip": ""
+      },
+      {
+        "name": "genesis-validator-2",
+        "ip": ""
+      },
+      {
+        "name": "validator-3",
+        "ip": ""
+      },
+      {
+        "name": "validator-4",
+        "ip": ""
+      },
+      {
+        "name": "validator-5",
+        "ip": ""
+      }
+    ],
     "url": "wss://rpc.testnet.cere.network:9945",
     "decimals": 10,
     "ddc_sc_address": "5FE4RyFK5NuK5GSkebp23fgJNGCg1imCsYTGjLQBQPybJQEU",
@@ -12,10 +34,12 @@
     "genesis_validators_stake": 10000,
     "genesis_councils_amount": 1,
     "genesis_councils_stake": 100000,
+    "sync_wait_time": 15,
     "validators":{
       "amount": 3,
       "stash_stake": 10000,
-      "controller_stake": 10000
+      "controller_stake": 10000,
+      "commission": 5
     },
     "nominators":{
       "amount": 3,
@@ -41,6 +65,15 @@
   "emulations": {
     "batch_count": 2,
     "sequence": [
+      {
+        "name": "add-validator"
+      },
+      {
+        "name": "wait-for-new-era"
+      },
+      {
+        "name": "validator-nominator-stash-balance"
+      },
       {
         "name": "native-tokens-transfer",
         "amount": 1,
