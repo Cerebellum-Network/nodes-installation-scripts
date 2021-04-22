@@ -29,12 +29,15 @@ services:
   create_chain_spec:
     container_name: create_chain_spec
     image: cerebellumnetwork/pos-node:2.1.0-rc1
+    user: root
     volumes:
       - ./spec-data:/cereio/spec-data
     command: bash -c "mkdir -p ~/spec && /usr/local/bin/cere build-spec --disable-default-bootnode --chain local > /cereio/spec-data/customSpec.json"
+
   create_raw_chain_spec:
     container_name: create_raw_chain_spec
     image: cerebellumnetwork/pos-node:2.1.0-rc1
+    user: root
     volumes:
       - ./spec-data:/cereio/spec-data
     command: bash -c "/usr/local/bin/cere build-spec --chain=/cereio/spec-data/customSpec.json --raw --disable-default-bootnode > /cereio/spec-data/customSpecRaw.json"
@@ -86,6 +89,7 @@ services:
   generate_accounts:
     container_name: generate_accounts
     image: generate_accounts
+    user: root
     logging:
       driver: "json-file"
       options:
@@ -100,6 +104,7 @@ services:
   generate_emulations_chain_spec:
     container_name: generate_emulations_chain_spec
     image: generate_emulations_chain_spec
+    user: root
     logging:
       driver: "json-file"
       options:
