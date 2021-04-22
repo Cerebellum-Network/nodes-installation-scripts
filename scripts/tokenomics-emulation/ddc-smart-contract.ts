@@ -1,8 +1,14 @@
-import { ApiPromise } from '@polkadot/api';
+import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
 import Network from "./network";
-import { ContractPromise } from "@polkadot/api-contract";
+import {
+  BlueprintPromise,
+  CodePromise,
+  ContractPromise,
+} from "@polkadot/api-contract";
 import cere02Abi from "./contract/cere02-metadata.json";
+import fs from "fs";
+const cere02Wasm = fs.readFileSync("./contract/cere02.wasm");
 
 class DdcSmartContract {
   private ddcContract: ContractPromise;
@@ -50,9 +56,7 @@ class DdcSmartContract {
    * @returns Transaction
    */
   public async subscribe(sender: KeyringPair, tierId: string) {
-    console.log(
-      `About to call subscribe in ddc sm from ${sender.address}`
-    );
+    console.log(`About to call subscribe in ddc sm from ${sender.address}`);
     const gasLimit = +this.config.network.gas_limit;
     const value = +this.config.network.smart_contract_cere_token_amount_default;
     const txnObj = await this.ddcContract.tx.subscribe(
@@ -62,6 +66,67 @@ class DdcSmartContract {
     return txnObj;
   }
 
+  /**
+   * Deploy the smart contract to fetch code hash
+   * @param sender signer
+   * @returns Transaction hash
+   */
+  public async deploy(sender: KeyringPair) {
+    console.log(`Deploy DDC smart contract to get code hash`);
+    const code = new CodePromise(this.api, cere02Abi, cere02Wasm);
+
+    const tx = await code.createBlueprint();
+    return new Promise((res, rej) => {
+      tx.signAndSend(
+        sender,
+        Network.sendStatusCb.bind(this, res, rej)
+      ).catch((err) => rej(err));
+    });
+  }
+
+  /**
+   * Deploy the blluprint on chain
+   * @param sender smart contract owner
+   * @returns Transaction hash
+   */
+  public async bluePrint(
+    sender: KeyringPair,
+    codeHash: string,
+    endowment: string,
+    gasLimit: string,
+    tier1Limit: number,
+    tier1ThroughtputLimit: number,
+    tier1StorageLimit: number,
+    tier2Limit: number,
+    tier2ThroughtputLimit: number,
+    tier2StorageLimit: number,
+    tier3Limit: number,
+    tier3ThroughtputLimit: number,
+    tier3StorageLimit: number,
+    symbol: string
+  ) {
+    const blueprint = new BlueprintPromise(this.api, cere02Abi, codeHash);
+
+    const unsub = await blueprint.tx.new(
+      endowment,
+      gasLimit,
+      tier1Limit,
+      tier1ThroughtputLimit,
+      tier1StorageLimit,
+      tier2Limit,
+      tier2ThroughtputLimit,
+      tier2StorageLimit,
+      tier3Limit,
+      tier3ThroughtputLimit,
+      tier3StorageLimit,
+      symbol
+    );
+    return new Promise((res, rej) => {
+      unsub
+        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
+        .catch((err) => rej(err));
+    });
+  }
 }
 
 export default DdcSmartContract;

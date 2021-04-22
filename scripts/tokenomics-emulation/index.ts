@@ -13,6 +13,7 @@ import CereAppToUserEmulation from "./emulations/cere-app-to-user-emulation";
 import CereUserToAppEmulation from "./emulations/cere-user-to-app-emulation";
 import Batcher from "./emulations/batcher";
 import DeployCereScEmulation from "./emulations/deploy-cere01-sc.emulations";
+import DeployDdcScEmulation from "./emulations/deploy-cere02-sc.emulation";
 
 class Emulations {
   constructor(
@@ -72,6 +73,8 @@ class EmulationsFactory {
         return new CereUserToAppEmulation(config, this.account, this.network, this.cereContract, this.batcher);
       case "deploy-cere-smart-contract":
         return new DeployCereScEmulation(config, this.account, this.cereContract);
+      case "deploy-ddc-smart-contract":
+        return new DeployDdcScEmulation(config, this.account, this.ddcContract);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
