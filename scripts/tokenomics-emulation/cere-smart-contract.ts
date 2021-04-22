@@ -2,8 +2,14 @@ import { KeypairType } from "@polkadot/util-crypto/types";
 import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
 import Network from "./network";
-import { ContractPromise } from "@polkadot/api-contract";
+import {
+  BlueprintPromise,
+  CodePromise,
+  ContractPromise,
+} from "@polkadot/api-contract";
 import cere02Abi from "./contract/cere01-metadata.json";
+import fs from "fs";
+const cere01Wasm = fs.readFileSync("./contract/cere01.wasm");
 
 class CereSmartContract {
   private cereContract: ContractPromise;
@@ -62,10 +68,45 @@ class CereSmartContract {
     const gasLimit = +this.config.network.gas_limit;
     const value = +this.config.network.smart_contract_cere_token_amount_default;
 
-    const {partialFee: txnFee} = await this.cereContract.tx
-      .transfer({ value, gasLimit },destination, amount, 0)
+    const { partialFee: txnFee } = await this.cereContract.tx
+      .transfer({ value, gasLimit }, destination, amount, 0)
       .paymentInfo(sender);
     return txnFee;
+  }
+
+  public async deploy(sender: KeyringPair) {
+    console.log(`Deploy smart contract`);
+    const code = new CodePromise(this.api, cere02Abi, cere01Wasm);
+
+    const params = [10000000000, ""];
+    const tx = await code.createBlueprint();
+    return new Promise((res, rej) => {
+      tx.signAndSend(
+        sender,
+        Network.sendStatusCb.bind(this, res, rej)
+      ).catch((err) => rej(err));
+    });
+  }
+
+  public async bluePrint(sender: KeyringPair) {
+    const blueprint = new BlueprintPromise(
+      this.api,
+      cere02Abi,
+      "0x343f41b8cf072966ce537da45c0a9ca6a95db97dcd4e076c8a6fab99e7742023"
+    );
+    // Deploy a contract using the Blueprint
+    const endowment = "100000000000";
+    const gasLimit = "200000000";
+  
+    const unsub = await blueprint.tx.new(endowment, gasLimit, 10000000000, [
+      sender.address,
+    ]);
+
+    return new Promise((res, rej) => {
+      unsub
+        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
+        .catch((err) => rej(err));
+    });
   }
 }
 

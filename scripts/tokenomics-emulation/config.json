@@ -51,6 +51,9 @@
         "amount": 1
       },
       {
+        "name": "deploy-cere-smart-contract"
+      },
+      {
         "name": "send-ddc-transaction",
         "amount": 1,
         "sendData": "This is test data"
