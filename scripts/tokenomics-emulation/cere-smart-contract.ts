@@ -88,20 +88,19 @@ class CereSmartContract {
     });
   }
 
-  public async bluePrint(sender: KeyringPair) {
+  /**
+   * Deploy the code on chain
+   * @param sender smart contract owner
+   * @returns Transaction hash
+   */
+  public async bluePrint(sender: KeyringPair, codeHash: string, endowment: string, gasLimit: string, initialValue: number, dsAccounts: string[]) {
     const blueprint = new BlueprintPromise(
       this.api,
       cere02Abi,
-      "0x343f41b8cf072966ce537da45c0a9ca6a95db97dcd4e076c8a6fab99e7742023"
+      codeHash
     );
-    // Deploy a contract using the Blueprint
-    const endowment = "100000000000";
-    const gasLimit = "200000000";
-  
-    const unsub = await blueprint.tx.new(endowment, gasLimit, 10000000000, [
-      sender.address,
-    ]);
 
+    const unsub = await blueprint.tx.new(endowment, gasLimit, initialValue, dsAccounts);
     return new Promise((res, rej) => {
       unsub
         .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))

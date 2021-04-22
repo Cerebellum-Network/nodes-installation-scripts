@@ -71,7 +71,7 @@ class EmulationsFactory {
       case "cere-user-to-app":
         return new CereUserToAppEmulation(config, this.account, this.network, this.cereContract, this.batcher);
       case "deploy-cere-smart-contract":
-        return new DeployCereScEmulation(this.account, this.cereContract);
+        return new DeployCereScEmulation(config, this.account, this.cereContract);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }

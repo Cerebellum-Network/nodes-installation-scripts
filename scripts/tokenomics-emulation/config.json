@@ -51,8 +51,13 @@
         "amount": 1
       },
       {
-        "name": "deploy-cere-smart-contract"
-      },
+        "name": "deploy-cere-smart-contract",
+        "code_hash": "0x343f41b8cf072966ce537da45c0a9ca6a95db97dcd4e076c8a6fab99e7742023",
+        "endowment": "100000000000",
+        "gas_limit":"200000000000",
+        "initial_value": 100000000000000,
+        "ds_accounts": []
+      }
       {
         "name": "send-ddc-transaction",
         "amount": 1,
