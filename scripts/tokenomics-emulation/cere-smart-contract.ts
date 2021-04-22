@@ -10,6 +10,8 @@ import {
 import cere02Abi from "./contract/cere01-metadata.json";
 import fs from "fs";
 const cere01Wasm = fs.readFileSync("./contract/cere01.wasm");
+import { ExtrinsicStatus } from "@polkadot/types/interfaces";
+import { EventRecord } from "@polkadot/types/interfaces";
 
 class CereSmartContract {
   private cereContract: ContractPromise;
@@ -93,19 +95,75 @@ class CereSmartContract {
    * @param sender smart contract owner
    * @returns Transaction hash
    */
-  public async bluePrint(sender: KeyringPair, codeHash: string, endowment: string, gasLimit: string, initialValue: number, dsAccounts: string[]) {
-    const blueprint = new BlueprintPromise(
-      this.api,
-      cere02Abi,
-      codeHash
-    );
+  public async bluePrint(
+    sender: KeyringPair,
+    codeHash: string,
+    endowment: string,
+    gasLimit: string,
+    initialValue: number,
+    dsAccounts: string[]
+  ) {
+    const blueprint = new BlueprintPromise(this.api, cere02Abi, codeHash);
 
-    const unsub = await blueprint.tx.new(endowment, gasLimit, initialValue, dsAccounts);
+    const unsub = await blueprint.tx.new(
+      endowment,
+      gasLimit,
+      initialValue,
+      dsAccounts
+    );
+    
     return new Promise((res, rej) => {
       unsub
-        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej))
+        .signAndSend(sender, this.sendStatusCb.bind(this, res, rej))
         .catch((err) => rej(err));
     });
+  }
+
+  /**
+   * Check for send status call back function
+   * @param res Promise response object
+   * @param rej Promise reject object
+   */
+  public async sendStatusCb(
+    res,
+    rej,
+    {
+      events = [],
+      status,
+    }: {
+      events?: EventRecord[];
+      status: ExtrinsicStatus;
+    }
+  ) {
+    if (status.isInvalid) {
+      console.info("Transaction invalid");
+      rej("Transaction invalid");
+    } else if (status.isReady) {
+      console.info("Transaction is ready");
+    } else if (status.isBroadcast) {
+      console.info("Transaction has been broadcasted");
+    } else if (status.isInBlock) {
+      const hash = status.asInBlock.toHex();
+      console.info(`Transaction is in block: ${hash}`);
+    } else if (status.isFinalized) {
+      const hash = status.asFinalized.toHex();
+      console.info(`Transaction has been included in blockHash ${hash}\n`);
+      events.forEach(event => {
+        if (event.event.data.length === 2) {
+          console.log(`The smart contract address is ${event.event.data[1]}\n`);
+        }
+      })
+      events.forEach(({ event }) => {
+        if (event.method === "ExtrinsicSuccess") {
+          console.info("Transaction succeeded");
+        } else if (event.method === "ExtrinsicFailed") {
+          console.info("Transaction failed");
+          throw new Error("Transaction failed");
+        }
+      });
+
+      res(hash);
+    }
   }
 }
 
