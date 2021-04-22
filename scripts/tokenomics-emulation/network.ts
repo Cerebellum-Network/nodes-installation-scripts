@@ -176,6 +176,16 @@ class Network {
   }
 
   /**
+   * Fetch Total Issuance
+   * @returns Total Issuance
+   */
+  public async totalIssuance() {
+    console.log('Fetching total issuance');
+    const totalIssuance = await this.api.query.balances.totalIssuance();
+    return formatBalance(totalIssuance, { decimals: this.decimals });
+  }
+
+  /**
    * Fetch current era index
    * @returns current era index
    */
