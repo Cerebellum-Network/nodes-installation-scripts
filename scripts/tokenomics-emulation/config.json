@@ -111,6 +111,9 @@
         "name": "cere-user-to-app",
         "amount": 1,
         "token_value": 1
+      },
+      {
+        "name": "total-issuance"
       }
     ]
   }
