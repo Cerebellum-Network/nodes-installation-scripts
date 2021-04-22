@@ -8,11 +8,11 @@ import { formatBalance, stringToU8a } from "@polkadot/util";
 class Network {
   public api: ApiPromise;
 
-  constructor(private readonly config: any) {}
+  constructor(private readonly WsProvider: string, private readonly decimals: number) {}
 
   public async setup() {
     console.log("About to initializing network\n");
-    await this.init(this.config.network.url);
+    await this.init(this.WsProvider);
   }
 
   /**
@@ -47,7 +47,7 @@ class Network {
     destination: string,
     value: string
   ): Promise<any> {
-    const amount = +value * 10 ** this.config.network.decimals;
+    const amount = +value * 10 ** this.decimals;
     console.log(
       `About to transfer ${amount} native assets to ${destination} from ${sender.address}\n`
     );
@@ -67,7 +67,7 @@ class Network {
     const {
       data: { free: balance },
     } = await this.api.query.system.account(address);
-    return formatBalance(balance, { decimals: this.config.network.decimals });
+    return formatBalance(balance, { decimals: this.decimals });
   }
 
   /**
@@ -77,8 +77,23 @@ class Network {
   public existentialDeposit() {
     console.log(`About to get Existential Deposit\n`);
     const existentialDeposit = this.api.consts.balances.existentialDeposit;
-    const value = +existentialDeposit / 10 ** this.config.network.decimals;
+    const value = +existentialDeposit / 10 ** this.decimals;
     return value;
+  }
+
+
+  /**
+   * Fetch native token balance
+   * @param address account addess
+   * @returns raw balance
+   */
+  public async getRawBalance(address: string) {
+    console.log(`About to get balance for: ${address}`);
+    const {
+      data: { free: balance },
+    } = await this.api.query.system.account(address);
+    const formatedBalance = (+balance / 10 ** this.decimals).toFixed(this.decimals);
+    return formatedBalance;
   }
 
   /**
@@ -108,7 +123,7 @@ class Network {
       data: { free: balance },
     } = await this.api.query.system.account(treasuryAccount);
     const formatedBalance = formatBalance(balance, {
-      decimals: this.config.network.decimals,
+      decimals: this.decimals,
     });
     return formatedBalance;
   }
@@ -141,6 +156,32 @@ class Network {
         )
         .catch((err) => rej(err));
     });
+  }
+
+  /**
+   * Wait for a new ERA
+   * @returns Boolean after new era started
+   */
+  public async waitForANewEra() {
+    console.log(`Fetch the current ERA index.`);
+    let era = await this.currentEra();
+    let currentEra = era;
+    console.log(`Current Era ${currentEra}`);
+    while (+currentEra !== +currentEra + 1) {
+      console.log("Pooling ERA");
+      currentEra = await this.currentEra();
+    }
+    console.log(`Current Era updates as ${currentEra}`);
+    return true;
+  }
+
+  /**
+   * Fetch current era index
+   * @returns current era index
+   */
+  private async currentEra() {
+    const currentEra = await this.api.query.staking.currentEra();
+    return JSON.stringify(currentEra);
   }
 
   /**
