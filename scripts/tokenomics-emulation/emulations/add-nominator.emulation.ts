@@ -37,8 +37,8 @@ class AddNominatorsEmulation implements IEmulation {
       const exsistentialDeposit = await network.existentialDeposit();
       const actualBondValue = stashBond - exsistentialDeposit;
 
-      const stashAccount = await this.account.loadAccount(stashAccountMnemonic);
-      const controllerAccount = await this.account.loadAccount(controllerAccountMnemonic);
+      const stashAccount = await this.account.loadAccountFromMnemonic(stashAccountMnemonic);
+      const controllerAccount = await this.account.loadAccountFromMnemonic(controllerAccountMnemonic);
       const stashBalace = await network.getBalance(stashAccount.address);
 
       await nominator.addNominator(actualBondValue,controllerAccount, stashAccount, +stashBalace);

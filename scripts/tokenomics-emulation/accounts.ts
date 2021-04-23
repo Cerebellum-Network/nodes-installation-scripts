@@ -2,22 +2,19 @@ import { mnemonicGenerate } from '@polkadot/util-crypto';
 import { Keyring } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
 import { u8aToHex } from '@polkadot/util';
+import fs from "fs";
 
 class Accounts {
   public readonly accounts = [];
   public rootAccount: KeyringPair;
-  public sudoAccount: KeyringPair;
 
   constructor(private readonly config) {
     console.log(`About to loading accounts\n`);
     const accountsConfig = this.config.accounts;
-    const keyring = new Keyring({ type: "sr25519" });
     accountsConfig.forEach((element) => {
-      const account: KeyringPair = keyring.addFromMnemonic(element.mnemonic);
+      const account: KeyringPair = this.loadAccountFromFile(element.name);
       if (element.name === 'root') {
         this.rootAccount = account;
-      } else if (element.name === 'sudo') {
-        this.sudoAccount = account;
       } else {
         this.accounts.push({
           name: element.name,
@@ -44,10 +41,20 @@ class Accounts {
    * @param mnemonic string
    * @returns account keyringpair
    */
-  public async loadAccount(mnemonic: string) {
+  public loadAccountFromMnemonic(mnemonic: string) {
     const keyring = new Keyring({ type: "sr25519" });
-    const account: KeyringPair = await keyring.addFromMnemonic(mnemonic);
+    const account: KeyringPair = keyring.addFromMnemonic(mnemonic);
     return account;
+  }
+
+  public loadAccountFromFile(name: string) {
+    const content = fs.readFileSync(
+        `./accounts/all/${name}`,
+        "utf-8"
+    );
+    let mnemonicRegex = /(?<="mnemonic":")(.*)(?=","p)/;
+    const mnemonic = content.match(mnemonicRegex);
+    return this.loadAccountFromMnemonic(mnemonic[0]);
   }
 
   private extractKeys(mnemonic: string, pair: KeyringPair) {

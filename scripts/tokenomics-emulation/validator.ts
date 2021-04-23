@@ -36,8 +36,8 @@ class Validator {
    */
   public async loadAccounts(stashMnemonic: string, controllerMnemonic: string) {
     console.log(`Loading your stash and controller accounts\n`);
-    this.stashAccount = await this.accounts.loadAccount(stashMnemonic);
-    this.controllerAccount = await this.accounts.loadAccount(
+    this.stashAccount = await this.accounts.loadAccountFromMnemonic(stashMnemonic);
+    this.controllerAccount = await this.accounts.loadAccountFromMnemonic(
       controllerMnemonic
     );
     this.stashBalance = await this.network.getBalance(
