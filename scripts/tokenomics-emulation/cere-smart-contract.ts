@@ -87,7 +87,7 @@ class CereSmartContract {
     return new Promise((res, rej) => {
       tx.signAndSend(
         sender,
-        Network.sendStatusCb.bind(this, res, rej)
+        Network.sendStatusCb.bind(this, res, rej, undefined)
       ).catch((err) => rej(err));
     });
   }

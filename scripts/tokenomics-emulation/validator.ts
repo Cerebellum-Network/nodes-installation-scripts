@@ -85,7 +85,7 @@ class Validator {
       transaction
         .signAndSend(
           this.stashAccount,
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
@@ -101,7 +101,7 @@ class Validator {
       transaction
         .signAndSend(
           this.stashAccount,
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
@@ -123,7 +123,7 @@ class Validator {
       transaction
         .signAndSend(
           this.controllerAccount,
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
@@ -146,7 +146,7 @@ class Validator {
       transaction
         .signAndSend(
           this.controllerAccount,
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
