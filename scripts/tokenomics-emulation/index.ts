@@ -16,6 +16,7 @@ import DeployCereScEmulation from "./emulations/deploy-cere01-sc.emulations";
 import DeployDdcScEmulation from "./emulations/deploy-cere02-sc.emulation";
 import WaitForNewEraEmulation from "./emulations/wait-for-new-era-emulation";
 import AddValidatorsEmulation from "./emulations/add-validators.emulation";
+import AddNominatorsEmulation from "./emulations/add-nominator.emulation";
 import StashAccountBalanceEmulation from "./emulations/stash-account-balance.emulation";
 import FetchTotalIssuanceEmulation from "./emulations/fetch-total-issuance.emulation";
 
@@ -85,6 +86,8 @@ class EmulationsFactory {
         return new AddValidatorsEmulation(this.account, this.networkConfig );
       case "wait-for-new-era":
         return new WaitForNewEraEmulation(this.network);
+      case "add-nominator":
+        return new AddNominatorsEmulation(this.account, this.networkConfig);
       case "validator-nominator-stash-balance":
         return new StashAccountBalanceEmulation(this.networkConfig, this.network);
       case "fetch-total-issuance":

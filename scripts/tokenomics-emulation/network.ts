@@ -4,11 +4,15 @@ import { KeyringPair } from "@polkadot/keyring/types";
 import { ApiPromise } from "@polkadot/api";
 import { WsProvider } from "@polkadot/api";
 import { formatBalance, stringToU8a } from "@polkadot/util";
+import fs from "fs";
 
 class Network {
   public api: ApiPromise;
 
-  constructor(private readonly WsProvider: string, private readonly decimals: number) {}
+  constructor(
+    private readonly WsProvider: string,
+    private readonly decimals: number
+  ) {}
 
   public async setup() {
     console.log("About to initializing network\n");
@@ -81,7 +85,6 @@ class Network {
     return value;
   }
 
-
   /**
    * Fetch native token balance
    * @param address account addess
@@ -92,7 +95,9 @@ class Network {
     const {
       data: { free: balance },
     } = await this.api.query.system.account(address);
-    const formatedBalance = (+balance / 10 ** this.decimals).toFixed(this.decimals);
+    const formatedBalance = (+balance / 10 ** this.decimals).toFixed(
+      this.decimals
+    );
     return formatedBalance;
   }
 
@@ -176,11 +181,29 @@ class Network {
   }
 
   /**
+   * Fetch current active validators.
+   * @returns validators list
+   */
+  public async fetchValidators(validatorsCount: number) {
+    console.log(`Fetch validators`);
+    let validators = [];
+    for (let validator = 1; validator <= validatorsCount; validator++) {
+      const stashAccountFile = fs.readFileSync(
+        `../generate-accounts/accounts/all/validator-${validator}-stash`
+      );
+      const stashAccountAddress = JSON.parse(stashAccountFile.toString())
+        .ss58Address;
+      validators.push(stashAccountAddress);
+    }
+    return validators;
+  }
+  
+  /**
    * Fetch Total Issuance
    * @returns Total Issuance
    */
   public async totalIssuance() {
-    console.log('Fetching total issuance');
+    console.log("Fetching total issuance");
     const totalIssuance = await this.api.query.balances.totalIssuance();
     return formatBalance(totalIssuance, { decimals: this.decimals });
   }
@@ -210,7 +233,6 @@ class Network {
       events?: EventRecord[];
       status: ExtrinsicStatus;
     }
-    
   ) {
     if (status.isInvalid) {
       console.info("Transaction invalid");
