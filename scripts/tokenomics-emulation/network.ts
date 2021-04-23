@@ -202,6 +202,7 @@ class Network {
   public static sendStatusCb(
     res,
     rej,
+    handleEvents,
     {
       events = [],
       status,
@@ -209,6 +210,7 @@ class Network {
       events?: EventRecord[];
       status: ExtrinsicStatus;
     }
+    
   ) {
     if (status.isInvalid) {
       console.info("Transaction invalid");
@@ -223,6 +225,9 @@ class Network {
     } else if (status.isFinalized) {
       const hash = status.asFinalized.toHex();
       console.info(`Transaction has been included in blockHash ${hash}`);
+      if (handleEvents !== undefined) {
+        handleEvents(events);
+      }
       events.forEach(({ event }) => {
         if (event.method === "ExtrinsicSuccess") {
           console.info("Transaction succeeded");

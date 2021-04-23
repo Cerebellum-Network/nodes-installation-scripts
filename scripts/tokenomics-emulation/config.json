@@ -84,6 +84,30 @@
         "amount": 1
       },
       {
+        "name": "deploy-cere-smart-contract",
+        "code_hash": "0x343f41b8cf072966ce537da45c0a9ca6a95db97dcd4e076c8a6fab99e7742023",
+        "endowment": "100000000000",
+        "gas_limit":"200000000000",
+        "initial_value": 100000000000000,
+        "ds_accounts": []
+      },
+      {
+        "name": "deploy-ddc-smart-contract",
+        "code_hash": "0xc7cd476f01b02075326a01eb78b9b000e12b66985f081ae91687b9a0b36c04a9",
+        "endowment": "100000000000",
+        "gas_limit":"200000000000",
+        "tier_1_fee": 10,
+        "tier_1_throughput_limit": 12,
+        "tier_1_storage_limit":14,
+        "tier_2_fee": 20,
+        "tier_2_throughput_limit": 22,
+        "tier_2_storage_limit":24,
+        "tier_3_fee": 30,
+        "tier_3_throughput_limit": 32,
+        "tier_3_storage_limit":34,
+        "symbol": "KART"
+      },
+      {
         "name": "send-ddc-transaction",
         "amount": 1,
         "sendData": "This is test data"

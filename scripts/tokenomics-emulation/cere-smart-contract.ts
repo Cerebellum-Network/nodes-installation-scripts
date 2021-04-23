@@ -1,9 +1,15 @@
-import { KeypairType } from "@polkadot/util-crypto/types";
 import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
 import Network from "./network";
-import { ContractPromise } from "@polkadot/api-contract";
+import {
+  BlueprintPromise,
+  CodePromise,
+  ContractPromise,
+} from "@polkadot/api-contract";
 import cere02Abi from "./contract/cere01-metadata.json";
+import fs from "fs";
+const cere01Wasm = fs.readFileSync("./contract/cere01.wasm");
+import configFile from "./config.json";
 
 class CereSmartContract {
   private cereContract: ContractPromise;
@@ -62,10 +68,75 @@ class CereSmartContract {
     const gasLimit = +this.config.network.gas_limit;
     const value = +this.config.network.smart_contract_cere_token_amount_default;
 
-    const {partialFee: txnFee} = await this.cereContract.tx
-      .transfer({ value, gasLimit },destination, amount, 0)
+    const { partialFee: txnFee } = await this.cereContract.tx
+      .transfer({ value, gasLimit }, destination, amount, 0)
       .paymentInfo(sender);
     return txnFee;
+  }
+
+  /**
+   * Deploy the code to get code_hash
+   * @param sender owner of smart contract
+   * @returns code_hash
+   */
+  public async deploy(sender: KeyringPair) {
+    console.log(`Deploy smart contract`);
+    const code = new CodePromise(this.api, cere02Abi, cere01Wasm);
+
+    const tx = await code.createBlueprint();
+    return new Promise((res, rej) => {
+      tx.signAndSend(
+        sender,
+        Network.sendStatusCb.bind(this, res, rej)
+      ).catch((err) => rej(err));
+    });
+  }
+
+  /**
+   * Deploy the blueprint on chain
+   * @param sender smart contract owner
+   * @returns Transaction hash
+   */
+  public async deployBluePrint(
+    sender: KeyringPair,
+    codeHash: string,
+    endowment: string,
+    gasLimit: string,
+    initialValue: number,
+    dsAccounts: string[]
+  ) {
+    const blueprint = new BlueprintPromise(this.api, cere02Abi, codeHash);
+
+    const unsub = await blueprint.tx.new(
+      endowment,
+      gasLimit,
+      initialValue,
+      dsAccounts
+    );
+
+    return new Promise((res, rej) => {
+      unsub
+        .signAndSend(
+          sender,
+          Network.sendStatusCb.bind(this, res, rej, this.handleEvents)
+        )
+        .catch((err) => rej(err));
+    });
+  }
+
+  /**
+   * Process the events to set smart contract address
+   * @param events Events
+   */
+  private async handleEvents(events) {
+    console.log("Handling Events");
+    events.forEach((event) => {
+      if (event.event.data.length === 2) {
+        configFile.network.cere_sc_address = event.event.data[1].toString();
+        fs.writeFileSync("config.json", JSON.stringify(configFile));
+        console.log(`The smart contract address is ${event.event.data[1]}\n`);
+      }
+    });
   }
 }
 
