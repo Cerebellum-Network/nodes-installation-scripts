@@ -2,8 +2,6 @@ import { KeyringPair } from "@polkadot/keyring/types";
 import Network from "./network";
 
 class Nominator {
-  private stashBalance: string;
-  private controllerBalance: string;
 
   constructor(
     private readonly network: Network,
@@ -28,25 +26,6 @@ class Nominator {
   }
 
   /**
-   * Load stash and controller accounts.
-   */
-  public async accountsBalance(
-    controllerAccount: string,
-    stashAccount: string
-  ) {
-    console.log(`Fetching stash and controller accounts balance\n`);
-
-    this.stashBalance = await this.network.getBalance(stashAccount);
-    this.controllerBalance = await this.network.getBalance(controllerAccount);
-    console.log(
-      `Stash Account is ${stashAccount} and balance is ${this.stashBalance}`
-    );
-    console.log(
-      `Controller Account is ${controllerAccount} and balance is ${this.controllerBalance}\n`
-    );
-  }
-
-  /**
    * Add validator to the node
    * @param bondValue The amount to be stashed
    * @param payee The rewards destination account
@@ -54,12 +33,13 @@ class Nominator {
   public addNominator(
     bondValue: number,
     controllerAccount: KeyringPair,
-    stashAccount: KeyringPair
+    stashAccount: KeyringPair,
+    stashBalance: number
   ) {
     console.log(`Adding Nominator\n`);
     console.log(`Bond value is ${bondValue}`);
     const value = bondValue * 10 ** this.decimals;
-    if (+this.stashBalance <= Number(bondValue)) {
+    if (stashBalance <= Number(bondValue)) {
       throw new Error("Bond value needs to be lesser than balance.");
     }
 

@@ -9,7 +9,10 @@ import fs from "fs";
 class Network {
   public api: ApiPromise;
 
-  constructor(private readonly WsProvider: string, private readonly decimals: number) {}
+  constructor(
+    private readonly WsProvider: string,
+    private readonly decimals: number
+  ) {}
 
   public async setup() {
     console.log("About to initializing network\n");
@@ -161,24 +164,24 @@ class Network {
     return true;
   }
 
-    /**
+  /**
    * Fetch current active validators.
    * @returns validators list
    */
-     public async fetchValidators(validatorsCount: number) {
-      console.log(`Fetch validators`);
-      let validators = [];
-      for (let validator = 1; validator <= validatorsCount; validator++) {
-        const stashAccountFile = fs.readFileSync(
-          `../generate-accounts/accounts/all/validator-${validator}-stash`
-        );
-        const stashAccountAddress = JSON.parse(stashAccountFile.toString())
-          .ss58Address;
-        validators.push(stashAccountAddress);
-      }
-      return validators;
-     }
-  
+  public async fetchValidators(validatorsCount: number) {
+    console.log(`Fetch validators`);
+    let validators = [];
+    for (let validator = 1; validator <= validatorsCount; validator++) {
+      const stashAccountFile = fs.readFileSync(
+        `../generate-accounts/accounts/all/validator-${validator}-stash`
+      );
+      const stashAccountAddress = JSON.parse(stashAccountFile.toString())
+        .ss58Address;
+      validators.push(stashAccountAddress);
+    }
+    return validators;
+  }
+
   /**
    * Fetch current era index
    * @returns current era index
