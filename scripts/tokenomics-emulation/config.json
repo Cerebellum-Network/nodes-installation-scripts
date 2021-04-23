@@ -113,7 +113,7 @@
       {
         "name": "send-ddc-transaction",
         "amount": 1,
-        "string_lenght": 10,
+        "string_lenght": 128,
         "characters_to_generate_random_string": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
       },
       {
