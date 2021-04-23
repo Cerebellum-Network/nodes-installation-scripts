@@ -122,7 +122,7 @@ class Nominator {
       }
       const seconds = parseInt(waitSeconds, 10);
       console.log(`Wait ${seconds}s.`);
-      await this.sleep(15 * 1000);
+      await this.sleep(seconds);
 
       return this.callWithRetry(fn, options, depth + 1, waitSeconds);
     }
