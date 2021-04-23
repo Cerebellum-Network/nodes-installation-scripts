@@ -23,7 +23,8 @@ class AddValidatorsEmulation implements IEmulation {
       const validator = new Validator(network, this.account, this.networkConfig.decimals);
       await validator.start(this.networkConfig.sync_wait_time);
 
-      const actualBondValue = stashBond;
+      const existentialDeposit = await network.existentialDeposit();
+      const actualBondValue = stashBond - existentialDeposit;
       const stashAccount = this.account.loadAccountFromFile(`validator-${i}-stash`);
       const controllerAccount = this.account.loadAccountFromFile(`validator-${i}-controller`);
 
