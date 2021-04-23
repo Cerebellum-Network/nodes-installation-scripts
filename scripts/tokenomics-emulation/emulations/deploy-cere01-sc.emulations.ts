@@ -17,7 +17,7 @@ class DeployCereScEmulation implements IEmulation {
     const gasLimit = this.config.gas_limit;
     const initialValue = this.config.initial_value;
     const dsAccounts = this.config.ds_accounts;
-    const deploy = await this.cereContract.bluePrint(sender,codeHash, endowment, gasLimit, initialValue, dsAccounts );
+    const deploy = await this.cereContract.deployBluePrint(sender,codeHash, endowment, gasLimit, initialValue, dsAccounts );
   }
 }
 

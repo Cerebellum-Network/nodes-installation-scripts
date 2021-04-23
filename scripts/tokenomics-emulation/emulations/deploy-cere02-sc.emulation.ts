@@ -32,7 +32,7 @@ class DeployDdcScEmulation implements IEmulation {
 
     // const codeHashRes = await this.DdcSmartContract.deploy(sender);
 
-    const deploy = await this.DdcSmartContract.bluePrint(
+    const deploy = await this.DdcSmartContract.deployBluePrint(
       sender,
       codeHash,
       endowment,

@@ -97,7 +97,7 @@ class CereSmartContract {
    * @param sender smart contract owner
    * @returns Transaction hash
    */
-  public async bluePrint(
+  public async deployBluePrint(
     sender: KeyringPair,
     codeHash: string,
     endowment: string,
