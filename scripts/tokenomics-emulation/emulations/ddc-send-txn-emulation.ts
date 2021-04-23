@@ -15,13 +15,15 @@ class SendDdcTxnEmulation implements IEmulation {
     console.log(`Running emulation for send ddc transaction`);
     const sender = this.account.rootAccount;
     const total = +this.config.amount;
+   
     await this.batcher.batchProcessing(
       sender,
       this.network,
       total,
       async () => {
         const destination = await this.account.generateSrAccount();
-        const sendData = this.config.sendData;
+        const sendData = this.generateString(this.config.string_lenght);
+        console.log(`Random String is ${sendData}`);
         const sendTxn = await this.network.sendDDC(
           sender,
           destination.ss58Address,
@@ -29,6 +31,23 @@ class SendDdcTxnEmulation implements IEmulation {
         );
       }
     );
+  }
+
+  /**
+   * Generate string
+   * @param length Number of characters
+   * @returns string
+   */
+  private generateString(length: number) {
+    let result = [];
+    const characters = this.config.characters_to_generate_random_string;
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result.push(
+        characters.charAt(Math.floor(Math.random() * charactersLength))
+      );
+    }
+    return result.join("");
   }
 }
 

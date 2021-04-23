@@ -113,7 +113,8 @@
       {
         "name": "send-ddc-transaction",
         "amount": 1,
-        "sendData": "This is test data"
+        "string_lenght": 10,
+        "characters_to_generate_random_string": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
       },
       {
         "name": "ddc-metrics-report",
