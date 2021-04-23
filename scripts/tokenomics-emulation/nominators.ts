@@ -1,15 +1,12 @@
-import Accounts from "./accounts";
-import Network from "./network";  
+import { KeyringPair } from "@polkadot/keyring/types";
+import Network from "./network";
 
 class Nominator {
-  private stashAccount: any;
-  private controllerAccount: any;
   private stashBalance: string;
   private controllerBalance: string;
 
   constructor(
     private readonly network: Network,
-    private readonly accounts: Accounts,
     private readonly decimals: number
   ) {}
 
@@ -33,23 +30,19 @@ class Nominator {
   /**
    * Load stash and controller accounts.
    */
-  public async loadAccounts(stashMnemonic: string, controllerMnemonic: string) {
-    console.log(`Loading your stash and controller accounts\n`);
-    this.stashAccount = await this.accounts.loadAccount(stashMnemonic);
-    this.controllerAccount = await this.accounts.loadAccount(
-      controllerMnemonic
-    );
-    this.stashBalance = await this.network.getBalance(
-      this.stashAccount.address
-    );
-    this.controllerBalance = await this.network.getBalance(
-      this.controllerAccount.address
+  public async accountsBalance(
+    controllerAccount: string,
+    stashAccount: string
+  ) {
+    console.log(`Fetching stash and controller accounts balance\n`);
+
+    this.stashBalance = await this.network.getBalance(stashAccount);
+    this.controllerBalance = await this.network.getBalance(controllerAccount);
+    console.log(
+      `Stash Account is ${stashAccount} and balance is ${this.stashBalance}`
     );
     console.log(
-      `Stash Account is ${this.stashAccount.address} and balance is ${this.stashBalance}`
-    );
-    console.log(
-      `Controller Account is ${this.controllerAccount.address} and balance is ${this.controllerBalance}\n`
+      `Controller Account is ${controllerAccount} and balance is ${this.controllerBalance}\n`
     );
   }
 
@@ -58,7 +51,11 @@ class Nominator {
    * @param bondValue The amount to be stashed
    * @param payee The rewards destination account
    */
-  public addNominator(bondValue: number) {
+  public addNominator(
+    bondValue: number,
+    controllerAccount: KeyringPair,
+    stashAccount: KeyringPair
+  ) {
     console.log(`Adding Nominator\n`);
     console.log(`Bond value is ${bondValue}`);
     const value = bondValue * 10 ** this.decimals;
@@ -67,17 +64,14 @@ class Nominator {
     }
 
     const transaction = this.network.api.tx.staking.bond(
-      this.controllerAccount.address,
+      controllerAccount.address,
       BigInt(bondValue),
       "Staked"
     );
 
     return new Promise((res, rej) => {
       transaction
-        .signAndSend(
-          this.stashAccount,
-          Network.sendStatusCb.bind(this, res, rej)
-        )
+        .signAndSend(stashAccount, Network.sendStatusCb.bind(this, res, rej))
         .catch((err) => rej(err));
     });
   }
@@ -86,18 +80,18 @@ class Nominator {
    * Set controller to the stash account
    * @returns hash
    */
-  public async setController() {
+  public async setController(
+    controllerAccount: KeyringPair,
+    stashAccount: KeyringPair
+  ) {
     console.log(`Setting controller account\n`);
     const transaction = this.network.api.tx.staking.setController(
-      this.controllerAccount.address
+      controllerAccount.address
     );
 
     return new Promise((res, rej) => {
       transaction
-        .signAndSend(
-          this.stashAccount,
-          Network.sendStatusCb.bind(this, res, rej)
-        )
+        .signAndSend(stashAccount, Network.sendStatusCb.bind(this, res, rej))
         .catch((err) => rej(err));
     });
   }
@@ -107,15 +101,12 @@ class Nominator {
    * @param validators Array of validators id
    * @returns hash
    */
-  public async nominate(validators: string[]) {
+  public async nominate(validators: string[], stashAccount: KeyringPair) {
     console.log(`Nominating validators\n`);
     const txn = await this.network.api.tx.staking.nominate(validators);
     return new Promise((res, rej) => {
       txn
-        .signAndSend(
-          this.stashAccount,
-          Network.sendStatusCb.bind(this, res, rej)
-        )
+        .signAndSend(stashAccount, Network.sendStatusCb.bind(this, res, rej))
         .catch((err) => rej(err));
     });
   }
