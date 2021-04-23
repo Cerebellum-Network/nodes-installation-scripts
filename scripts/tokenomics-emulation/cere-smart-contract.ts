@@ -12,6 +12,7 @@ import fs from "fs";
 const cere01Wasm = fs.readFileSync("./contract/cere01.wasm");
 import { ExtrinsicStatus } from "@polkadot/types/interfaces";
 import { EventRecord } from "@polkadot/types/interfaces";
+import configFile from './config.json';
 
 class CereSmartContract {
   private cereContract: ContractPromise;
@@ -76,11 +77,15 @@ class CereSmartContract {
     return txnFee;
   }
 
+  /**
+   * Deploy the code to get code_hash
+   * @param sender owner of smart contract
+   * @returns code_hash
+   */
   public async deploy(sender: KeyringPair) {
     console.log(`Deploy smart contract`);
     const code = new CodePromise(this.api, cere02Abi, cere01Wasm);
 
-    const params = [10000000000, ""];
     const tx = await code.createBlueprint();
     return new Promise((res, rej) => {
       tx.signAndSend(
@@ -91,7 +96,7 @@ class CereSmartContract {
   }
 
   /**
-   * Deploy the code on chain
+   * Deploy the blueprint on chain
    * @param sender smart contract owner
    * @returns Transaction hash
    */
@@ -150,6 +155,8 @@ class CereSmartContract {
       console.info(`Transaction has been included in blockHash ${hash}\n`);
       events.forEach(event => {
         if (event.event.data.length === 2) {
+          configFile.network.cere_sc_address = event.event.data[1].toString();
+          fs.writeFileSync('config.json', JSON.stringify(configFile));
           console.log(`The smart contract address is ${event.event.data[1]}\n`);
         }
       })

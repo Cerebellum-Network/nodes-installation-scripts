@@ -11,6 +11,7 @@ import {
 import cere02Abi from "./contract/cere02-metadata.json";
 import fs from "fs";
 const cere02Wasm = fs.readFileSync("./contract/cere02.wasm");
+import configFile from './config.json';
 
 class DdcSmartContract {
   private ddcContract: ContractPromise;
@@ -162,6 +163,8 @@ class DdcSmartContract {
 
       events.forEach(event => {
         if (event.event.data.length === 2) {
+          configFile.network.ddc_sc_address = event.event.data[1].toString();
+          fs.writeFileSync('config.json', JSON.stringify(configFile));
           console.log(`The smart contract address is ${event.event.data[1]}\n`);
         }
       })
