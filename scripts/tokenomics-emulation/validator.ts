@@ -77,7 +77,7 @@ class Validator {
 
     const transaction = this.network.api.tx.staking.bond(
       this.controllerAccount.address,
-      BigInt(bondValue),
+      BigInt(value),
       "Staked"
     );
 

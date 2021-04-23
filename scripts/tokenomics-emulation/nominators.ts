@@ -45,7 +45,7 @@ class Nominator {
 
     const transaction = this.network.api.tx.staking.bond(
       controllerAccount.address,
-      BigInt(bondValue),
+      BigInt(value),
       "Staked"
     );
 

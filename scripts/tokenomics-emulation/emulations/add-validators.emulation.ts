@@ -11,21 +11,19 @@ class AddValidatorsEmulation implements IEmulation {
 
   public async run(): Promise<void> {
     const genericValidator = this.networkConfig.validators.amount;
-    const commissionValue = this.networkConfig.nominators.commission;
-    const stashBond = this.networkConfig.nominators.stash_stake;
+    const commissionValue = this.networkConfig.validators.commission;
+    const stashBond = this.networkConfig.validators.stash_stake;
     const genesisValidator = this.networkConfig.genesis_validators_amount;
-    const totalValidators = genericValidator + genesisValidator;
-    for (let i = genesisValidator +1; i <= totalValidators; i++) {
+    for (let i = 1; i <= genericValidator; i++) {
       console.log(`Adding validators to network .. ${i}\n`);
-      const wsProvider = this.networkConfig.hosts[i-1].url;
+      const wsProvider = this.networkConfig.hosts[genesisValidator + i-1].url;
       const network = new Network(wsProvider, this.networkConfig.decimals);
       await network.setup();
 
       const validator = new Validator(network, this.account, this.networkConfig.decimals);
       await validator.start(this.networkConfig.sync_wait_time);
 
-      const existentialDeposit = await network.existentialDeposit();
-      const actualBondValue = stashBond - existentialDeposit;
+      const actualBondValue = stashBond;
       const stashAccount = this.account.loadAccountFromFile(`validator-${i}-stash`);
       const controllerAccount = this.account.loadAccountFromFile(`validator-${i}-controller`);
 
