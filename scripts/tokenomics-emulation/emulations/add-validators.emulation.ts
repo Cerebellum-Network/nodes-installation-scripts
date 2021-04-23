@@ -18,7 +18,7 @@ class AddValidatorsEmulation implements IEmulation {
     const totalValidators = genericValidator + genesisValidator;
     for (let i = genesisValidator +1; i <= totalValidators; i++) {
       console.log(`Adding validators to network .. ${i}\n`);
-      const wsProvider = `ws://${this.networkConfig.hosts[i-1].ip}:9944/`;
+      const wsProvider = this.networkConfig.hosts[i-1].url;
       const network = new Network(wsProvider, this.networkConfig.decimals);
       await network.setup();
 

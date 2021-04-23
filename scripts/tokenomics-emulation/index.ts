@@ -99,7 +99,7 @@ class EmulationsFactory {
 }
 
 async function main() {
-  const network = new Network(config.network.url, config.network.decimals);
+  const network = new Network(config.network.hosts[0].url, config.network.decimals);
   await network.setup();
   const account = new Accounts(config);
   const ddcContract = new DdcSmartContract(config, network.api);
