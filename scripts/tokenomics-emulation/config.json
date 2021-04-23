@@ -3,26 +3,21 @@
     "hosts": [
       {
         "name": "genesis-validator-1",
-        "ip": ""
+        "url": "ws://157.230.113.121:9944"
       },
       {
         "name": "genesis-validator-2",
-        "ip": ""
+        "url": "ws://139.59.164.220:9944"
       },
       {
         "name": "validator-3",
-        "ip": ""
+        "url": "ws://165.227.57.154:9944"
       },
       {
         "name": "validator-4",
-        "ip": ""
-      },
-      {
-        "name": "validator-5",
-        "ip": ""
+        "url": "ws://104.236.108.211:9944"
       }
     ],
-    "url": "wss://rpc.testnet.cere.network:9945",
     "decimals": 10,
     "ddc_sc_address": "5FE4RyFK5NuK5GSkebp23fgJNGCg1imCsYTGjLQBQPybJQEU",
     "cere_sc_address": "5C8VXSSmizvyUoKaTkyYTsqrchj3rAgjNHbNPJANhZkXqSfR",
@@ -36,13 +31,13 @@
     "genesis_councils_stake": 100000,
     "sync_wait_time": 15,
     "validators":{
-      "amount": 3,
+      "amount": 2,
       "stash_stake": 10000,
       "controller_stake": 10000,
       "commission": 5
     },
     "nominators":{
-      "amount": 3,
+      "amount": 2,
       "stash_stake": 10000,
       "controller_stake": 10000
     }
