@@ -5,6 +5,7 @@ class ChainSpecGenerator {
     public generate(spec, config) {
         this.generateIds(spec);
         this.generateProperties(spec, config);
+        this.generatePalletSudo(spec);
         this.generatePalletBalances(spec, config);
         this.generatePalletStaking(spec, config);
         this.generatePalletSession(spec, config);
@@ -23,6 +24,11 @@ class ChainSpecGenerator {
         }
         spec.properties.tokenSymbol = "CERE";
         spec.properties.tokenDecimals = config.network.decimals;
+    }
+
+    private generatePalletSudo(spec) {
+        const sudoAccount = this.readAccount(`sudo`);
+        spec.genesis.runtime.palletSudo.key = sudoAccount.ss58Address;
     }
 
     private generatePalletBalances(spec, config) {

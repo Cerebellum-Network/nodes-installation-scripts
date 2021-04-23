@@ -86,6 +86,22 @@ class Network {
   }
 
   /**
+   * Fetch native token balance
+   * @param address account addess
+   * @returns raw balance
+   */
+  public async getRawBalance(address: string) {
+    console.log(`About to get balance for: ${address}`);
+    const {
+      data: { free: balance },
+    } = await this.api.query.system.account(address);
+    const formatedBalance = (+balance / 10 ** this.decimals).toFixed(
+      this.decimals
+    );
+    return formatedBalance;
+  }
+
+  /**
    * send ddc transaction
    * @param sender senders keyringpair
    * @param destination destination address
@@ -181,6 +197,16 @@ class Network {
     }
     return validators;
   }
+  
+  /**
+   * Fetch Total Issuance
+   * @returns Total Issuance
+   */
+  public async totalIssuance() {
+    console.log("Fetching total issuance");
+    const totalIssuance = await this.api.query.balances.totalIssuance();
+    return formatBalance(totalIssuance, { decimals: this.decimals });
+  }
 
   /**
    * Fetch current era index
@@ -199,6 +225,7 @@ class Network {
   public static sendStatusCb(
     res,
     rej,
+    handleEvents,
     {
       events = [],
       status,
@@ -220,6 +247,9 @@ class Network {
     } else if (status.isFinalized) {
       const hash = status.asFinalized.toHex();
       console.info(`Transaction has been included in blockHash ${hash}`);
+      if (handleEvents !== undefined) {
+        handleEvents(events);
+      }
       events.forEach(({ event }) => {
         if (event.method === "ExtrinsicSuccess") {
           console.info("Transaction succeeded");

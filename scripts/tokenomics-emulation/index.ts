@@ -12,9 +12,14 @@ import DdcSubscribeEmulation from "./emulations/ddc-subscribe-emulation";
 import CereAppToUserEmulation from "./emulations/cere-app-to-user-emulation";
 import CereUserToAppEmulation from "./emulations/cere-user-to-app-emulation";
 import Batcher from "./emulations/batcher";
+import DeployCereScEmulation from "./emulations/deploy-cere01-sc.emulations";
+import DeployDdcScEmulation from "./emulations/deploy-cere02-sc.emulation";
 import WaitForNewEraEmulation from "./emulations/wait-for-new-era-emulation";
 import AddValidatorsEmulation from "./emulations/add-validators.emulation";
 import AddNominatorsEmulation from "./emulations/add-nominator.emulation";
+import StashAccountBalanceEmulation from "./emulations/stash-account-balance.emulation";
+import FetchTotalIssuanceEmulation from "./emulations/fetch-total-issuance.emulation";
+
 
 class Emulations {
   constructor(
@@ -73,12 +78,20 @@ class EmulationsFactory {
         return new CereAppToUserEmulation(config, this.account,this.network, this.cereContract, this.batcher);
       case "cere-user-to-app":
         return new CereUserToAppEmulation(config, this.account, this.network, this.cereContract, this.batcher);
+      case "deploy-cere-smart-contract":
+        return new DeployCereScEmulation(config, this.account, this.cereContract);
+      case "deploy-ddc-smart-contract":
+        return new DeployDdcScEmulation(config, this.account, this.ddcContract);
       case "add-validator":
         return new AddValidatorsEmulation(this.account, this.networkConfig );
       case "wait-for-new-era":
         return new WaitForNewEraEmulation(this.network);
       case "add-nominator":
         return new AddNominatorsEmulation(this.account, this.networkConfig);
+      case "validator-nominator-stash-balance":
+        return new StashAccountBalanceEmulation(this.networkConfig, this.network);
+      case "fetch-total-issuance":
+        return new FetchTotalIssuanceEmulation(this.network);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }

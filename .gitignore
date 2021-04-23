@@ -8,3 +8,4 @@ scripts/generate-accounts/node_modules
 scripts/generate-accounts/accounts
 scripts/tokenomics-emulation/node_modules
 .idea
+accounts
