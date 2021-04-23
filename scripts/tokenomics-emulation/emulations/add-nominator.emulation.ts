@@ -18,11 +18,9 @@ class AddNominatorsEmulation implements IEmulation {
     const validatorsCount = this.networkConfig.validators.amount;
     const validators = await network.fetchValidators(validatorsCount);
     const nominatorsCount = this.networkConfig.nominators.amount;
-    let validatorTurn: number = 0;
 
     for (let i = 0; i < nominatorsCount; i++) {
-      console.log(`validatorTurn ${validatorTurn}`);
-      const validatorArray = [validators[validatorTurn]];
+      const validatorArray = [validators[(i) % validatorsCount]];
       const stashAccountFile = fs.readFileSync(
         `../generate-accounts/accounts/all/nominator-${i + 1}-stash`
       );
@@ -47,11 +45,6 @@ class AddNominatorsEmulation implements IEmulation {
       await nominator.setController(controllerAccount, stashAccount);
       await nominator.nominate(validatorArray, stashAccount);
 
-      if (i >= validatorsCount - 1) {
-        validatorTurn = 0;
-      } else {
-        validatorTurn++;
-      }
     }
   }
 }
