@@ -12,7 +12,7 @@ class DeployDdcScEmulation implements IEmulation {
   public async run(): Promise<void> {
     console.log(`Running emulation for deploying DDC smart contract`);
     const sender = this.account.rootAccount;
-    const codeHash = this.config.code_hash;
+    
     const endowment = this.config.endowment;
     const gasLimit = this.config.gas_limit;
 
@@ -29,9 +29,8 @@ class DeployDdcScEmulation implements IEmulation {
     const tier3StorageLimit = this.config.tier3StorageLimit;
 
     const symbol = this.config.symbol;
-
-    // const codeHashRes = await this.DdcSmartContract.deploy(sender);
-
+    const codeHashRes = await this.DdcSmartContract.deploy(sender);
+    const codeHash = this.config.code_hash;
     const deploy = await this.DdcSmartContract.deployBluePrint(
       sender,
       codeHash,

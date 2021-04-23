@@ -1,3 +1,4 @@
+import { EventRecord } from '@polkadot/types/interfaces';
 import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
 import Network from "./network";
@@ -87,7 +88,7 @@ class CereSmartContract {
     return new Promise((res, rej) => {
       tx.signAndSend(
         sender,
-        Network.sendStatusCb.bind(this, res, rej)
+        Network.sendStatusCb.bind(this, res, rej, this.handleEventsForCodeHash)
       ).catch((err) => rej(err));
     });
   }
@@ -138,6 +139,23 @@ class CereSmartContract {
       }
     });
   }
+
+  /**
+   * Process the events to set code hash
+   * @param events Events
+   */
+   private async handleEventsForCodeHash(events) {
+     console.log("Handling Events");
+     events.forEach((event) => {
+       const data = event.event.data[0].toString();
+       if (data.startsWith('0x')) {
+         configFile.emulations.sequence.find(sequence => sequence.name === "deploy-cere-smart-contract").code_hash = data;
+        fs.writeFileSync("config.json", JSON.stringify(configFile));
+        console.log(`The cere smart contract code hash is ${data}\n`);
+      }
+    });
+  }
+
 }
 
 export default CereSmartContract;

@@ -12,11 +12,12 @@ class DeployCereScEmulation implements IEmulation {
   public async run(): Promise<void> {
     console.log(`Running emulation for deploy smart contract`);
     const sender = this.account.rootAccount;
-    const codeHash = this.config.code_hash;
     const endowment = this.config.endowment;
     const gasLimit = this.config.gas_limit;
     const initialValue = this.config.initial_value;
     const dsAccounts = this.config.ds_accounts;
+    const deployCodeHash = await this.cereContract.deploy(sender);
+    const codeHash = this.config.code_hash;
     const deploy = await this.cereContract.deployBluePrint(sender,codeHash, endowment, gasLimit, initialValue, dsAccounts );
   }
 }

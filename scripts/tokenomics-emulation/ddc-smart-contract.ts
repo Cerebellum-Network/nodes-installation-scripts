@@ -80,7 +80,7 @@ class DdcSmartContract {
     return new Promise((res, rej) => {
       tx.signAndSend(
         sender,
-        Network.sendStatusCb.bind(this, res, rej)
+        Network.sendStatusCb.bind(this, res, rej, this.handleEventsForCodeHash)
       ).catch((err) => rej(err));
     });
   }
@@ -142,7 +142,24 @@ class DdcSmartContract {
         console.log(`The smart contract address is ${event.event.data[1]}\n`);
       }
     });
-  }
+   }
+  
+   /**
+   * Process the events to set code hash
+   * @param events Events
+   */
+    private async handleEventsForCodeHash(events) {
+      console.log("Handling Events");
+      events.forEach((event) => {
+        console.log(JSON.stringify(event));
+        const data = event.event.data[0].toString();
+        if (data.startsWith('0x')) {
+          configFile.emulations.sequence.find(sequence => sequence.name === "deploy-ddc-smart-contract").code_hash = data;
+         fs.writeFileSync("config.json", JSON.stringify(configFile));
+         console.log(`The DDC smart contract code hash is ${data}\n`);
+       }
+     });
+   }
 }
 
 export default DdcSmartContract;

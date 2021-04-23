@@ -247,7 +247,7 @@ class Network {
     } else if (status.isFinalized) {
       const hash = status.asFinalized.toHex();
       console.info(`Transaction has been included in blockHash ${hash}`);
-      if (handleEvents !== undefined) {
+      if (typeof handleEvents !== 'undefined') {
         handleEvents(events);
       }
       events.forEach(({ event }) => {
