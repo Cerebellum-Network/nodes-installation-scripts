@@ -2,7 +2,6 @@ import { IEmulation } from "./emulation.interface";
 import Network from "../network";
 import Accounts from "../accounts";
 import Validator from "../validator";
-import fs from "fs";
 
 class AddValidatorsEmulation implements IEmulation {
   constructor(
@@ -18,21 +17,19 @@ class AddValidatorsEmulation implements IEmulation {
     const totalValidators = genericValidator + genesisValidator;
     for (let i = genesisValidator +1; i <= totalValidators; i++) {
       console.log(`Adding validators to network .. ${i}\n`);
-      const wsProvider = `ws://${this.networkConfig.hosts[i-1].ip}:9944/`;
+      const wsProvider = this.networkConfig.hosts[i-1].url;
       const network = new Network(wsProvider, this.networkConfig.decimals);
       await network.setup();
 
       const validator = new Validator(network, this.account, this.networkConfig.decimals);
       await validator.start(this.networkConfig.sync_wait_time);
 
-      const exsistentialDeposit = await network.existentialDeposit();
-      const actualBondValue = stashBond - exsistentialDeposit;
-      const stashAccountFile = fs.readFileSync(`../generate-accounts/accounts/all/validator-${i}-stash`);
-      const controllerAccountFile = fs.readFileSync(`../generate-accounts/accounts/all/validator-${i}-controller`);
-      const stashAccountMnemonic = JSON.parse(stashAccountFile.toString()).mnemonic;
-      const controllerAccountMnemonic = JSON.parse(controllerAccountFile.toString()).mnemonic;
+      const existentialDeposit = await network.existentialDeposit();
+      const actualBondValue = stashBond - existentialDeposit;
+      const stashAccount = this.account.loadAccountFromFile(`validator-${i}-stash`);
+      const controllerAccount = this.account.loadAccountFromFile(`validator-${i}-controller`);
 
-      await validator.loadAccounts(stashAccountMnemonic, controllerAccountMnemonic);
+      await validator.loadAccounts(stashAccount, controllerAccount);
       await validator.generateSessionKey();
       await validator.addValidator(actualBondValue);
       await validator.setSessionKey();

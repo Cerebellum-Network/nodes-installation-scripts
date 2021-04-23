@@ -141,7 +141,7 @@ class Network {
         .signAndSend(
           sender,
           { nonce },
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
@@ -157,7 +157,7 @@ class Network {
         .signAndSend(
           sender,
           { nonce },
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });

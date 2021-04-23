@@ -3,26 +3,21 @@
     "hosts": [
       {
         "name": "genesis-validator-1",
-        "ip": ""
+        "url": "ws://157.230.113.121:9944"
       },
       {
         "name": "genesis-validator-2",
-        "ip": ""
+        "url": "ws://139.59.164.220:9944"
       },
       {
         "name": "validator-3",
-        "ip": ""
+        "url": "ws://165.227.57.154:9944"
       },
       {
         "name": "validator-4",
-        "ip": ""
-      },
-      {
-        "name": "validator-5",
-        "ip": ""
+        "url": "ws://104.236.108.211:9944"
       }
     ],
-    "url": "wss://rpc.testnet.cere.network:9945",
     "decimals": 10,
     "ddc_sc_address": "5FE4RyFK5NuK5GSkebp23fgJNGCg1imCsYTGjLQBQPybJQEU",
     "cere_sc_address": "5C8VXSSmizvyUoKaTkyYTsqrchj3rAgjNHbNPJANhZkXqSfR",
@@ -36,29 +31,20 @@
     "genesis_councils_stake": 100000,
     "sync_wait_time": 15,
     "validators":{
-      "amount": 3,
+      "amount": 2,
       "stash_stake": 10000,
       "controller_stake": 10000,
       "commission": 5
     },
     "nominators":{
-      "amount": 3,
+      "amount": 2,
       "stash_stake": 10000,
       "controller_stake": 10000
     }
   },
   "accounts": [
     {
-      "name": "root",
-      "mnemonic": ""
-    },
-    {
-      "name": "sudo",
-      "mnemonic": ""
-    },
-    {
-      "name": "transfer",
-      "mnemonic": ""
+      "name": "root"
     }
   ],
   "nodes_amount": 4,
@@ -89,7 +75,7 @@
       {
         "name": "deploy-cere-smart-contract",
         "code_hash": "0x343f41b8cf072966ce537da45c0a9ca6a95db97dcd4e076c8a6fab99e7742023",
-        "endowment": "100000000000",
+        "endowment": "200000000000000",
         "gas_limit":"200000000000",
         "initial_value": 100000000000000,
         "ds_accounts": []
@@ -97,7 +83,7 @@
       {
         "name": "deploy-ddc-smart-contract",
         "code_hash": "0xc7cd476f01b02075326a01eb78b9b000e12b66985f081ae91687b9a0b36c04a9",
-        "endowment": "100000000000",
+        "endowment": "200000000000000",
         "gas_limit":"200000000000",
         "tier_1_fee": 10,
         "tier_1_throughput_limit": 12,
