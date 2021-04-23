@@ -89,7 +89,7 @@ class EmulationsFactory {
       case "add-nominator":
         return new AddNominatorsEmulation(this.account, this.networkConfig);
       case "validator-nominator-stash-balance":
-        return new StashAccountBalanceEmulation(this.networkConfig, this.network);
+        return new StashAccountBalanceEmulation(this.networkConfig, this.network, this.account);
       case "fetch-total-issuance":
         return new FetchTotalIssuanceEmulation(this.network);
       default:

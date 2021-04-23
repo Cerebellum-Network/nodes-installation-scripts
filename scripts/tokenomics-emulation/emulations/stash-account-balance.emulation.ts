@@ -1,11 +1,12 @@
 import { IEmulation } from "./emulation.interface";
 import Network from "../network";
-import fs from "fs";
+import Accounts from "../accounts";
 
 class StashAccountBalanceEmulation implements IEmulation {
   constructor(
     private readonly networkConfig,
-    private readonly network: Network
+    private readonly network: Network,
+    private readonly accounts: Accounts
   ) {}
 
   public async run(): Promise<void> {
@@ -37,11 +38,9 @@ class StashAccountBalanceEmulation implements IEmulation {
   }
 
   private async processAccount(name: string) {
-    const stashAccount = JSON.parse(
-      fs.readFileSync(`../generate-accounts/accounts/all/${name}`, "utf-8")
-    );
-    const balance = await this.network.getRawBalance(stashAccount.ss58Address);
-    console.log(`The balance of ${stashAccount.ss58Address} is ${balance}\n`);
+    const stashAccount = this.accounts.loadAccountFromFile(name);
+    const balance = await this.network.getRawBalance(stashAccount.address);
+    console.log(`The balance of ${stashAccount.address} is ${balance}\n`);
   }
 }
 

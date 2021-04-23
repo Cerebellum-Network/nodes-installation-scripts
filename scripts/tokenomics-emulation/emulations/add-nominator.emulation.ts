@@ -1,7 +1,6 @@
 import { IEmulation } from "./emulation.interface";
 import Network from "../network";
 import Accounts from "../accounts";
-import fs from "fs";
 import Nominator from "../nominators";
 
 class AddNominatorsEmulation implements IEmulation {
@@ -21,30 +20,18 @@ class AddNominatorsEmulation implements IEmulation {
 
     for (let i = 0; i < nominatorsCount; i++) {
       const validatorArray = [validators[(i) % validatorsCount]];
-      const stashAccountFile = fs.readFileSync(
-        `../generate-accounts/accounts/all/nominator-${i + 1}-stash`
-      );
-      const controllerAccountFile = fs.readFileSync(
-        `../generate-accounts/accounts/all/nominator-${i + 1}-controller`
-      );
-      const stashAccountMnemonic = JSON.parse(stashAccountFile.toString())
-        .mnemonic;
-      const controllerAccountMnemonic = JSON.parse(
-        controllerAccountFile.toString()
-      ).mnemonic;
 
       const stashBond = this.networkConfig.nominators.stash_stake;
       const exsistentialDeposit = await network.existentialDeposit();
       const actualBondValue = stashBond - exsistentialDeposit;
 
-      const stashAccount = await this.account.loadAccountFromMnemonic(stashAccountMnemonic);
-      const controllerAccount = await this.account.loadAccountFromMnemonic(controllerAccountMnemonic);
-      const stashBalace = await network.getBalance(stashAccount.address);
+      const stashAccount = this.account.loadAccountFromMnemonic(`nominator-${i + 1}-stash`);
+      const controllerAccount = await this.account.loadAccountFromMnemonic(`nominator-${i + 1}-controller`);
+      const stashBalance = await network.getBalance(stashAccount.address);
 
-      await nominator.addNominator(actualBondValue,controllerAccount, stashAccount, +stashBalace);
+      await nominator.addNominator(actualBondValue,controllerAccount, stashAccount, +stashBalance);
       await nominator.setController(controllerAccount, stashAccount);
       await nominator.nominate(validatorArray, stashAccount);
-
     }
   }
 }

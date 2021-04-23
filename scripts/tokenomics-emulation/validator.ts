@@ -1,3 +1,4 @@
+import { KeyringPair } from "@polkadot/keyring/types";
 import Accounts from "./accounts";
 import Network from "./network";
 
@@ -34,12 +35,10 @@ class Validator {
   /**
    * Load stash and controller accounts.
    */
-  public async loadAccounts(stashMnemonic: string, controllerMnemonic: string) {
+  public async loadAccounts(stashAccount: KeyringPair, controllerAccount: KeyringPair) {
     console.log(`Loading your stash and controller accounts\n`);
-    this.stashAccount = await this.accounts.loadAccountFromMnemonic(stashMnemonic);
-    this.controllerAccount = await this.accounts.loadAccountFromMnemonic(
-      controllerMnemonic
-    );
+    this.stashAccount = stashAccount;
+    this.controllerAccount = controllerAccount;
     this.stashBalance = await this.network.getBalance(
       this.stashAccount.address
     );
