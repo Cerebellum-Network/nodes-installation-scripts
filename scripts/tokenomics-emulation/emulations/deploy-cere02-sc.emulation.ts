@@ -28,8 +28,10 @@ class DeployDdcScEmulation implements IEmulation {
     const tier3ThroughtputLimit = this.config.tier_3_throughput_limit;
     const tier3StorageLimit = this.config.tier3StorageLimit;
 
+    const emulationName = this.config.name;
+
     const symbol = this.config.symbol;
-    const codeHashRes = await this.DdcSmartContract.deploy(sender);
+    const codeHashRes = await this.DdcSmartContract.deploy(sender, emulationName);
     const codeHash = this.config.code_hash;
     const deploy = await this.DdcSmartContract.deployBluePrint(
       sender,
