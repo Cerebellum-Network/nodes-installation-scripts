@@ -172,7 +172,9 @@ class Network {
     let era = await this.currentEra();
     let currentEra = era;
     console.log(`Current Era ${currentEra}`);
-    while (+currentEra !== +currentEra + 1) {
+    let newEra = currentEra + 1;
+
+    while (currentEra !== newEra) {
       console.log("Pooling ERA");
       currentEra = await this.currentEra();
     }
@@ -214,7 +216,7 @@ class Network {
    */
   private async currentEra() {
     const currentEra = await this.api.query.staking.currentEra();
-    return JSON.stringify(currentEra);
+    return +JSON.stringify(currentEra);
   }
 
   /**
