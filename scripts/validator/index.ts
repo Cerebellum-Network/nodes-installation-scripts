@@ -85,7 +85,7 @@ class Validator {
 
     return new Promise((res, rej) => {
       transaction
-        .signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej))
+        .signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej, undefined))
         .catch((err) => rej(err));
     });
   }
@@ -98,7 +98,7 @@ class Validator {
 
     return new Promise((res, rej) => {
       transaction
-        .signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej))
+        .signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej, undefined))
         .catch((err) => rej(err));
     });
   }
@@ -119,7 +119,7 @@ class Validator {
       transaction
         .signAndSend(
           this.controllerAccount,
-          this.sendStatusCb.bind(this, res, rej)
+          this.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
@@ -142,7 +142,7 @@ class Validator {
       transaction
         .signAndSend(
           this.controllerAccount,
-          this.sendStatusCb.bind(this, res, rej)
+          this.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });

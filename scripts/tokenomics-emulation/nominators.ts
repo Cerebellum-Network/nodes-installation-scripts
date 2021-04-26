@@ -45,13 +45,13 @@ class Nominator {
 
     const transaction = this.network.api.tx.staking.bond(
       controllerAccount.address,
-      BigInt(bondValue),
+      BigInt(value),
       "Staked"
     );
 
     return new Promise((res, rej) => {
       transaction
-        .signAndSend(stashAccount, Network.sendStatusCb.bind(this, res, rej))
+        .signAndSend(stashAccount, Network.sendStatusCb.bind(this, res, rej, undefined))
         .catch((err) => rej(err));
     });
   }
@@ -71,7 +71,7 @@ class Nominator {
 
     return new Promise((res, rej) => {
       transaction
-        .signAndSend(stashAccount, Network.sendStatusCb.bind(this, res, rej))
+        .signAndSend(stashAccount, Network.sendStatusCb.bind(this, res, rej, undefined))
         .catch((err) => rej(err));
     });
   }
@@ -86,7 +86,7 @@ class Nominator {
     const txn = await this.network.api.tx.staking.nominate(validators);
     return new Promise((res, rej) => {
       txn
-        .signAndSend(stashAccount, Network.sendStatusCb.bind(this, res, rej))
+        .signAndSend(stashAccount, Network.sendStatusCb.bind(this, res, rej, undefined))
         .catch((err) => rej(err));
     });
   }

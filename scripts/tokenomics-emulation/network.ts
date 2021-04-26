@@ -4,7 +4,7 @@ import { KeyringPair } from "@polkadot/keyring/types";
 import { ApiPromise } from "@polkadot/api";
 import { WsProvider } from "@polkadot/api";
 import { formatBalance, stringToU8a } from "@polkadot/util";
-import fs from "fs";
+import Accounts from "./accounts";
 
 class Network {
   public api: ApiPromise;
@@ -141,7 +141,7 @@ class Network {
         .signAndSend(
           sender,
           { nonce },
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
@@ -157,7 +157,7 @@ class Network {
         .signAndSend(
           sender,
           { nonce },
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
@@ -184,16 +184,12 @@ class Network {
    * Fetch current active validators.
    * @returns validators list
    */
-  public async fetchValidators(validatorsCount: number) {
+  public async fetchValidators(accounts: Accounts, validatorsCount: number) {
     console.log(`Fetch validators`);
     let validators = [];
     for (let validator = 1; validator <= validatorsCount; validator++) {
-      const stashAccountFile = fs.readFileSync(
-        `../generate-accounts/accounts/all/validator-${validator}-stash`
-      );
-      const stashAccountAddress = JSON.parse(stashAccountFile.toString())
-        .ss58Address;
-      validators.push(stashAccountAddress);
+      const stashAccount = accounts.loadAccountFromFile(`validator-${validator}-stash`);
+      validators.push(stashAccount.address);
     }
     return validators;
   }
