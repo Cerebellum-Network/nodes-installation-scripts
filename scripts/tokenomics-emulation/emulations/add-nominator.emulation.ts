@@ -27,10 +27,9 @@ class AddNominatorsEmulation implements IEmulation {
       const stashAccount = this.account.loadAccountFromFile(`nominator-${i + 1}-stash`);
       const controllerAccount = await this.account.loadAccountFromFile(`nominator-${i + 1}-controller`);
       const stashBalance = await network.getBalance(stashAccount.address);
-
+      
       await nominator.addNominator(actualBondValue,controllerAccount, stashAccount, +stashBalance);
-      await nominator.setController(controllerAccount, stashAccount);
-      await nominator.nominate(validatorArray, stashAccount);
+      await nominator.nominate(validatorArray, controllerAccount);
     }
   }
 }
