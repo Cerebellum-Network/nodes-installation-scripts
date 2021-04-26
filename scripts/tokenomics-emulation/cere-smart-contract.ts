@@ -1,4 +1,3 @@
-import { EventRecord } from "@polkadot/types/interfaces";
 import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
 import Network from "./network";
@@ -88,7 +87,7 @@ class CereSmartContract {
     return new Promise((res, rej) => {
       tx.signAndSend(
         sender,
-        Network.sendStatusCb.bind(this, res, rej, async (events) => {
+        Network.sendStatusCb.bind(this, res, rej, (events) => {
           EventHandlers.handleEventsForCodeHash(events, emulationName);
         })
       ).catch((err) => rej(err));
@@ -122,7 +121,7 @@ class CereSmartContract {
       unsub
         .signAndSend(
           sender,
-          Network.sendStatusCb.bind(this, res, rej, async (events) => {
+          Network.sendStatusCb.bind(this, res, rej, (events) => {
             EventHandlers.handleEventsForSmartContractAddress(
               events,
               "cere_sc_address"

@@ -218,7 +218,7 @@ class Network {
    * @param res Promise response object
    * @param rej Promise reject object
    */
-  public static async sendStatusCb(
+  public static sendStatusCb(
     res,
     rej,
     handleEvents,
@@ -243,8 +243,8 @@ class Network {
     } else if (status.isFinalized) {
       const hash = status.asFinalized.toHex();
       console.info(`Transaction has been included in blockHash ${hash}`);
-      if (handleEvents !== 'undefined') {
-        await handleEvents(events);
+      if (handleEvents !== undefined) {
+        handleEvents(events);
       }
       events.forEach(({ event }) => {
         if (event.method === "ExtrinsicSuccess") {

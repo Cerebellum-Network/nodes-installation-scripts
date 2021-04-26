@@ -80,8 +80,8 @@ class DdcSmartContract {
     return new Promise((res, rej) => {
       tx.signAndSend(
         sender,
-        Network.sendStatusCb.bind(this, res, rej, async (events) => {
-          await EventHandlers.handleEventsForCodeHash(events, emulationName);
+        Network.sendStatusCb.bind(this, res, rej, (events) => {
+          EventHandlers.handleEventsForCodeHash(events, emulationName);
         })
       ).catch((err) => rej(err));
     });
@@ -108,7 +108,7 @@ class DdcSmartContract {
     tier3StorageLimit: number,
     symbol: string
   ) {
-    console.log('Deploying DDC blue print with code hash');
+    console.log("Deploying DDC blue print with code hash");
     const blueprint = new BlueprintPromise(this.api, cere02Abi, codeHash);
 
     const unsub = await blueprint.tx.new(
@@ -129,8 +129,8 @@ class DdcSmartContract {
       unsub
         .signAndSend(
           sender,
-          Network.sendStatusCb.bind(this, res, rej, async (events) => {
-            await EventHandlers.handleEventsForSmartContractAddress(
+          Network.sendStatusCb.bind(this, res, rej, (events) => {
+            EventHandlers.handleEventsForSmartContractAddress(
               events,
               "ddc_sc_address"
             );
