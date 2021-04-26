@@ -6,13 +6,13 @@ class EventHandlers {
    * Process the events to set smart contract address
    * @param events Events
    */
-  public static async handleEventsForSmartContractAddress(events, param) {
+  public static async handleEventsForSmartContractAddress(events, smartContractKey: string) {
     console.log("Processing events to fetch smart contract address");
     events.forEach((event) => {
       if (event.event.data.length === 2) {
         const smartcontractAddress = event.event.data[1].toString();
         if (smartcontractAddress.startsWith("5")) {
-          configFile.network[param] = smartcontractAddress;
+          configFile.network[smartContractKey] = smartcontractAddress;
           fs.writeFileSync("config.json", JSON.stringify(configFile));
           console.log(
             `The smart contract address is ${smartcontractAddress}\n`

@@ -79,9 +79,9 @@ class EmulationsFactory {
       case "cere-user-to-app":
         return new CereUserToAppEmulation(config, this.account, this.network, this.cereContract, this.batcher);
       case "deploy-cere-smart-contract":
-        return new DeployCereScEmulation(config, this.account, this.cereContract);
+        return new DeployCereScEmulation(config, this.account, this.cereContract, this.networkConfig.decimals);
       case "deploy-ddc-smart-contract":
-        return new DeployDdcScEmulation(config, this.account, this.ddcContract);
+        return new DeployDdcScEmulation(config, this.account, this.ddcContract, this.networkConfig.decimals);
       case "add-validator":
         return new AddValidatorsEmulation(this.account, this.networkConfig );
       case "wait-for-new-era":
@@ -89,7 +89,7 @@ class EmulationsFactory {
       case "add-nominator":
         return new AddNominatorsEmulation(this.account, this.networkConfig);
       case "validator-nominator-stash-balance":
-        return new StashAccountBalanceEmulation(this.networkConfig, this.network);
+        return new StashAccountBalanceEmulation(this.networkConfig, this.network, this.account);
       case "fetch-total-issuance":
         return new FetchTotalIssuanceEmulation(this.network);
       default:
@@ -99,7 +99,7 @@ class EmulationsFactory {
 }
 
 async function main() {
-  const network = new Network(config.network.url, config.network.decimals);
+  const network = new Network(config.network.hosts[0].url, config.network.decimals);
   await network.setup();
   const account = new Accounts(config);
   const ddcContract = new DdcSmartContract(config, network.api);

@@ -7,12 +7,13 @@ class DeployCereScEmulation implements IEmulation {
     private readonly config,
     private readonly account: Accounts,
     private readonly cereContract: CereSmartContract,
+    private readonly decimals
   ) {}
 
   public async run(): Promise<void> {
     console.log(`Running emulation for deploy smart contract`);
     const sender = this.account.rootAccount;
-    const endowment = this.config.endowment;
+    const endowment = this.config.endowment * 10 ** this.decimals;
     const gasLimit = this.config.gas_limit;
     const initialValue = this.config.initial_value;
     const dsAccounts = this.config.ds_accounts;

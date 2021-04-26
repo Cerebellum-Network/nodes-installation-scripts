@@ -1,7 +1,6 @@
 import { IEmulation } from "./emulation.interface";
 import Network from "../network";
 import Accounts from "../accounts";
-import fs from "fs";
 import Nominator from "../nominators";
 
 class AddNominatorsEmulation implements IEmulation {
@@ -11,40 +10,27 @@ class AddNominatorsEmulation implements IEmulation {
   ) {}
 
   public async run(): Promise<void> {
-    const wsProvider = this.networkConfig.url;
+    const wsProvider = this.networkConfig.hosts[0].url;
     const network = new Network(wsProvider, this.networkConfig.decimals);
     await network.setup();
     const nominator = new Nominator(network, this.networkConfig.decimals);
     const validatorsCount = this.networkConfig.validators.amount;
-    const validators = await network.fetchValidators(validatorsCount);
+    const validators = await network.fetchValidators(this.account, validatorsCount);
     const nominatorsCount = this.networkConfig.nominators.amount;
 
     for (let i = 0; i < nominatorsCount; i++) {
       const validatorArray = [validators[(i) % validatorsCount]];
-      const stashAccountFile = fs.readFileSync(
-        `../generate-accounts/accounts/all/nominator-${i + 1}-stash`
-      );
-      const controllerAccountFile = fs.readFileSync(
-        `../generate-accounts/accounts/all/nominator-${i + 1}-controller`
-      );
-      const stashAccountMnemonic = JSON.parse(stashAccountFile.toString())
-        .mnemonic;
-      const controllerAccountMnemonic = JSON.parse(
-        controllerAccountFile.toString()
-      ).mnemonic;
 
       const stashBond = this.networkConfig.nominators.stash_stake;
-      const exsistentialDeposit = await network.existentialDeposit();
-      const actualBondValue = stashBond - exsistentialDeposit;
+      const actualBondValue = stashBond;
 
-      const stashAccount = await this.account.loadAccount(stashAccountMnemonic);
-      const controllerAccount = await this.account.loadAccount(controllerAccountMnemonic);
-      const stashBalace = await network.getBalance(stashAccount.address);
+      const stashAccount = this.account.loadAccountFromFile(`nominator-${i + 1}-stash`);
+      const controllerAccount = await this.account.loadAccountFromFile(`nominator-${i + 1}-controller`);
+      const stashBalance = await network.getBalance(stashAccount.address);
 
-      await nominator.addNominator(actualBondValue,controllerAccount, stashAccount, +stashBalace);
+      await nominator.addNominator(actualBondValue,controllerAccount, stashAccount, +stashBalance);
       await nominator.setController(controllerAccount, stashAccount);
       await nominator.nominate(validatorArray, stashAccount);
-
     }
   }
 }

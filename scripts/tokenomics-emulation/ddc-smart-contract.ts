@@ -73,14 +73,16 @@ class DdcSmartContract {
    * @returns Transaction hash
    */
   public async deploy(sender: KeyringPair, emulationName: string) {
-    console.log(`Deploy DDC smart contract to get code hash`);
+    console.log(`Deploying DDC smart contract to get code hash`);
     const code = new CodePromise(this.api, cere02Abi, cere02Wasm);
 
     const tx = await code.createBlueprint();
     return new Promise((res, rej) => {
       tx.signAndSend(
         sender,
-        Network.sendStatusCb.bind(this, res, rej, EventHandlers.handleEventsForCodeHash, emulationName)
+        Network.sendStatusCb.bind(this, res, rej, async (events) => {
+          await EventHandlers.handleEventsForCodeHash(events, emulationName);
+        })
       ).catch((err) => rej(err));
     });
   }
@@ -93,7 +95,7 @@ class DdcSmartContract {
   public async deployBluePrint(
     sender: KeyringPair,
     codeHash: string,
-    endowment: string,
+    endowment: number,
     gasLimit: string,
     tier1Limit: number,
     tier1ThroughtputLimit: number,
@@ -106,6 +108,7 @@ class DdcSmartContract {
     tier3StorageLimit: number,
     symbol: string
   ) {
+    console.log('Deploying DDC blue print with code hash');
     const blueprint = new BlueprintPromise(this.api, cere02Abi, codeHash);
 
     const unsub = await blueprint.tx.new(
@@ -124,7 +127,15 @@ class DdcSmartContract {
     );
     return new Promise((res, rej) => {
       unsub
-        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej, EventHandlers.handleEventsForSmartContractAddress, 'ddc_sc_address'))
+        .signAndSend(
+          sender,
+          Network.sendStatusCb.bind(this, res, rej, async (events) => {
+            await EventHandlers.handleEventsForSmartContractAddress(
+              events,
+              "ddc_sc_address"
+            );
+          })
+        )
         .catch((err) => rej(err));
     });
   }

@@ -1,4 +1,4 @@
-import { EventRecord } from '@polkadot/types/interfaces';
+import { EventRecord } from "@polkadot/types/interfaces";
 import { ApiPromise } from "@polkadot/api";
 import { KeyringPair } from "@polkadot/keyring/types";
 import Network from "./network";
@@ -10,7 +10,7 @@ import {
 import cere02Abi from "./contract/cere01-metadata.json";
 import fs from "fs";
 const cere01Wasm = fs.readFileSync("./contract/cere01.wasm");
-import EventHandlers from './event-handlers';
+import EventHandlers from "./event-handlers";
 
 class CereSmartContract {
   private cereContract: ContractPromise;
@@ -81,14 +81,16 @@ class CereSmartContract {
    * @returns code_hash
    */
   public async deploy(sender: KeyringPair, emulationName: string) {
-    console.log(`Deploy smart contract`);
+    console.log(`Deploy cere code to get code hash`);
     const code = new CodePromise(this.api, cere02Abi, cere01Wasm);
 
     const tx = await code.createBlueprint();
     return new Promise((res, rej) => {
       tx.signAndSend(
         sender,
-        Network.sendStatusCb.bind(this, res, rej, EventHandlers.handleEventsForCodeHash, emulationName)
+        Network.sendStatusCb.bind(this, res, rej, async (events) => {
+          EventHandlers.handleEventsForCodeHash(events, emulationName);
+        })
       ).catch((err) => rej(err));
     });
   }
@@ -101,11 +103,12 @@ class CereSmartContract {
   public async deployBluePrint(
     sender: KeyringPair,
     codeHash: string,
-    endowment: string,
+    endowment: number,
     gasLimit: string,
     initialValue: number,
     dsAccounts: string[]
   ) {
+    console.log(`Deploying Cere blueprint`);
     const blueprint = new BlueprintPromise(this.api, cere02Abi, codeHash);
 
     const unsub = await blueprint.tx.new(
@@ -119,12 +122,16 @@ class CereSmartContract {
       unsub
         .signAndSend(
           sender,
-          Network.sendStatusCb.bind(this, res, rej, EventHandlers.handleEventsForSmartContractAddress, "cere_sc_address" )
+          Network.sendStatusCb.bind(this, res, rej, async (events) => {
+            EventHandlers.handleEventsForSmartContractAddress(
+              events,
+              "cere_sc_address"
+            );
+          })
         )
         .catch((err) => rej(err));
     });
   }
-
 }
 
 export default CereSmartContract;

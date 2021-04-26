@@ -1,3 +1,4 @@
+import { KeyringPair } from "@polkadot/keyring/types";
 import Accounts from "./accounts";
 import Network from "./network";
 
@@ -34,12 +35,10 @@ class Validator {
   /**
    * Load stash and controller accounts.
    */
-  public async loadAccounts(stashMnemonic: string, controllerMnemonic: string) {
+  public async loadAccounts(stashAccount: KeyringPair, controllerAccount: KeyringPair) {
     console.log(`Loading your stash and controller accounts\n`);
-    this.stashAccount = await this.accounts.loadAccount(stashMnemonic);
-    this.controllerAccount = await this.accounts.loadAccount(
-      controllerMnemonic
-    );
+    this.stashAccount = stashAccount;
+    this.controllerAccount = controllerAccount;
     this.stashBalance = await this.network.getBalance(
       this.stashAccount.address
     );
@@ -78,7 +77,7 @@ class Validator {
 
     const transaction = this.network.api.tx.staking.bond(
       this.controllerAccount.address,
-      BigInt(bondValue),
+      BigInt(value),
       "Staked"
     );
 
@@ -86,7 +85,7 @@ class Validator {
       transaction
         .signAndSend(
           this.stashAccount,
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
@@ -102,7 +101,7 @@ class Validator {
       transaction
         .signAndSend(
           this.stashAccount,
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
@@ -124,7 +123,7 @@ class Validator {
       transaction
         .signAndSend(
           this.controllerAccount,
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
@@ -147,7 +146,7 @@ class Validator {
       transaction
         .signAndSend(
           this.controllerAccount,
-          Network.sendStatusCb.bind(this, res, rej)
+          Network.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
