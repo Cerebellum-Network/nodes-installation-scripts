@@ -55,9 +55,6 @@
         "name": "add-validator"
       },
       {
-        "name": "add-nominator"
-      },
-      {
         "name": "native-tokens-transfer",
         "amount": 1,
         "tokens_range": [1, 2]
