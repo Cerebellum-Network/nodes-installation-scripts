@@ -79,9 +79,9 @@ class EmulationsFactory {
       case "cere-user-to-app":
         return new CereUserToAppEmulation(config, this.account, this.network, this.cereContract, this.batcher);
       case "deploy-cere-smart-contract":
-        return new DeployCereScEmulation(config, this.account, this.cereContract);
+        return new DeployCereScEmulation(config, this.account, this.cereContract, this.networkConfig.decimals);
       case "deploy-ddc-smart-contract":
-        return new DeployDdcScEmulation(config, this.account, this.ddcContract);
+        return new DeployDdcScEmulation(config, this.account, this.ddcContract, this.networkConfig.decimals);
       case "add-validator":
         return new AddValidatorsEmulation(this.account, this.networkConfig );
       case "wait-for-new-era":

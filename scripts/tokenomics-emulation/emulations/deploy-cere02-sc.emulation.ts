@@ -6,14 +6,15 @@ class DeployDdcScEmulation implements IEmulation {
   constructor(
     private readonly config,
     private readonly account: Accounts,
-    private readonly DdcSmartContract: DdcSmartContract
+    private readonly DdcSmartContract: DdcSmartContract,
+    private readonly decimals
   ) {}
 
   public async run(): Promise<void> {
     console.log(`Running emulation for deploying DDC smart contract`);
     const sender = this.account.rootAccount;
-    const codeHash = this.config.code_hash;
-    const endowment = this.config.endowment;
+    
+    const endowment = this.config.endowment * 10 ** this.decimals;
     const gasLimit = this.config.gas_limit;
 
     const tier1Limit = this.config.tier_1_fee;
@@ -28,10 +29,11 @@ class DeployDdcScEmulation implements IEmulation {
     const tier3ThroughtputLimit = this.config.tier_3_throughput_limit;
     const tier3StorageLimit = this.config.tier3StorageLimit;
 
+    const emulationName = this.config.name;
+
     const symbol = this.config.symbol;
-
-    // const codeHashRes = await this.DdcSmartContract.deploy(sender);
-
+    const codeHashRes = await this.DdcSmartContract.deploy(sender, emulationName);
+    const codeHash = this.config.code_hash;
     const deploy = await this.DdcSmartContract.deployBluePrint(
       sender,
       codeHash,

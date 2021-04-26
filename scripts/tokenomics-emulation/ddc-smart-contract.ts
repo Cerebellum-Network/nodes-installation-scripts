@@ -9,7 +9,7 @@ import {
 import cere02Abi from "./contract/cere02-metadata.json";
 import fs from "fs";
 const cere02Wasm = fs.readFileSync("./contract/cere02.wasm");
-import configFile from './config.json';
+import EventHandlers from "./event-handlers";
 
 class DdcSmartContract {
   private ddcContract: ContractPromise;
@@ -72,15 +72,17 @@ class DdcSmartContract {
    * @param sender signer
    * @returns Transaction hash
    */
-  public async deploy(sender: KeyringPair) {
-    console.log(`Deploy DDC smart contract to get code hash`);
+  public async deploy(sender: KeyringPair, emulationName: string) {
+    console.log(`Deploying DDC smart contract to get code hash`);
     const code = new CodePromise(this.api, cere02Abi, cere02Wasm);
 
     const tx = await code.createBlueprint();
     return new Promise((res, rej) => {
       tx.signAndSend(
         sender,
-        Network.sendStatusCb.bind(this, res, rej, undefined)
+        Network.sendStatusCb.bind(this, res, rej, (events) => {
+          EventHandlers.handleEventsForCodeHash(events, emulationName);
+        })
       ).catch((err) => rej(err));
     });
   }
@@ -93,7 +95,7 @@ class DdcSmartContract {
   public async deployBluePrint(
     sender: KeyringPair,
     codeHash: string,
-    endowment: string,
+    endowment: number,
     gasLimit: string,
     tier1Limit: number,
     tier1ThroughtputLimit: number,
@@ -106,6 +108,7 @@ class DdcSmartContract {
     tier3StorageLimit: number,
     symbol: string
   ) {
+    console.log("Deploying DDC blue print with code hash");
     const blueprint = new BlueprintPromise(this.api, cere02Abi, codeHash);
 
     const unsub = await blueprint.tx.new(
@@ -124,23 +127,16 @@ class DdcSmartContract {
     );
     return new Promise((res, rej) => {
       unsub
-        .signAndSend(sender, Network.sendStatusCb.bind(this, res, rej, this.handleEvents))
+        .signAndSend(
+          sender,
+          Network.sendStatusCb.bind(this, res, rej, (events) => {
+            EventHandlers.handleEventsForSmartContractAddress(
+              events,
+              "ddc_sc_address"
+            );
+          })
+        )
         .catch((err) => rej(err));
-    });
-  }
-
-  /**
-   * Process the events to set smart contract address
-   * @param events Events
-   */
-   private async handleEvents(events) {
-    console.log("Handling Events");
-    events.forEach((event) => {
-      if (event.event.data.length === 2) {
-        configFile.network.ddc_sc_address = event.event.data[1].toString();
-        fs.writeFileSync("config.json", JSON.stringify(configFile));
-        console.log(`The smart contract address is ${event.event.data[1]}\n`);
-      }
     });
   }
 }

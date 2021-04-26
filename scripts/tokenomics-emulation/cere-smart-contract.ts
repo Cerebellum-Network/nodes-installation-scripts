@@ -9,7 +9,7 @@ import {
 import cere02Abi from "./contract/cere01-metadata.json";
 import fs from "fs";
 const cere01Wasm = fs.readFileSync("./contract/cere01.wasm");
-import configFile from "./config.json";
+import EventHandlers from "./event-handlers";
 
 class CereSmartContract {
   private cereContract: ContractPromise;
@@ -79,15 +79,17 @@ class CereSmartContract {
    * @param sender owner of smart contract
    * @returns code_hash
    */
-  public async deploy(sender: KeyringPair) {
-    console.log(`Deploy smart contract`);
+  public async deploy(sender: KeyringPair, emulationName: string) {
+    console.log(`Deploy cere code to get code hash`);
     const code = new CodePromise(this.api, cere02Abi, cere01Wasm);
 
     const tx = await code.createBlueprint();
     return new Promise((res, rej) => {
       tx.signAndSend(
         sender,
-        Network.sendStatusCb.bind(this, res, rej, undefined)
+        Network.sendStatusCb.bind(this, res, rej, (events) => {
+          EventHandlers.handleEventsForCodeHash(events, emulationName);
+        })
       ).catch((err) => rej(err));
     });
   }
@@ -100,11 +102,12 @@ class CereSmartContract {
   public async deployBluePrint(
     sender: KeyringPair,
     codeHash: string,
-    endowment: string,
+    endowment: number,
     gasLimit: string,
     initialValue: number,
     dsAccounts: string[]
   ) {
+    console.log(`Deploying Cere blueprint`);
     const blueprint = new BlueprintPromise(this.api, cere02Abi, codeHash);
 
     const unsub = await blueprint.tx.new(
@@ -118,24 +121,14 @@ class CereSmartContract {
       unsub
         .signAndSend(
           sender,
-          Network.sendStatusCb.bind(this, res, rej, this.handleEvents)
+          Network.sendStatusCb.bind(this, res, rej, (events) => {
+            EventHandlers.handleEventsForSmartContractAddress(
+              events,
+              "cere_sc_address"
+            );
+          })
         )
         .catch((err) => rej(err));
-    });
-  }
-
-  /**
-   * Process the events to set smart contract address
-   * @param events Events
-   */
-  private async handleEvents(events) {
-    console.log("Handling Events");
-    events.forEach((event) => {
-      if (event.event.data.length === 2) {
-        configFile.network.cere_sc_address = event.event.data[1].toString();
-        fs.writeFileSync("config.json", JSON.stringify(configFile));
-        console.log(`The smart contract address is ${event.event.data[1]}\n`);
-      }
     });
   }
 }
