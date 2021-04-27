@@ -61,6 +61,9 @@
         "name": "wait-for-new-era"
       },
       {
+        "name": "validator-nominator-stash-balance"
+      },
+      {
         "name": "native-tokens-transfer",
         "amount": 1,
         "tokens_range": [1, 2]
@@ -98,6 +101,30 @@
         "amount": 1,
         "string_lenght": 128,
         "characters_to_generate_random_string": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+      },
+      {
+        "name": "ddc-metrics-report",
+        "amount": 1,
+        "data_rec": 1024,
+        "data_rep": 1024,
+        "req_rec": 10,
+        "req_rep": 10
+      },
+      {
+        "name": "ddc-subscribe",
+        "amount": 1,
+        "tier_id": 10
+      },
+      {
+        "name": "cere-app-to-user",
+        "amount": 1,
+        "token_value": 1,
+        "txn_fee": 0
+      },
+      {
+        "name": "cere-user-to-app",
+        "amount": 1,
+        "token_value": 1
       },
       {
         "name": "fetch-total-issuance"
