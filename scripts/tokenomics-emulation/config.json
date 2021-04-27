@@ -55,6 +55,12 @@
         "name": "add-validator"
       },
       {
+        "name": "add-nominator"
+      },
+      {
+        "name": "wait-for-new-era"
+      },
+      {
         "name": "native-tokens-transfer",
         "amount": 1,
         "tokens_range": [1, 2]
