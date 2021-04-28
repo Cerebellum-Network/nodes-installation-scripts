@@ -31,7 +31,7 @@ services:
     image: cerebellumnetwork/pos-node:v2.2.0
     volumes:
       - ./spec-data:/cereio/spec-data
-    command: bash -c "mkdir -p ~/spec && /usr/local/bin/cere build-spec --disable-default-bootnode --chain local > /cereio/spec-data/customSpec_new.json"
+    command: bash -c "mkdir -p ~/spec && /usr/local/bin/cere build-spec --disable-default-bootnode --chain local > /cereio/spec-data/customSpec.json"
   create_raw_chain_spec:
     container_name: create_raw_chain_spec
     image: cerebellumnetwork/pos-node:v2.2.0
