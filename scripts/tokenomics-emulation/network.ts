@@ -168,7 +168,7 @@ class Network {
    * Compare the era index
    * @returns error when era not matched
    */
-  public async compareEra() {
+  private async compareEra() {
     const era = await this.currentEra();
     console.log(`Era is ${era}`);
     if (this.earIndex !== era) {
