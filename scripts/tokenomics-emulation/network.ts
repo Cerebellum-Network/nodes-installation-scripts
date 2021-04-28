@@ -8,6 +8,7 @@ import Accounts from "./accounts";
 
 class Network {
   public api: ApiPromise;
+  private earIndex: number;
 
   constructor(
     private readonly WsProvider: string,
@@ -164,22 +165,34 @@ class Network {
   }
 
   /**
-   * Wait for a new ERA
-   * @returns Boolean after new era started
+   * Compare the era index
+   * @returns error when era not matched
    */
-  public async waitForANewEra() {
-    console.log(`Fetch the current ERA index.`);
-    let era = await this.currentEra();
-    let currentEra = era;
-    console.log(`Current Era ${currentEra}`);
-    let newEra = currentEra + 1;
-
-    while (currentEra !== newEra) {
-      console.log("Pooling ERA");
-      currentEra = await this.currentEra();
+  private async compareEra() {
+    const era = await this.currentEra();
+    console.log(`Era is ${era}`);
+    if (this.earIndex !== era) {
+      throw new Error("Era is not completed"); 
     }
-    console.log(`Current Era updates as ${currentEra}`);
-    return true;
+  }
+
+  /**
+   * Wait for new ERA
+   */
+  public async waitForNewEra() {
+    console.log('Waiting for compliting current ERA');
+    const currentEra = await this.currentEra();
+    this.earIndex = currentEra + 1;
+    console.log(`Current ERA is ${currentEra}`);
+    await this.callWithRetry(
+      this.compareEra.bind(this),
+      {
+        maxDepth: 100,
+      },
+      0,
+      '30000'
+    );
+    console.log('ERA Completed');
   }
 
   /**
@@ -206,6 +219,42 @@ class Network {
     return formatBalance(totalIssuance, { decimals: this.decimals });
   }
 
+   /**
+   * Function to be looped
+   * @param fn function which needs to be looped
+   * @param options
+   * @param depth
+   * @returns
+   */
+    private async callWithRetry(
+      fn,
+      options = { maxDepth: 5 },
+      depth = 0,
+      waitSeconds: string
+    ) {
+      try {
+        return await fn();
+      } catch (e) {
+        if (depth > options.maxDepth) {
+          throw e;
+        }
+        const seconds = parseInt(waitSeconds, 10);
+        console.log(`Wait ${seconds}s.`);
+        await this.sleep(seconds);
+  
+        return this.callWithRetry(fn, options, depth + 1, waitSeconds);
+      }
+    }
+  
+    /**
+     * Sleep
+     * @param ms Time in milli second
+     * @returns promise
+     */
+    private async sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+  
   /**
    * Fetch current era index
    * @returns current era index
