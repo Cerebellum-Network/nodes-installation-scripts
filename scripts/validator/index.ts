@@ -2,6 +2,7 @@ import { ApiPromise, Keyring, WsProvider } from "@polkadot/api";
 import { KeypairType } from "@polkadot/util-crypto/types";
 import { KeyringPair } from "@polkadot/keyring/types";
 import { EventRecord, ExtrinsicStatus } from "@polkadot/types/interfaces";
+import config from "./network-custom-types";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -21,11 +22,7 @@ class Validator {
     const provider = process.env.PROVIDER;
     console.log(`Connecting to blockchain: ${provider}`);
     const wsProvider = new WsProvider(provider);
-    this.api = await ApiPromise.create({ provider: wsProvider, types: {
-        ChainId: 'u8',
-        ResourceId: '[u8; 32]',
-        TokenId: 'U256'
-      }});
+    this.api = await ApiPromise.create({ provider: wsProvider, types: config});
     await this.api.isReady;
     const chain = await this.api.rpc.system.chain();
     console.log(`Connected to: ${chain}\n`);
