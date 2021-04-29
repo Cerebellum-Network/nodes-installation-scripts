@@ -5,6 +5,7 @@ import { ApiPromise } from "@polkadot/api";
 import { WsProvider } from "@polkadot/api";
 import { formatBalance, stringToU8a } from "@polkadot/util";
 import Accounts from "./accounts";
+import config from "./network-custom-types";
 
 class Network {
   public api: ApiPromise;
@@ -29,11 +30,7 @@ class Network {
     const wsProvider = new WsProvider(url);
     this.api = await ApiPromise.create({
       provider: wsProvider,
-      types: {
-        ChainId: "u8",
-        ResourceId: "[u8; 32]",
-        TokenId: "U256",
-      },
+      types: config,
     });
     await this.api.isReady;
     const chain = await this.api.rpc.system.chain();
