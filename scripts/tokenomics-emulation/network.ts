@@ -236,7 +236,7 @@ class Network {
           throw e;
         }
         const seconds = parseInt(waitSeconds, 10);
-        console.log(`Wait ${seconds}s.`);
+        console.log(`Wait ${seconds} ms.`);
         await this.sleep(seconds);
   
         return this.callWithRetry(fn, options, depth + 1, waitSeconds);
