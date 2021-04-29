@@ -235,9 +235,9 @@ class Network {
         if (depth > options.maxDepth) {
           throw e;
         }
-        const seconds = parseInt(waitSeconds, 10);
-        console.log(`Wait ${seconds}s.`);
-        await this.sleep(seconds);
+        const milliSeconds = parseInt(waitSeconds, 10);
+        console.log(`Wait ${milliSeconds} ms.`);
+        await this.sleep(milliSeconds);
   
         return this.callWithRetry(fn, options, depth + 1, waitSeconds);
       }
