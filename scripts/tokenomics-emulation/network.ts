@@ -5,7 +5,7 @@ import { ApiPromise } from "@polkadot/api";
 import { WsProvider } from "@polkadot/api";
 import { formatBalance, stringToU8a } from "@polkadot/util";
 import Accounts from "./accounts";
-import config from "./constants";
+import config from "./network-custom-types";
 
 class Network {
   public api: ApiPromise;
