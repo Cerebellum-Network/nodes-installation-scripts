@@ -42,22 +42,22 @@
     "sequence": [
       {
         "name": "native-tokens-transfer",
-        "amount": 100,
+        "amount": 10,
         "tokens_range": [1, 2]
       },
       {
         "name": "send-ddc-transaction",
-        "amount": 100,
+        "amount": 6,
         "sendData": "This is test data"
       },
       {
         "name": "ddc-subscribe",
-        "amount": 10,
+        "amount": 1,
         "tier_id": 3
       },
       {
         "name": "ddc-metrics-report",
-        "amount": 100,
+        "amount": 3,
         "data_rec": 1024,
         "data_rep": 1024,
         "req_rec": 10,
@@ -65,13 +65,13 @@
       },
       {
         "name": "cere-app-to-user",
-        "amount": 100,
+        "amount": 60,
         "token_value": 1,
         "txn_fee": 0
       },
       {
         "name": "cere-user-to-app",
-        "amount": 100,
+        "amount": 60,
         "token_value": 1
       }
     ]
