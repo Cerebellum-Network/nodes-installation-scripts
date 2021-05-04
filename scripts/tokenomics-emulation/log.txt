@@ -1,0 +1,1280 @@
+
+> tokenomics-emulation@1.0.0 tokenomics-emulation /Users/Andrei/Documents/CerebellumNetwork/nodes-installation-scripts/scripts/tokenomics-emulation
+> npx ts-node index.ts
+
+About to initializing network
+
+Connecting to blockchain: wss://testnet-node-1.dev1.cere.network:9945
+
+Connected to: Cerebellum Network Testnet Beta
+
+About to loading accounts
+
+Starting an emulation 'native-tokens-transfer'...
+
+Running 1 native token transfer...
+
+About to transfer 20000000000 native assets to 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xeea459364957f894dbb1f01b1f61ae51bb9034c3c170d445f3e370b6fced5660
+Transaction has been included in blockHash 0xeea459364957f894dbb1f01b1f61ae51bb9034c3c170d445f3e370b6fced5660
+Transaction succeeded
+About to get balance for: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+
+Balance of 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY is 999.9920 MUnit
+Running 2 native token transfer...
+
+About to transfer 10000000000 native assets to 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x8ca4903f9818d530469adb90f8f5a39a8e7def097513abce2f18dead59f93aa6
+Transaction has been included in blockHash 0x8ca4903f9818d530469adb90f8f5a39a8e7def097513abce2f18dead59f93aa6
+Transaction succeeded
+About to get balance for: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+
+Balance of 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY is 999.9920 MUnit
+Running 3 native token transfer...
+
+About to transfer 10000000000 native assets to 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x504793a3a6dae534132ea66fb15b04465b2fe12f2e099f77b7d68f14a40ddc19
+Transaction has been included in blockHash 0x504793a3a6dae534132ea66fb15b04465b2fe12f2e099f77b7d68f14a40ddc19
+Transaction succeeded
+About to get balance for: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+
+Balance of 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY is 999.9920 MUnit
+Running 4 native token transfer...
+
+About to transfer 20000000000 native assets to 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x3c41b47e1a3eb4eefe714bd178461a2900e716950dba838e3841d122dc409b8c
+Transaction has been included in blockHash 0x3c41b47e1a3eb4eefe714bd178461a2900e716950dba838e3841d122dc409b8c
+Transaction succeeded
+About to get balance for: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+
+Balance of 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY is 999.9920 MUnit
+Running 5 native token transfer...
+
+About to transfer 20000000000 native assets to 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x471f0329701112c188508bcb0874e79dff693cced49ac5eea1976c93bbbe4645
+Transaction has been included in blockHash 0x471f0329701112c188508bcb0874e79dff693cced49ac5eea1976c93bbbe4645
+Transaction succeeded
+About to get balance for: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+
+Balance of 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY is 999.9920 MUnit
+Running 6 native token transfer...
+
+About to transfer 10000000000 native assets to 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xdbd456148fe1034a10a6f448d5119328ffbcf5f1691c9a3df57860cc6fbf7b31
+Transaction has been included in blockHash 0xdbd456148fe1034a10a6f448d5119328ffbcf5f1691c9a3df57860cc6fbf7b31
+Transaction succeeded
+About to get balance for: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+
+Balance of 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY is 999.9920 MUnit
+Running 7 native token transfer...
+
+About to transfer 10000000000 native assets to 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xb6e2c20af63811f28a5b53a6025ce628281d0afa5bf5480ab1db564c076857ae
+Transaction has been included in blockHash 0xb6e2c20af63811f28a5b53a6025ce628281d0afa5bf5480ab1db564c076857ae
+Transaction succeeded
+About to get balance for: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+
+Balance of 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY is 999.9920 MUnit
+Running 8 native token transfer...
+
+About to transfer 20000000000 native assets to 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xff9e1e25c6372ce495106a2c65d311f94a829dfe1f82e95c0b30e09188aa243f
+Transaction is in block: 0xe21ffdc31fba5589172b1d77603ff0da8ac400aa77bab98f3d66e9c5274c7ce6
+Transaction has been included in blockHash 0xe21ffdc31fba5589172b1d77603ff0da8ac400aa77bab98f3d66e9c5274c7ce6
+Transaction succeeded
+About to get balance for: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+
+Balance of 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY is 999.9920 MUnit
+Running 9 native token transfer...
+
+About to transfer 10000000000 native assets to 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x79e483e75b3f75c82558cf1b6104490255fcebead89511ceeda3ae2910186bb9
+Transaction has been included in blockHash 0x79e483e75b3f75c82558cf1b6104490255fcebead89511ceeda3ae2910186bb9
+Transaction succeeded
+About to get balance for: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+
+Balance of 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY is 999.9920 MUnit
+Running 10 native token transfer...
+
+About to transfer 20000000000 native assets to 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xbb6471f78be8afa67df4845f79b0f49b968f8f53c14f2e3287a4dc1b090215a9
+Transaction has been included in blockHash 0xbb6471f78be8afa67df4845f79b0f49b968f8f53c14f2e3287a4dc1b090215a9
+Transaction succeeded
+About to get balance for: 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY
+
+Balance of 5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY is 999.9920 MUnit
+The emulation 'native-tokens-transfer' completed.
+
+The treasury balance is 29.8293 Unit
+Starting an emulation 'send-ddc-transaction'...
+
+Running 1 send ddc transaction...
+
+About to send ddc transaction from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4 to 5EL8niYQyNrTryE4Np3UChCuvfy31xWHLjX7V5kNGb1getqv as This is test data
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x56fc4df5c8936521fc7749f847736987ab57ead28f9598511f468023b301e7e8
+Transaction has been included in blockHash 0x56fc4df5c8936521fc7749f847736987ab57ead28f9598511f468023b301e7e8
+Transaction succeeded
+Running 2 send ddc transaction...
+
+About to send ddc transaction from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4 to 5GpPosJiGGZ7BvDru1ckNEiv129AUrmA3WN9Yttk8KB59tnj as This is test data
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x491199288317fe97309041639acacf35a53b6cf2b30a16a7b377ff0a38612cd8
+Transaction has been included in blockHash 0x491199288317fe97309041639acacf35a53b6cf2b30a16a7b377ff0a38612cd8
+Transaction succeeded
+Running 3 send ddc transaction...
+
+About to send ddc transaction from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4 to 5HCKAvXoG2SFHmybe3Eth6hkhrQTSp4BUuPb89TaG4aUq6XK as This is test data
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x2e02e0569007c57481231c1b9a2e35a31666e4e7e43b17d5cde151cee5976f49
+Transaction has been included in blockHash 0x2e02e0569007c57481231c1b9a2e35a31666e4e7e43b17d5cde151cee5976f49
+Transaction succeeded
+Running 4 send ddc transaction...
+
+About to send ddc transaction from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4 to 5DqdNxfV4aVV9i57Y9sKciAHM4ExXL7vEDzvMkVAcR3BXV4c as This is test data
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x07b68776895ae0fab8d1b3ed81ec696104eeb941a2acb6a45f753d8ebae0efb2
+Transaction has been included in blockHash 0x07b68776895ae0fab8d1b3ed81ec696104eeb941a2acb6a45f753d8ebae0efb2
+Transaction succeeded
+Running 5 send ddc transaction...
+
+About to send ddc transaction from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4 to 5HomRiFZNFiGDGskMgEoHJ5ipAQNbHBmK46DzMYkyiknQwLi as This is test data
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x8a8997d256ca1a23952f72246116382e27f5bdf8cd5d348232398a9de1c60df2
+Transaction has been included in blockHash 0x8a8997d256ca1a23952f72246116382e27f5bdf8cd5d348232398a9de1c60df2
+Transaction succeeded
+Running 6 send ddc transaction...
+
+About to send ddc transaction from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4 to 5HVWK2bfmUxATerYgFn6eVcXh2rPxHC5emDfoQ3wA8JUHvkP as This is test data
+
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xfaf29f179ca12b97f10e6b99dd076646141b3c51f22545a213a4dca6dc59ffd3
+Transaction has been included in blockHash 0xfaf29f179ca12b97f10e6b99dd076646141b3c51f22545a213a4dca6dc59ffd3
+Transaction succeeded
+The emulation 'send-ddc-transaction' completed.
+
+The treasury balance is 29.9285 Unit
+Starting an emulation 'ddc-subscribe'...
+
+Running 1 ddc subscribe...
+
+About to call subscribe in ddc sm from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x070b02118757adfcb2bf00f57aa1a5218b23b58ce78cb62203310cf65aa35ea0
+Transaction has been included in blockHash 0x070b02118757adfcb2bf00f57aa1a5218b23b58ce78cb62203310cf65aa35ea0
+Transaction succeeded
+The emulation 'ddc-subscribe' completed.
+
+The treasury balance is 31.4728 Unit
+Starting an emulation 'ddc-metrics-report'...
+
+Running 1 ddc report metrics...
+
+About to call report_metrics in ddc sm from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x3d710cb0981ee9aa6ddd5f03fa8a807fe218c21e432fbe2c79ea30c822e1e41d
+Transaction has been included in blockHash 0x3d710cb0981ee9aa6ddd5f03fa8a807fe218c21e432fbe2c79ea30c822e1e41d
+Transaction succeeded
+Running 2 ddc report metrics...
+
+About to call report_metrics in ddc sm from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x68709180a8a9bbd055aa1687e6d0e300687a28215c5f70ef68b3cf34f12a10c9
+Transaction has been included in blockHash 0x68709180a8a9bbd055aa1687e6d0e300687a28215c5f70ef68b3cf34f12a10c9
+Transaction succeeded
+Running 3 ddc report metrics...
+
+About to call report_metrics in ddc sm from 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x37edc4b5047a2691e0b6590e12ea8f162e90d6dc98ee3f16dfea59e64e205f34
+Transaction has been included in blockHash 0x37edc4b5047a2691e0b6590e12ea8f162e90d6dc98ee3f16dfea59e64e205f34
+Transaction succeeded
+The emulation 'ddc-metrics-report' completed.
+
+The treasury balance is 33.8918 Unit
+Starting an emulation 'cere-app-to-user'...
+
+Running 1 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5EAUJh1u5GMMxvjSvrCVyajQSdz6dfn9d12NJcCCFhiXRkdP by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x00b3b5c6027d0f5b866cff93b8d02b8b85626dd3ff64eec5dca7112329267ea8
+Transaction has been included in blockHash 0x00b3b5c6027d0f5b866cff93b8d02b8b85626dd3ff64eec5dca7112329267ea8
+Transaction succeeded
+Running 2 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5G9DG6PWH8KybpU6heuyso2ePiVmrbNSifndaQwgUcgSpvAG by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x88df5cd1d9796fea65ab22d166a8d48b21d58cb55ade76690514e62f0042a76b
+Transaction is in block: 0xb3029d54d1f2ec2891ad4e9fd5c888e581e9d8b2c70822b8e5df7d1aa1563c6a
+Transaction has been included in blockHash 0xb3029d54d1f2ec2891ad4e9fd5c888e581e9d8b2c70822b8e5df7d1aa1563c6a
+Transaction succeeded
+Running 3 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5DHx1JhqQAaFtYr3JTcjd1a1baDuEovReJo67Jp81AjBfhe9 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xd1688cf7901a971ddd02eb9fd8536acdf75c375cea9e2c55efd958b360ca4875
+Transaction is in block: 0x665d85febd6b375904ad58c92b070bc14e024dae0b73f19e8ad0ab4b660bfb19
+Transaction has been included in blockHash 0x665d85febd6b375904ad58c92b070bc14e024dae0b73f19e8ad0ab4b660bfb19
+Transaction succeeded
+Running 4 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5HQnyigvjbsTCfPEpmHSVk7e5E2QWTUPB52rpUMch2NQp83M by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x3f3bc2bded9db0541849fc3b2ad33a5d108ef65424bcb65f8fecfc75c57e8b93
+Transaction has been included in blockHash 0x3f3bc2bded9db0541849fc3b2ad33a5d108ef65424bcb65f8fecfc75c57e8b93
+Transaction succeeded
+Running 5 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5FWNST9he4mmNyHKQaCuCGCjajn8wfRC9naxekaztBMUBV2b by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xbedbc69da67dd4b6a56d5187d3c55070fdfb0dc952e8e94cc92b5c0900f38019
+Transaction has been included in blockHash 0xbedbc69da67dd4b6a56d5187d3c55070fdfb0dc952e8e94cc92b5c0900f38019
+Transaction succeeded
+Running 6 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5G4Kf1yv5dvmjKnmo46oocQfahFk6NLYdsZ5XXJBaGvnxkg9 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xd86336aae2f5b9ce5850423f746227ba8319ad2d4c75a67e3776723d479e8659
+Transaction has been included in blockHash 0xd86336aae2f5b9ce5850423f746227ba8319ad2d4c75a67e3776723d479e8659
+Transaction succeeded
+Running 7 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5ENWgqhpnprwzBxbkqHcieK6YVyRhEaGGRRTKhhyPV3PFj9x by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xc4b24a6e8a0e77cc732a0fe5bf77d2a3d615b65a431569df85ad51911bcabf41
+Transaction has been included in blockHash 0xc4b24a6e8a0e77cc732a0fe5bf77d2a3d615b65a431569df85ad51911bcabf41
+Transaction succeeded
+Running 8 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5GxfHYkTWDkED7A93Ve7f9Hdx667QF6k12USv5zgP9JLXBjj by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x2302a9b82707ed6f7a7ff80572f6268d3300d4c9b040391d3d36a967e0d263de
+Transaction has been included in blockHash 0x2302a9b82707ed6f7a7ff80572f6268d3300d4c9b040391d3d36a967e0d263de
+Transaction succeeded
+Running 9 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5HjX4SHeKRdVbHbbqramVwmKrPo5CUxVPXg3x4HHhv9xQVLZ by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xb70cd68484cb7b9a21971438ad915af91e6f49aaea51755db6ad527514208ce2
+Transaction has been included in blockHash 0xb70cd68484cb7b9a21971438ad915af91e6f49aaea51755db6ad527514208ce2
+Transaction succeeded
+Running 10 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5Hio7KrkCZihSLhk2JjuiRZZojfVZQMEatfJ1Gdsi7rKxzJ4 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x936828f8408ce932cc9e6a3c59091c7514ccdca6aa179c2a11c5c4d1bb375e87
+Transaction has been included in blockHash 0x936828f8408ce932cc9e6a3c59091c7514ccdca6aa179c2a11c5c4d1bb375e87
+Transaction succeeded
+Running 11 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5FvQoYwWQKPG3Nnf6CCXFWCYw9tcVjwmRk3ZkJ7xAo2C3yDs by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xaee74dadc7953fe0f85b1274eb7eb3d1815f7e0c526d7af644d7ec96260fab3e
+Transaction has been included in blockHash 0xaee74dadc7953fe0f85b1274eb7eb3d1815f7e0c526d7af644d7ec96260fab3e
+Transaction succeeded
+Running 12 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5EhxH5mEuzgwqbgMPhbynaJNUWfpXikwZLXsTm1rroRcxFBT by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xbf4a2a0cf9f364156c0a0c21d4e4fca359e092f1e7d74e63b4c628f45306e328
+Transaction has been included in blockHash 0xbf4a2a0cf9f364156c0a0c21d4e4fca359e092f1e7d74e63b4c628f45306e328
+Transaction succeeded
+Running 13 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5Fsji3Frrt8WLCjzxg7xhZJHTSxVNRkzkfS32QyVXYQumF15 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x36784d5233a4cbb15b5983a73b5045d10f7df31db3c3f2a14a6e38a135839667
+Transaction has been included in blockHash 0x36784d5233a4cbb15b5983a73b5045d10f7df31db3c3f2a14a6e38a135839667
+Transaction succeeded
+Running 14 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5HEEQxoCNP69nLQwf3fHj8fRg4id5KEbobVdkivQVQvkyco5 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x760043f5fc576f2517d800946e4bb13f1db6af132090ded4f15c98314b709f6c
+Transaction has been included in blockHash 0x760043f5fc576f2517d800946e4bb13f1db6af132090ded4f15c98314b709f6c
+Transaction succeeded
+Running 15 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5GWTaFrypxVc8btrNEyNh9aBsm5UFFnkAryHMRBkMrVpWVHC by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xa2adcd17babeed38e5f3b78495914496d42a0d2d9360b13754d0e971d4a71395
+Transaction has been included in blockHash 0xa2adcd17babeed38e5f3b78495914496d42a0d2d9360b13754d0e971d4a71395
+Transaction succeeded
+Running 16 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5EeEDg8Vki6nHWw7gdMRw755L2vUddHcbvydUQqDTyafqewr by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x26e14222fdecf2f05b8672d5c2cdcc5a568d9541f12c550c24896f0ec7db98c5
+Transaction has been included in blockHash 0x26e14222fdecf2f05b8672d5c2cdcc5a568d9541f12c550c24896f0ec7db98c5
+Transaction succeeded
+Running 17 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5GR5tF1RKkS3YTXRHEPKDXrNqe4nNGKEnFSHXaiuvaTeKNG4 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xfcf535374ae3e682b64b783597de09a8362e291d93c453c217242d60898d581b
+Transaction is in block: 0xf49e13e041214ec4d2d824bf1d6a9c37fa8f6101a788898fa5ea9f6a25be4a45
+Transaction has been included in blockHash 0xf49e13e041214ec4d2d824bf1d6a9c37fa8f6101a788898fa5ea9f6a25be4a45
+Transaction succeeded
+Running 18 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5CkLUmjZRQuXw8cMMhnKxTVxz27w5s7btbmHdxFVRg17WDRZ by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xb9f338d56851ecb447b7e4098d650809d8cd2c31d6d5c5c31ee590e3598c5c8a
+Transaction has been included in blockHash 0xb9f338d56851ecb447b7e4098d650809d8cd2c31d6d5c5c31ee590e3598c5c8a
+Transaction succeeded
+Running 19 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5Dq1gV3osYq4M22roDM7gih766Q7Xie7HUXhq2YCo4kU4fwg by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x238da1bed538cabfa3861efa7b28e8a4c4de9fd997cf150a47b2bf7c2bd18e42
+Transaction has been included in blockHash 0x238da1bed538cabfa3861efa7b28e8a4c4de9fd997cf150a47b2bf7c2bd18e42
+Transaction succeeded
+Running 20 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5CtJrzqxv6SBLioixYAEj7Z8UrP4Y1khHJ2Q4jQSRJ7fsvJk by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xbde7e5e1ecd7976f5b492f49c4c337a84c8f011752adfb9a1f172aed4acba564
+Transaction has been included in blockHash 0xbde7e5e1ecd7976f5b492f49c4c337a84c8f011752adfb9a1f172aed4acba564
+Transaction succeeded
+Running 21 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5FPQ2n6NwkwJTkVKEuCcEsXpJArGKPc1gdSk2ypQsTx3u7Vf by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xc7ccbe7761f14bba4d925038c0b0e611d8c923eca9a80b051ea8391d4aada752
+Transaction has been included in blockHash 0xc7ccbe7761f14bba4d925038c0b0e611d8c923eca9a80b051ea8391d4aada752
+Transaction succeeded
+Running 22 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5GnbboZWY6otS85bMTXPpYj75zsZViSe8ijxs2DFsusbmoxX by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x7a17da9d67dbfdcfd9516707e05c9412f17a611df0e5c8e172bb7198b3ac8607
+Transaction has been included in blockHash 0x7a17da9d67dbfdcfd9516707e05c9412f17a611df0e5c8e172bb7198b3ac8607
+Transaction succeeded
+Running 23 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5HYeg6z2d5vUF5mwGEBkUxBrdGfJAthVQckpEQYxPY9UC1uY by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x1b2d191978d32f651ba7cd6ad60731ef732937a36d0f3db7116437d44096f6a0
+Transaction has been included in blockHash 0x1b2d191978d32f651ba7cd6ad60731ef732937a36d0f3db7116437d44096f6a0
+Transaction succeeded
+Running 24 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5G4B5cK9SSuH2LNNkBW6Dv73TJMDpNTfjzMXtFqNSvZLgmGM by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x8fd42ff8eb610234c724ccea5e0fcc55727c4244323f7ed08167d754fabe16e7
+Transaction has been included in blockHash 0x8fd42ff8eb610234c724ccea5e0fcc55727c4244323f7ed08167d754fabe16e7
+Transaction succeeded
+Running 25 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5GEZri2gLibFBw7UZntaBCgB991YEcus2GZJUxueoi7nap7J by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xafaff9227fe1cc827c5b878dc7a71bd8ccc77116c6afe3c07b7c3fa9d4138203
+Transaction has been included in blockHash 0xafaff9227fe1cc827c5b878dc7a71bd8ccc77116c6afe3c07b7c3fa9d4138203
+Transaction succeeded
+Running 26 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5DcWeCHAoSeMHKDeHooGW3zqditEudac4bBukeZakcy2rT4y by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x478841eafce3b34c69f187e2be4cfa53ad6bb0a4d90b0563cda59597aa4176b4
+Transaction has been included in blockHash 0x478841eafce3b34c69f187e2be4cfa53ad6bb0a4d90b0563cda59597aa4176b4
+Transaction succeeded
+Running 27 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5DP5xCctCz7WZDBnUGR8XSHw7pg8Lv2yYczfLWq3NLwm1HSQ by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x2f203ad2864c8d71c9e9b193411680006b3f78c15dd3af6250e5583337130059
+Transaction has been included in blockHash 0x2f203ad2864c8d71c9e9b193411680006b3f78c15dd3af6250e5583337130059
+Transaction succeeded
+Running 28 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5GeM1c1vGk17nqEDc14yV3ESerhRdeSQEXe9YYApLEMosjU9 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xac661cb57a5b1e1e84fa6702712d3545afa1903f8c72caf26406fc2c23c6148b
+Transaction has been included in blockHash 0xac661cb57a5b1e1e84fa6702712d3545afa1903f8c72caf26406fc2c23c6148b
+Transaction succeeded
+Running 29 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5H3GHTUE1zQWYXkZgPQBShXrVrA6H6bMVY96ZppGkhmhnY4H by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xe8e414105f7544cb566775e62583838c372ef1d0176340394891bff449aa0aac
+Transaction has been included in blockHash 0xe8e414105f7544cb566775e62583838c372ef1d0176340394891bff449aa0aac
+Transaction succeeded
+Running 30 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5HGLrYMpqcEM8QjgHxZdEDKYjAg71BVWG2CNcyMYTBt8yhvV by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xb03c56cc7cad96bd738468748f1eedf39a7a1d7afcaaed9b35ced8f71a20b961
+Transaction has been included in blockHash 0xb03c56cc7cad96bd738468748f1eedf39a7a1d7afcaaed9b35ced8f71a20b961
+Transaction succeeded
+Running 31 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5FtFCBQA9fq9ViUYpsR2YaJr7t4qPfB8TCHDsb2XFG8jL6sW by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xce3248a017acc0c1c58691c341ff8e1c5315a55a6e664da9b248a16a3e8c043e
+Transaction has been included in blockHash 0xce3248a017acc0c1c58691c341ff8e1c5315a55a6e664da9b248a16a3e8c043e
+Transaction succeeded
+Running 32 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5CVJ8LmrvETzsCCbK3PkvFkDhS2YPWT5DzpFug6PzbGNSFfa by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x61f86baa9af1af1a74fad03fce4feed3faba5e1a543bf1c0a15bad21c7ecd0e5
+Transaction has been included in blockHash 0x61f86baa9af1af1a74fad03fce4feed3faba5e1a543bf1c0a15bad21c7ecd0e5
+Transaction succeeded
+Running 33 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5EF3MEVxU9ubB8GcRt1sS4p232FXva9mUw77qevNo2M7ywNV by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x0a93d7e5db090c6ad289f81bba410d6c9a1542a47a015bca28b7b5493df784dc
+Transaction has been included in blockHash 0x0a93d7e5db090c6ad289f81bba410d6c9a1542a47a015bca28b7b5493df784dc
+Transaction succeeded
+Running 34 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5HNN65ib57v6hqwZds2mbgZLx9J6wP7yxGyd2MkKphExtzv3 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x71ae6e10258b0ba6f92ff7a8e9ce7d52b88b1964cc30f5e939a69221c848dba1
+Transaction has been included in blockHash 0x71ae6e10258b0ba6f92ff7a8e9ce7d52b88b1964cc30f5e939a69221c848dba1
+Transaction succeeded
+Running 35 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5GQYzwf6pjjcTiEK8xWCbH4m8u6r8CFFAnFWHXegDZVu8bbU by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x9c9d2b1746be364e7072a8f16f701b2e4e3897e6646312e1c45b3938aa8de1e5
+Transaction has been included in blockHash 0x9c9d2b1746be364e7072a8f16f701b2e4e3897e6646312e1c45b3938aa8de1e5
+Transaction succeeded
+Running 36 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5HYkpUZimJCe7MiH2UWF5xQ8MivxshjouxrZEu29JvxUxL1j by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x470d0c1f5a92ed154608c245c53efc8f6481a4907ee3fdb4c5963ae99cf1fdbb
+Transaction has been included in blockHash 0x470d0c1f5a92ed154608c245c53efc8f6481a4907ee3fdb4c5963ae99cf1fdbb
+Transaction succeeded
+Running 37 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5HGWUdaX62mgoeM5mfsKspnEv8v1KuGBmigeV3RMbNB1E73K by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x90a08773eaaa9d094d7fdd9099cd076ead93b99145906e7e59359d3458211fbb
+Transaction has been included in blockHash 0x90a08773eaaa9d094d7fdd9099cd076ead93b99145906e7e59359d3458211fbb
+Transaction succeeded
+Running 38 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5Do5s216xBVLpXMfFgzda5aZyzgkNRt1kLXH56oWkVQkcSGY by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xf1cbe05ba5fbdbbb73b6c8f15cec6403dfff34ac9c971ca390023935b3f5fc35
+Transaction has been included in blockHash 0xf1cbe05ba5fbdbbb73b6c8f15cec6403dfff34ac9c971ca390023935b3f5fc35
+Transaction succeeded
+Running 39 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5Df4icE3u3bvtqB4mVrLfcopJdX7DSvhJ543s5aHGiy6jcP5 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x2b8cb96ed136eeca58760b76fb090952ed85cc5556b1498df22cb191a403ee33
+Transaction has been included in blockHash 0x2b8cb96ed136eeca58760b76fb090952ed85cc5556b1498df22cb191a403ee33
+Transaction succeeded
+Running 40 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5DymRXhBfRJnnwEt2GLh8m28RCka6hDUpT5km3WUeni7YkFz by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x1917f4d4a838ccc41f586cf9553381d2ceedee1302ff9f4228eb88982de03104
+Transaction has been included in blockHash 0x1917f4d4a838ccc41f586cf9553381d2ceedee1302ff9f4228eb88982de03104
+Transaction succeeded
+Running 41 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5HputRrn3NNQQMc3QsAjtsv2MPCDhQjPpaiEnWdifGn89H5x by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x6ff8e668ac28f4fb35da54fe245d82ccba31deb7bb4c24f957380cdb57ed59c0
+Transaction has been included in blockHash 0x6ff8e668ac28f4fb35da54fe245d82ccba31deb7bb4c24f957380cdb57ed59c0
+Transaction succeeded
+Running 42 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5Gj9KeE9hCq78NWNdXd95AT2rRquP7djLNsNpazQkXVytZ7C by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xa5fa58e9129b6aa2508df8473d349983410b4a04105e7e9ecff197f24eaa8e9c
+Transaction has been included in blockHash 0xa5fa58e9129b6aa2508df8473d349983410b4a04105e7e9ecff197f24eaa8e9c
+Transaction succeeded
+Running 43 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5DG7ddqUGomiJoeJPUiCWTi8orH2UvbGiwC5Gt7Ewm8Q9gs5 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x1aacd1fa814dfade44bd6d8c823302ba6987c2505d4f0380b81a832fb71c9a0c
+Transaction has been included in blockHash 0x1aacd1fa814dfade44bd6d8c823302ba6987c2505d4f0380b81a832fb71c9a0c
+Transaction succeeded
+Running 44 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5Evah3eBJqmL3FF7Pg2xa7v5JF3tNyVSa6c4zFNqJaYrYJtQ by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x458a2b99526c558f577afa2d3f0c7d96704b9c4053c72737223eb2bd7c15acb4
+Transaction has been included in blockHash 0x458a2b99526c558f577afa2d3f0c7d96704b9c4053c72737223eb2bd7c15acb4
+Transaction succeeded
+Running 45 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5FzzbyCemtboZnVNBSssvGnEVnTaXyQZ1xkbb5GuCMfuC6rt by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xf68022a5c9c3da8404dae117806e63d1e579a3f08e4b13e85712d99cbb153c7d
+Transaction has been included in blockHash 0xf68022a5c9c3da8404dae117806e63d1e579a3f08e4b13e85712d99cbb153c7d
+Transaction succeeded
+Running 46 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5HjQusJRXkF62nMB2NhbddTjKhYtr37eMGwmkadtZQT1hxYf by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x1e3473291fdfa87e9062facc0f97a34f070c60c3823e5ca5267abefbf626132f
+Transaction has been included in blockHash 0x1e3473291fdfa87e9062facc0f97a34f070c60c3823e5ca5267abefbf626132f
+Transaction succeeded
+Running 47 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5GsUJWEQUsHZyYDjWWkoy43q6ZxxjLvNzvhseNmRXXsbzXzU by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xce031c708f29e91a0bc00e3923ff54f940fe5a771ccb20faf13c9ed750de49eb
+Transaction has been included in blockHash 0xce031c708f29e91a0bc00e3923ff54f940fe5a771ccb20faf13c9ed750de49eb
+Transaction succeeded
+Running 48 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5ELr2yeFGUEqwQZKM2abcgH2KoytP2Yfo3YU32HU1kJeyLnX by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xad505cf6bba7b5ea4ef5d35fbdb6030ddec575606a52de8a3457a1955da442a2
+Transaction has been included in blockHash 0xad505cf6bba7b5ea4ef5d35fbdb6030ddec575606a52de8a3457a1955da442a2
+Transaction succeeded
+Running 49 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5D2YGxsBuUyrhZTc13FDnku7Uai5wsKmZPCuhanjkGXZBUNk by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x2e3f6ac0d71ff3f1636a58744e7df7da67d65ae85551b1ed325b1b1d666e1399
+Transaction has been included in blockHash 0x2e3f6ac0d71ff3f1636a58744e7df7da67d65ae85551b1ed325b1b1d666e1399
+Transaction succeeded
+Running 50 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5CGBpvhBSHYc749BWauu4hhg3UfZdMLpQxZNm5SeP9usdCFy by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x14f70e8763428b2ebb80e46e9f3ddde12da752b7e72b1e551b33786c90f9ecf7
+Transaction is in block: 0xe8bc6c5aca5676944ef517e8358af0e3d75bd60ac8fd7e5aa6ca3b39758a3ade
+Transaction has been included in blockHash 0xe8bc6c5aca5676944ef517e8358af0e3d75bd60ac8fd7e5aa6ca3b39758a3ade
+Transaction succeeded
+Running 51 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5H3iYX58ipji1HY76oH5vPBzPKQT6scob7p6rG5HaaGmEYvt by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x9fb6e7ad82f433808e65a11d4c2b437975cbbe6ac8ea4326bdc14011d9e7df72
+Transaction has been included in blockHash 0x9fb6e7ad82f433808e65a11d4c2b437975cbbe6ac8ea4326bdc14011d9e7df72
+Transaction succeeded
+Running 52 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5GBXf6pJBSwQ9VtVHexzi5C4FSdzR4dMmPnf4Gq6MWVt1uyy by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x25847d4e36b696450aaf55b7cf601163e8f409a05c1d372af3dc622e376102f6
+Transaction has been included in blockHash 0x25847d4e36b696450aaf55b7cf601163e8f409a05c1d372af3dc622e376102f6
+Transaction succeeded
+Running 53 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5Cnt9xZafwroXrFurkAX5XUDXN6FAvCn5mquwFMYGDwiDhQz by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x1715c8a7ea8146eafc0f8da460a5fbad77c13c25592c957f26365ebdc3c28b30
+Transaction has been included in blockHash 0x1715c8a7ea8146eafc0f8da460a5fbad77c13c25592c957f26365ebdc3c28b30
+Transaction succeeded
+Running 54 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5Hjn7kzQfX1uTCnCkBarqMoTzvRa6iCVyS3pimJmvHsGGdRS by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x0e5d556f660f500a6555ff52f02fadb29897a9ec245a5855e78104bb89502fe6
+Transaction has been included in blockHash 0x0e5d556f660f500a6555ff52f02fadb29897a9ec245a5855e78104bb89502fe6
+Transaction succeeded
+Running 55 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5GKwMVaUQVt2mnDSapANDm3Y6KkP75vn9jPSsHDTrCiuf1KF by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xfc7cf81981017614d7b9f0daf1b9bfbd20d45373ddb8e74d2da34eb949119bd5
+Transaction has been included in blockHash 0xfc7cf81981017614d7b9f0daf1b9bfbd20d45373ddb8e74d2da34eb949119bd5
+Transaction succeeded
+Running 56 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5FRMKhnhRxr7JiguzWbTEt2o4jXggBDf5BEN42Aq6eDEBs9A by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x60dcada0d36509be651dc78268f77454162a11783826a6089f4109fafa102721
+Transaction has been included in blockHash 0x60dcada0d36509be651dc78268f77454162a11783826a6089f4109fafa102721
+Transaction succeeded
+Running 57 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5DRp7EYuMNPPrMjijZDz3VESVCKZT8jfYRKPzyTS1Q5x4wzB by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x6984af44b5dcd0358f976e3b2b824aba9093a3034715f9097b360a4597a1ba50
+Transaction has been included in blockHash 0x6984af44b5dcd0358f976e3b2b824aba9093a3034715f9097b360a4597a1ba50
+Transaction succeeded
+Running 58 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5FA1vJpyfPbkkBYdgJpP9szMqCsuu7xF1SUu2Cc2MzzeJMvh by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x4a058676a8744a932d06b9fe3590b4ebd5fddcb4d46d9aaf2451521fa2dac980
+Transaction has been included in blockHash 0x4a058676a8744a932d06b9fe3590b4ebd5fddcb4d46d9aaf2451521fa2dac980
+Transaction succeeded
+Running 59 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5CHr6NTjhVXw87ex49NYFp3VKmnR8RBjNa92ZoiWYJpjaHTV by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xdd413581a505320fa2d8d666807dac703a259da480a8e3da9c97ea0145ae3032
+Transaction has been included in blockHash 0xdd413581a505320fa2d8d666807dac703a259da480a8e3da9c97ea0145ae3032
+Transaction succeeded
+Running 60 cere app to user transfer...
+
+About to transfer 10000000000 from smart contract to 5Hn3LMtuZFf9aYpkfJY7sWwyvmST2nT8WkJa88bEyAbbQQGJ by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x597542f87f8ab2409743653abbf23ea9d6e0cc32fbe4db8975f65f2b3ea62711
+Transaction has been included in blockHash 0x597542f87f8ab2409743653abbf23ea9d6e0cc32fbe4db8975f65f2b3ea62711
+Transaction succeeded
+The emulation 'cere-app-to-user' completed.
+
+The treasury balance is 147.5178 Unit
+Starting an emulation 'cere-user-to-app'...
+
+Running 1 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5CwJUGFK1T66aSt7eDzP9fUhRHifxP1nEixw5WkdaNzUAkr5 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x0610033027b68b14ca5ff4d97992468182c6b6c99e584c28a15cc99ea82e920d
+Transaction has been included in blockHash 0x0610033027b68b14ca5ff4d97992468182c6b6c99e584c28a15cc99ea82e920d
+Transaction succeeded
+Running 2 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5HTSHVDQ94ffM9bVpbTzqsQtzxsSW9hvQRdZVuXPpUCAyvbo by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x70abac9c06a527682ff02d331469a7c5fd58976c9f501b18304f0f7bf81a5348
+Transaction has been included in blockHash 0x70abac9c06a527682ff02d331469a7c5fd58976c9f501b18304f0f7bf81a5348
+Transaction succeeded
+Running 3 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5GLNiPMvvjzUh9T77ek9h82kyQVYkynDpVhJHEFAHEKLj2HP by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x93f295c484e8df08e4d8ebcce633a3a229994581718c3280dce4a64ce89141a8
+Transaction has been included in blockHash 0x93f295c484e8df08e4d8ebcce633a3a229994581718c3280dce4a64ce89141a8
+Transaction succeeded
+Running 4 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5C7mkVMUY8kxDdDtAVHsbjxrBXiJcSPsL7gBK16AUXyHG7JZ by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x13b48a3741048887803c311b160b701f156f08db808d093dee0c5e6da0bb39a2
+Transaction has been included in blockHash 0x13b48a3741048887803c311b160b701f156f08db808d093dee0c5e6da0bb39a2
+Transaction succeeded
+Running 5 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5DU8RfoUDwt7EFGCKG2EeRZyoop8dWrAbNaPzwqZTdAYjmEH by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x835c15a64bca0e5538df4902639bad6fa69065f6eccb78581b3e5c4214ebf7c0
+Transaction has been included in blockHash 0x835c15a64bca0e5538df4902639bad6fa69065f6eccb78581b3e5c4214ebf7c0
+Transaction succeeded
+Running 6 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5DnWeUGC7dQAx1yi2GAQubR3JEbY8LXqqbkNCs7qBrPUkPfC by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x9808339af937b471cfc3be7f478822a1e586dc3ce391c81599804570230c7378
+Transaction has been included in blockHash 0x9808339af937b471cfc3be7f478822a1e586dc3ce391c81599804570230c7378
+Transaction succeeded
+Running 7 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5DwHDCperW79ryGfznF47QQG1ixyxfK8VPVXFnXuzvaH4SCV by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x6e0659ff17b812c480f4e82dd150b99781f519eb42b7fe1b9984b910c84564a0
+Transaction has been included in blockHash 0x6e0659ff17b812c480f4e82dd150b99781f519eb42b7fe1b9984b910c84564a0
+Transaction succeeded
+Running 8 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5DCuCRm17Ju3FCZ7nD8n3qD56EcUSyDQHiDoH1PESQ7Gi89f by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x5dcb9fadb064191706115345e5ac823c7a38d7bfa86a4e6ed1fff1be30bc95da
+Transaction has been included in blockHash 0x5dcb9fadb064191706115345e5ac823c7a38d7bfa86a4e6ed1fff1be30bc95da
+Transaction succeeded
+Running 9 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5HMtmWRS9U7wxobs8VzY2g4GbZtqoMZyRJM5GiSqsi8H2cjF by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xdd39d1df4bde447df3a4935f290073facc472c223e4f0a07e5e207ba3d3bc8c6
+Transaction has been included in blockHash 0xdd39d1df4bde447df3a4935f290073facc472c223e4f0a07e5e207ba3d3bc8c6
+Transaction succeeded
+Running 10 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5G41ibq6VQjQucDzxYEtgfDLQnjrhhii2XonjPJh3pRmFPvN by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xa5d1a75300b3853d7db23e2bcf6ddf3c1114e36badda08404117e8a8e92d033c
+Transaction has been included in blockHash 0xa5d1a75300b3853d7db23e2bcf6ddf3c1114e36badda08404117e8a8e92d033c
+Transaction succeeded
+Running 11 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5GxWeMXAWpH5ZSv9vZteSd7CLXmYk6gUhQV1AmtcgKNChAzz by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xb85ed3b99a661f1068351fba608695bef0629bd425a16692c020d4b4441e4b34
+Transaction has been included in blockHash 0xb85ed3b99a661f1068351fba608695bef0629bd425a16692c020d4b4441e4b34
+Transaction succeeded
+Running 12 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5D1sy7cGJudiJ5Jk8S1ekBRcXxoCKDg2nn97nSf9qAQAMYKB by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xc891e8b5da1b05e134474e19d03c67376a15403575a28d1f0cae33ba57a45c38
+Transaction has been included in blockHash 0xc891e8b5da1b05e134474e19d03c67376a15403575a28d1f0cae33ba57a45c38
+Transaction succeeded
+Running 13 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5GYbiqsubb6ZfbhCnuzVXu3vqkDBtfDMhMk9tngQztU9D7KS by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xbd86ef30ff6ee34afe63234257ae8ca3d02f36347b9673e07b4506f8bd86f4f9
+Transaction has been included in blockHash 0xbd86ef30ff6ee34afe63234257ae8ca3d02f36347b9673e07b4506f8bd86f4f9
+Transaction succeeded
+Running 14 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5GH3SDSbSGdJkTdzLhUPXmBYvoTEMjBrnynbgDBBZVdyjn94 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x090f9d912019c0d26a3b24f68802ad620325c1c07606ca9683ff3e44556066d4
+Transaction has been included in blockHash 0x090f9d912019c0d26a3b24f68802ad620325c1c07606ca9683ff3e44556066d4
+Transaction succeeded
+Running 15 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5Et4sf5V5WAWVLuoNoN9eGj9HaEJ7eXUosGttJzyNTfECMoK by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xf3c8cdb784e1e550eda83827c2dbfc7217726e0fc84e02f47e758b1c9d836ade
+Transaction has been included in blockHash 0xf3c8cdb784e1e550eda83827c2dbfc7217726e0fc84e02f47e758b1c9d836ade
+Transaction succeeded
+Running 16 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5HR523THfiLo7dBiR17PhR58FmAEjgJktUNRdV1oaMMgMn53 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xe45d106745961888c507eae6d7f57fca3292070f2f70b80faf4f1534920a0cc4
+Transaction has been included in blockHash 0xe45d106745961888c507eae6d7f57fca3292070f2f70b80faf4f1534920a0cc4
+Transaction succeeded
+Running 17 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5D2FdcfMu6pUec5z6zKvHp1Uv1LRMwcEZ2j9UJmCq4qVW3VK by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xc5fc5edc7b97a6b33b8866d92b991798f5c8ecbfed07796889db2be95db4b9a9
+Transaction has been included in blockHash 0xc5fc5edc7b97a6b33b8866d92b991798f5c8ecbfed07796889db2be95db4b9a9
+Transaction succeeded
+Running 18 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5H1G1pDsq3f9t1auMegBKbawLGtnQjR3GQCHzS89Y2PBKCJR by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x98cb5f9df659f1ca415007227b2c72c4f28afabeecdaf1d026fadaa2d97ab888
+Transaction has been included in blockHash 0x98cb5f9df659f1ca415007227b2c72c4f28afabeecdaf1d026fadaa2d97ab888
+Transaction succeeded
+Running 19 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5HEGqbXYDVpsH9iiCvqfhrj7Vw92qHJHgxSDX3FmS2P5ew2x by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xa381f2aafd48142a8d93af64f31ec65ba66fec09c79187fe2e052da8c0dc7a6a
+Transaction has been included in blockHash 0xa381f2aafd48142a8d93af64f31ec65ba66fec09c79187fe2e052da8c0dc7a6a
+Transaction succeeded
+Running 20 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5Cd3V8KFG5Vhd4b8DXTE4dtuuf9E8i5cdAszotRdkGD46KMw by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xe00e2e7ab2899cb6307cf24f63b899a6c4810c9c38d6449f61d4507eb533e261
+Transaction has been included in blockHash 0xe00e2e7ab2899cb6307cf24f63b899a6c4810c9c38d6449f61d4507eb533e261
+Transaction succeeded
+Running 21 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5EX7zDHpoVxgWtgKWk7ZXFbTrsoNDEneabvBrG55VYwTC7Qn by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xa86fe3c047d87ba1126794bf84eb6afecb43f360c6e18c35142461f01ef44b91
+Transaction has been included in blockHash 0xa86fe3c047d87ba1126794bf84eb6afecb43f360c6e18c35142461f01ef44b91
+Transaction succeeded
+Running 22 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5CXtkyr8BGEUNN1We4nPJ4oipVdESJeQz8p6akafSKLZwidr by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x6c9e73a66998cbbf374280a22f602b178f724c2c3c21c167ce15a2a295796562
+Transaction has been included in blockHash 0x6c9e73a66998cbbf374280a22f602b178f724c2c3c21c167ce15a2a295796562
+Transaction succeeded
+Running 23 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5ELDuwN9fA4PEcqkzj4xrX6Ds81iLLqX1YcxZd366v4GEXEQ by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x30907a569d61585d73ab8c023891a6b4d3869494d8a0df1d84d9b26cfe306388
+Transaction is in block: 0x2c7043d81e339f93c57f2ccade171a66f6a6809fc3ae50a289f8964575d8f999
+Transaction has been included in blockHash 0x2c7043d81e339f93c57f2ccade171a66f6a6809fc3ae50a289f8964575d8f999
+Transaction succeeded
+Running 24 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5EZrrhzzdjf4EZXjSVQeoC1aLMycFQpSt8VUwQZj4QbZhCiH by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xe7125a3af68b9261a7778f4bfd5559811241ae3ea7aa8ae7134b99e1640f8909
+Transaction has been included in blockHash 0xe7125a3af68b9261a7778f4bfd5559811241ae3ea7aa8ae7134b99e1640f8909
+Transaction succeeded
+Running 25 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5Dc3TwCTstjE5tBBCeffszB5RoomBm7FtXnwHpCn8HjbDepN by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x3d0c266b7f75d32fe4bf4bffe8c4d820950b1e3804ef8b63fe8e75336cf4f91e
+Transaction has been included in blockHash 0x3d0c266b7f75d32fe4bf4bffe8c4d820950b1e3804ef8b63fe8e75336cf4f91e
+Transaction succeeded
+Running 26 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5DyoTzRCbg9NtDcnFiBY7KPiF96SQmV5vG27sPWSEBsWvMsG by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xfa596325273e295d3de1c7b97bcabcd3d940a0e7ef09bc8e69204245fa3d2161
+Transaction has been included in blockHash 0xfa596325273e295d3de1c7b97bcabcd3d940a0e7ef09bc8e69204245fa3d2161
+Transaction succeeded
+Running 27 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5FZbBkeiWohbEZLmzHEj4D6nXbBpNmENwCbsQRGuXqAKLFQB by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x18d87df8451ae9ff26f71d73cd604f493832e19d47345e1ea78ce7586cb34670
+Transaction has been included in blockHash 0x18d87df8451ae9ff26f71d73cd604f493832e19d47345e1ea78ce7586cb34670
+Transaction succeeded
+Running 28 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5FCDt5oPqEdakoSkJRSk9pZLJgGqD5LnYrVyCjHypyT3Nx1V by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x559bb74ade013aa88f7a2949369b29d52725e00a691e25d4c2ae56e1358bc91e
+Transaction has been included in blockHash 0x559bb74ade013aa88f7a2949369b29d52725e00a691e25d4c2ae56e1358bc91e
+Transaction succeeded
+Running 29 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5GsvzqhcemhQWxVGjr64WLVXKe756rJRcPajg21uJRCmBDLP by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xbcd9ceab4065d4b54b583737da00faf46e7154d52fcf584fb7a93613c837e1cd
+Transaction has been included in blockHash 0xbcd9ceab4065d4b54b583737da00faf46e7154d52fcf584fb7a93613c837e1cd
+Transaction succeeded
+Running 30 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5FmvDJLvvWZFXfgW86Ntjzy9yQUPrG6tk9x55tr35DH1dmT4 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x59af06b518437da85d90fdc1dd626b6fab52c6b794d768f924b6d5c3851d69f9
+Transaction has been included in blockHash 0x59af06b518437da85d90fdc1dd626b6fab52c6b794d768f924b6d5c3851d69f9
+Transaction succeeded
+Running 31 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5CtEgzebEJT8XnC3eKdFE3VZMocYrvNPJS5Mo7n3R8Kfq3wU by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x24c8d0311b4e06d94a09aa033bc67b8148a8487ba289cfff9dbab199209ac1fc
+Transaction has been included in blockHash 0x24c8d0311b4e06d94a09aa033bc67b8148a8487ba289cfff9dbab199209ac1fc
+Transaction succeeded
+Running 32 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5Gv5GsZtP22snVF7rdUdE2h1n44XtSB6dtvk2EsHSKPcey6P by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xcb5311f56bd51811caf63dabd98db91ab7b0e14c2cdb8c0dcb8ac34cbdad06a9
+Transaction is in block: 0x37af077a49fd14ce59d82aa137090353187b53a9f09fe86352a0dba84ef12282
+Transaction has been included in blockHash 0x37af077a49fd14ce59d82aa137090353187b53a9f09fe86352a0dba84ef12282
+Transaction succeeded
+Running 33 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5DA2DRyuMFovkFpLP2cGyRdnWba4pApsSLQJ39j75CcAgZyW by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xe3f8aae43b8ab667db5c75d8ee219ad57344d95574a3bcb9b11d9810fcfd3361
+Transaction is in block: 0xb7a793b351e37e628be8fb0a07971354a4ccbf9e5af854054b07cdd2ec6d8ff5
+Transaction has been included in blockHash 0xb7a793b351e37e628be8fb0a07971354a4ccbf9e5af854054b07cdd2ec6d8ff5
+Transaction succeeded
+Running 34 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5FLKU8KQcgewcfz79RVMt7EcRkriRa3DhLqTh47HrzKPUrqE by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x40153666260bba77bf89726574e655a44549cec3b194fbe2a8578fb38c62d048
+Transaction has been included in blockHash 0x40153666260bba77bf89726574e655a44549cec3b194fbe2a8578fb38c62d048
+Transaction succeeded
+Running 35 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5CorSkWcgjqbdapQvqNiC1gTBMZhMNRSpCHsEPq9Y1uH2i3s by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x6f00b73bb22e870dad4df76f02eb3cf10461b350e41e7021086e980fbbacf521
+Transaction has been included in blockHash 0x6f00b73bb22e870dad4df76f02eb3cf10461b350e41e7021086e980fbbacf521
+Transaction succeeded
+Running 36 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5EjZhEPU3HtJyDXkVmjgUMVoTaTJUrs6qQhtF1hWbe7URATz by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xc38c940abf8c14ab146610fed0b7af6fe71967e3c6629355f433390dbfef093c
+Transaction has been included in blockHash 0xc38c940abf8c14ab146610fed0b7af6fe71967e3c6629355f433390dbfef093c
+Transaction succeeded
+Running 37 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5DX2rHJCBBQrYEo2ht9gXjsk1N86DJ5o9hpeo6TQ7apNEh2Y by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x87b7cf40645120fe3acac7b76673b22237884908bf22d6dd4f9af559fd78e50d
+Transaction has been included in blockHash 0x87b7cf40645120fe3acac7b76673b22237884908bf22d6dd4f9af559fd78e50d
+Transaction succeeded
+Running 38 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5ECu48NZ4so28Sjbpb4dzx3mn5wSFVqZN5teKKCYE5BCakag by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xeee187da23dd4ffba2e7c89791fe4cdcdc4180b4035fbf0ef466f33341a03517
+Transaction has been included in blockHash 0xeee187da23dd4ffba2e7c89791fe4cdcdc4180b4035fbf0ef466f33341a03517
+Transaction succeeded
+Running 39 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5D4zoKqkAr2iQw4F1B1CFhAx9GBeerkvXrHKEJCHrggNkN1V by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x5ec4cf510060e4c100fdd85b392fc3d8d2d59004fce451ce548196943349e209
+Transaction is in block: 0xeee481d2fa886d409805698d09188ecbc5bd5aa0fa4ee8542744ab9b9a60735a
+Transaction has been included in blockHash 0xeee481d2fa886d409805698d09188ecbc5bd5aa0fa4ee8542744ab9b9a60735a
+Transaction succeeded
+Running 40 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5H75FM3kdkQAAp9AmxgiLETJhsi85DafHmZ7urC5KBxCF1uM by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xe10f20b3ca2fcd1736e632bbb5c6f94715847449e7a390a8b5a34a62f8229363
+Transaction has been included in blockHash 0xe10f20b3ca2fcd1736e632bbb5c6f94715847449e7a390a8b5a34a62f8229363
+Transaction succeeded
+Running 41 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5FPNwzjQeQqwnW6ZFk6d7MsxycdjCkdsKD5aX16eihJnrVZz by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x0fd391d1439e5ee7ec1c737fc7d7725f8c5f8e9b83c2b169eaa3f1c7e724e620
+Transaction has been included in blockHash 0x0fd391d1439e5ee7ec1c737fc7d7725f8c5f8e9b83c2b169eaa3f1c7e724e620
+Transaction succeeded
+Running 42 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5FPFgsKt5vji96FScxnyfMmn1NuMM1C7fxhLR9ab3KM2NpRM by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x213ab37e5b37f7be35b83ddb75e58f95c5a590ec14694fdf32555e3e9ffa135c
+Transaction has been included in blockHash 0x213ab37e5b37f7be35b83ddb75e58f95c5a590ec14694fdf32555e3e9ffa135c
+Transaction succeeded
+Running 43 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5H3bAyoPRWN1Svvbq1nik19qFzZcxm6Z8K5odcZsx7TnBrqK by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xe60d560f77f208b76a899c696a423d855084c2f50bb816687a6d7b7d18d82252
+Transaction is in block: 0x8be2dba3e420be33207343752ad2e8fbd612348cf1d9ed414a56216f3ab7ca78
+Transaction has been included in blockHash 0x8be2dba3e420be33207343752ad2e8fbd612348cf1d9ed414a56216f3ab7ca78
+Transaction succeeded
+Running 44 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5D5DCnNCc4u3aTkqUpDh2LqBw8YzcetVeoejr1LtXZ4d6uFy by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x5fc8dea9ea99dfbe51cea54adfed2deaa7a1527bbbf83c22d262fa6b8cd6aa33
+Transaction has been included in blockHash 0x5fc8dea9ea99dfbe51cea54adfed2deaa7a1527bbbf83c22d262fa6b8cd6aa33
+Transaction succeeded
+Running 45 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5FRjoHAcBPY5CvDwwZwMnu9LdwRU4CH4tXqhUMneDWiuDYU8 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xf0ea374d63be03faf50717601cffa6aacc2674379072fa6b61f0e5deaf175430
+Transaction has been included in blockHash 0xf0ea374d63be03faf50717601cffa6aacc2674379072fa6b61f0e5deaf175430
+Transaction succeeded
+Running 46 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5CZZoGTkURPfezHTCSMfQZmdshVP5WgKxNojzxtgH8XKjjNM by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xf48c73d34438426c0a8036e5132d30dd00ecc4da46c1b59be77df7caacc32504
+Transaction has been included in blockHash 0xf48c73d34438426c0a8036e5132d30dd00ecc4da46c1b59be77df7caacc32504
+Transaction succeeded
+Running 47 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5CXNNzUvsjcaiJdidvwvhARfMGQVWAnMPc8DAw3hEV14ZSmJ by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x0d12775aab027e454bd3ce7cab4a1f1901b5579414487b2d179296257a5e6c50
+Transaction has been included in blockHash 0x0d12775aab027e454bd3ce7cab4a1f1901b5579414487b2d179296257a5e6c50
+Transaction succeeded
+Running 48 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5Ct59pXLDRW6HbNt86Du8ZA64YgpFtTjqqqiDkhhStxnsymz by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x01371030d16a936adaa9717dffe6e4e5c13386813d60c44e869b6a78bdbe2cf6
+Transaction has been included in blockHash 0x01371030d16a936adaa9717dffe6e4e5c13386813d60c44e869b6a78bdbe2cf6
+Transaction succeeded
+Running 49 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5EKy9J3fUxDb6t61PLVKosLhhtEAwrj9HUmNfB5RvJmLUa8f by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xeaa2b4d1f2318be38cbe8260c1b58294b6a871aecfae3fadc8187e0b5ea1cc10
+Transaction has been included in blockHash 0xeaa2b4d1f2318be38cbe8260c1b58294b6a871aecfae3fadc8187e0b5ea1cc10
+Transaction succeeded
+Running 50 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5EZi7Crcqo9RbbWWekmnbJqN6SMHdwvE3qnXbM7M2vEGSRTn by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xba82434db59794a84bd9af6273ede7b33e57acccc9b235732303f6fbd07f5d18
+Transaction has been included in blockHash 0xba82434db59794a84bd9af6273ede7b33e57acccc9b235732303f6fbd07f5d18
+Transaction succeeded
+Running 51 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5D5KasjP7X316b4697eohhFUfkypCnsjSdeQy7hrxYvgPTCw by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xa3fef95cdb27735a8c7d2f748161ecffcec8f8ea7fed4ccd2fb308a1eefaf6df
+Transaction has been included in blockHash 0xa3fef95cdb27735a8c7d2f748161ecffcec8f8ea7fed4ccd2fb308a1eefaf6df
+Transaction succeeded
+Running 52 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5EjfPN2awGimCavTSCLQfiWFVBqNc2gQaapBJ7TgtwgnN21J by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xf48e2c265daf3e1dcad32bec73ba3fb2d6e4985810f705f0f1ec87611eae4b01
+Transaction has been included in blockHash 0xf48e2c265daf3e1dcad32bec73ba3fb2d6e4985810f705f0f1ec87611eae4b01
+Transaction succeeded
+Running 53 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5CPwgWR2yrfuRRU2imCzjtfzoKDUcG9Dd1MDbDmQLMFwPixC by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xff4c90bd1cad6e3fb2dbd245e21eb50df2cf38d811a70a3daf0f3fbfc2217267
+Transaction has been included in blockHash 0xff4c90bd1cad6e3fb2dbd245e21eb50df2cf38d811a70a3daf0f3fbfc2217267
+Transaction succeeded
+Running 54 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5D4kfGTZYL1uPqScWgfcU7Pfrev8NR8LsjxCf3FL8bJ8JiPR by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x20753e55ca1c7daad458a7bd645cd0e3d13a2dba5435a322d1c6a7bc26091d2c
+Transaction has been included in blockHash 0x20753e55ca1c7daad458a7bd645cd0e3d13a2dba5435a322d1c6a7bc26091d2c
+Transaction succeeded
+Running 55 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5HbaisgMjmbLtmg7AP6imqFh8KfNdDr1Dg39guJDipMTPRr1 by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x8ed6869be5f794f7e6239592b9d0a1fbd6598286553fd2024fa41cd8a188dbdd
+Transaction is in block: 0x7194a3e7b0af0e8bc229d3b410d3181b12c304961c3a4e4515aba7c0da8e386f
+Transaction has been included in blockHash 0x7194a3e7b0af0e8bc229d3b410d3181b12c304961c3a4e4515aba7c0da8e386f
+Transaction succeeded
+Running 56 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5GxWHjyGFJpJgvoqBiLabgepvKRhAX6kmsmDHmj3JvJLMdnC by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0x90d8130a11086aed05d129f8d99a7a6f04d953ae6800db72e0fd9875aa1d588d
+Transaction has been included in blockHash 0x90d8130a11086aed05d129f8d99a7a6f04d953ae6800db72e0fd9875aa1d588d
+Transaction succeeded
+Running 57 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5HMgeSs1K1jP89e7r7uA77guTSTkYUUHNaASJk89dDddfzXr by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xc5176050eecab4ca6dffce6de1f6f8423f8b8d04bcbb4254102da42780408c9c
+Transaction has been included in blockHash 0xc5176050eecab4ca6dffce6de1f6f8423f8b8d04bcbb4254102da42780408c9c
+Transaction succeeded
+Running 58 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5DZy4ZS1qrvznECdCYgrp33gTRJvJdiMMR8ZthDMAR1DyAao by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xd07c1f57b2f460945d96823be2203359a66c42422f2af07019e477efe4778ca9
+Transaction is in block: 0x40dfce88f560544395c7dbe42ad3dfcf2262ebb90a0d5d70c8d0159ea4747579
+Transaction has been included in blockHash 0x40dfce88f560544395c7dbe42ad3dfcf2262ebb90a0d5d70c8d0159ea4747579
+Transaction succeeded
+Running 59 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5EcGqnKZ1VBCyBmHePWKySwor9BEyMY99QJQdbVfsW19x6rT by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xf6e01014c852f924fd03a8cb6af79766639e204524e8f08933d7d5b248d0ff31
+Transaction has been included in blockHash 0xf6e01014c852f924fd03a8cb6af79766639e204524e8f08933d7d5b248d0ff31
+Transaction succeeded
+Running 60 cere user to app transfer...
+
+About to estimate transaction fee for smart contract transfer
+About to transfer 10000000000 from smart contract to 5Ca47VA2gxourb2T5usFaauG2hChZtAQMJw6HznTJmKd2AQh by 5GWYwGZMMYykBqFPsN97ZxnqToULaXzbG3wwTD8imoXNEdL4
+Transaction is ready
+Transaction has been broadcasted
+Transaction is in block: 0xba27d40cec13d2c83b5467beb8b5b5fa660cc23d4bdf6bc2d18aa0b54dce5aa6
+Transaction has been included in blockHash 0xba27d40cec13d2c83b5467beb8b5b5fa660cc23d4bdf6bc2d18aa0b54dce5aa6
+Transaction succeeded
+The emulation 'cere-user-to-app' completed.
+
+The treasury balance is 261.1764 Unit
