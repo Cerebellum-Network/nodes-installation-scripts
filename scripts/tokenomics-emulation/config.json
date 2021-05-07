@@ -58,12 +58,6 @@
         "name": "add-nominator"
       },
       {
-        "name": "wait-for-new-era"
-      },
-      {
-        "name": "validator-nominator-stash-balance"
-      },
-      {
         "name": "native-tokens-transfer",
         "amount": 1,
         "tokens_range": [1, 2]
