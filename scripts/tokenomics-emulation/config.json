@@ -40,6 +40,9 @@
       "amount": 2,
       "stash_stake": 30000,
       "controller_stake": 20000
+    },
+    "sudo": {
+      "stake": 50000
     }
   },
   "accounts": [
