@@ -28,7 +28,7 @@ services:
     command: bash -c "subkey inspect --scheme ed25519 ''"
   create_chain_spec:
     container_name: create_chain_spec
-    image: cerebellumnetwork/pos-node:v2.2.0-rc1
+    image: cerebellumnetwork/pos-node:v2.2.0-rc2
     user: root
     volumes:
       - ./spec-data:/cereio/spec-data
@@ -36,14 +36,14 @@ services:
 
   create_raw_chain_spec:
     container_name: create_raw_chain_spec
-    image: cerebellumnetwork/pos-node:v2.2.0-rc1
+    image: cerebellumnetwork/pos-node:v2.2.0-rc2
     user: root
     volumes:
       - ./spec-data:/cereio/spec-data
     command: bash -c "/usr/local/bin/cere build-spec --chain=/cereio/spec-data/customSpec.json --raw --disable-default-bootnode > /cereio/spec-data/customSpecRaw.json"
   boot_node:
     container_name: boot_node
-    image: cerebellumnetwork/pos-node:v2.2.0-rc1
+    image: cerebellumnetwork/pos-node:v2.2.0-rc2
     restart: always
     logging:
       driver: "json-file"
@@ -60,7 +60,7 @@ services:
     command: bash -c "/usr/local/bin/cere --prometheus-external --prometheus-port 9615 -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --validator --ws-port 9944 --rpc-methods=Unsafe --ws-external --unsafe-ws-external --rpc-cors all --rpc-external"
   add_validation_node_custom:
     container_name: add_validation_node_custom
-    image: cerebellumnetwork/pos-node:v2.2.0-rc1
+    image: cerebellumnetwork/pos-node:v2.2.0-rc2
     restart: always
     logging:
       driver: "json-file"
@@ -132,7 +132,7 @@ services:
     command: npm run tokenomics-emulation
   full_node:
     container_name: cere_full_node
-    image: cerebellumnetwork/pos-node:v2.2.0-rc1
+    image: cerebellumnetwork/pos-node:v2.2.0-rc2
     restart: always
     logging:
       driver: "json-file"
@@ -149,7 +149,7 @@ services:
     command: bash -c "/usr/local/bin/cere --prometheus-external --prometheus-port 9615 -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} --ws-port 9944 --ws-external --rpc-methods=Auto --rpc-cors all --rpc-external"
   archive_node:
     container_name: cere_archive_node
-    image: cerebellumnetwork/pos-node:v2.2.0-rc1
+    image: cerebellumnetwork/pos-node:v2.2.0-rc2
     restart: always
     logging:
       driver: "json-file"
