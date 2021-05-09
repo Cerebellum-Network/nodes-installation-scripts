@@ -62,12 +62,12 @@
       },
       {
         "name": "native-tokens-transfer",
-        "amount": 2,
+        "amount": 20,
         "tokens_range": [1, 2]
       },
       {
         "name": "existential-deposit-transfer",
-        "amount": 1
+        "amount": 10
       },
       {
         "name": "deploy-cere-smart-contract",
@@ -95,13 +95,13 @@
       },
       {
         "name": "send-ddc-transaction",
-        "amount": 2,
+        "amount": 20,
         "string_lenght": 128,
         "characters_to_generate_random_string": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
       },
       {
         "name": "ddc-metrics-report",
-        "amount": 2,
+        "amount": 20,
         "data_rec": 1024,
         "data_rep": 1024,
         "req_rec": 10,
@@ -109,18 +109,18 @@
       },
       {
         "name": "ddc-subscribe",
-        "amount": 1,
+        "amount": 10,
         "tier_id": 10
       },
       {
         "name": "cere-app-to-user",
-        "amount": 2,
+        "amount": 20,
         "token_value": 1,
         "txn_fee": 0
       },
       {
         "name": "cere-user-to-app",
-        "amount": 2,
+        "amount": 20,
         "token_value": 1
       },
       {
