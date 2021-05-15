@@ -3,7 +3,7 @@ import * as fs from 'fs';
 
 class ChainSpecGenerator {
     public generate(spec, config) {
-        this.generateIds(spec);
+        this.generateIds(spec, config);
         this.generateProperties(spec, config);
         this.generatePalletSudo(spec);
         this.generatePalletBalances(spec, config);
@@ -12,9 +12,9 @@ class ChainSpecGenerator {
         this.generatePalletElectionsPhragmen(spec, config);
     }
 
-    private generateIds(spec) {
-        spec.name = "Cerebellum Network Testnet Beta";
-        spec.id = "cere_testnet_beta";
+    private generateIds(spec, config) {
+        spec.name = config.network.name;
+        spec.id = config.network.id;
     }
 
     private generateProperties(spec, config) {

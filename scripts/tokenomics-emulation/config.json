@@ -18,6 +18,8 @@
         "url": "ws://104.236.108.211:9944"
       }
     ],
+    "name": "Cerebellum Mainnet Alpha",
+    "id": "cere_mainnet_alpha",
     "decimals": 10,
     "ddc_sc_address": "",
     "cere_sc_address": "",
