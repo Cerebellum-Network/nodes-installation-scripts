@@ -3,19 +3,31 @@
     "hosts": [
       {
         "name": "genesis-validator-1",
-        "url": "ws://157.230.113.121:9944"
+        "url": "ws://164.90.155.170:9944"
       },
       {
         "name": "genesis-validator-2",
-        "url": "ws://139.59.164.220:9944"
+        "url": "ws://104.236.193.202:9944"
       },
       {
         "name": "validator-3",
-        "url": "ws://165.227.57.154:9944"
+        "url": "ws://167.99.188.91:9944"
       },
       {
         "name": "validator-4",
-        "url": "ws://104.236.108.211:9944"
+        "url": "ws://167.99.131.218:9944"
+      },
+      {
+        "name": "validator-5",
+        "url": "ws://165.227.224.150:9944"
+      },
+      {
+        "name": "validator-6",
+        "url": "ws://138.197.202.96:9944"
+      },
+      {
+        "name": "validator-7",
+        "url": "ws://134.209.192.121:9944"
       }
     ],
     "name": "Cerebellum Mainnet Alpha",
