@@ -9,7 +9,7 @@ The scripts will help the community to up and run Cere Nodes (Validator, Full). 
     ``` 
 1. Use ./accounts/public to update the chainSpec file.
 1. Confirm Genesis Nodes are up and running.
-1. Update Genesis Nodes IPs in [insert-keys.sh](./scripts/insert-keys.sh).
+1. Update Genesis Nodes IPs in [insert-keys.sh](scripts/network-launch/insert-keys.sh).
 1. Insert keys by running the following command:
     ```bash
     ./scripts/insert-keys.sh
