@@ -81,7 +81,7 @@ class ChainSpecGenerator {
             spec.genesis.runtime.palletBalances.balances.push([sudoAccount.ss58Address, (10 ** spec.properties.tokenDecimals * sudoStake)]);
         }
 
-        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - totalNominatorsStake - totalValidatorsStake - totalGenesisCouncilsStake - treasuryStake - sudoStake - treasuryStake;
+        const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - totalValidatorsStake - totalNominatorsStake - totalGenesisCouncilsStake - treasuryStake - sudoStake;
         spec.genesis.runtime.palletBalances.balances.push([rootAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
     }
 
