@@ -33,6 +33,7 @@ class EventHandlers {
       if (data.startsWith("0x")) {
         configFile.emulations.sequence.find(
           (sequence) => sequence.name === emulationName
+        // @ts-ignore
         ).code_hash = data;
         fs.writeFileSync("config.json", JSON.stringify(configFile));
         console.log(`The smart contract code hash is ${data}\n`);
