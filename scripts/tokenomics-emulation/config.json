@@ -24,25 +24,25 @@
     "gas_limit": -1,
     "smart_contract_cere_token_amount_default": 0,
     "nodes_amount": 4,
-    "total_supply": 1000000,
+    "total_supply": 10000000000,
     "genesis_validators_amount": 2,
-    "genesis_validators_stake": 10000,
-    "genesis_councils_amount": 1,
-    "genesis_councils_stake": 100000,
+    "genesis_validators_stake": 100,
+    "genesis_councils_amount": 2,
+    "genesis_councils_stake": 1,
     "sync_wait_time": 15,
     "validators":{
-      "amount": 2,
-      "stash_stake": 30000,
-      "controller_stake": 20000,
-      "commission": 5
+      "amount": 8,
+      "stash_stake": 101,
+      "controller_stake": 1,
+      "commission": 0
     },
     "nominators":{
-      "amount": 2,
-      "stash_stake": 30000,
-      "controller_stake": 20000
+      "amount": 0,
+      "stash_stake": 0,
+      "controller_stake": 0
     },
     "sudo": {
-      "stake": 50000
+      "stake": 1
     }
   },
   "accounts": [
