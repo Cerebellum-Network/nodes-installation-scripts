@@ -10,23 +10,23 @@
         "url": "ws://104.236.193.202:9944"
       },
       {
-        "name": "validator-3",
+        "name": "validator-1",
         "url": "ws://167.99.188.91:9944"
       },
       {
-        "name": "validator-4",
+        "name": "validator-2",
         "url": "ws://167.99.131.218:9944"
       },
       {
-        "name": "validator-5",
+        "name": "validator-3",
         "url": "ws://165.227.224.150:9944"
       },
       {
-        "name": "validator-6",
+        "name": "validator-4",
         "url": "ws://138.197.202.96:9944"
       },
       {
-        "name": "validator-7",
+        "name": "validator-5",
         "url": "ws://134.209.192.121:9944"
       }
     ],
@@ -45,9 +45,9 @@
     "genesis_councils_stake": 11,
     "sync_wait_time": 15,
     "validators":{
-      "amount": 1,
+      "amount": 5,
       "stash_stake": 101,
-      "controller_stake": 1,
+      "controller_stake": 2,
       "commission": 0
     },
     "nominators":{
