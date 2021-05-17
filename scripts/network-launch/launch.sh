@@ -34,11 +34,17 @@ repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
 repoBranch="feature/launch"
 dirName="cere-network"
 
-ssh ${user}@${ips[0]} 'bash -s'  << EOT
-  sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
-  sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=CereMainnetAlpha01|\" ./configs/.env.mainnet";
-  sudo su -c "cd ${path}${dirName}; docker-compose --env-file ./configs/.env.mainnet up -d boot_node"
-  sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${hosts[0]}:9945 {|\" Caddyfile";
-  sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${hosts[0]}:9934 {|\" Caddyfile";
-  sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
+start_boot () {
+  ssh ${user}@${ips[0]} 'bash -s'  << EOT
+    sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=CereMainnetAlpha01|\" ./configs/.env.mainnet";
+    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ./configs/.env.mainnet up -d boot_node"
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${hosts[0]}:9945 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${hosts[0]}:9934 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
 EOT
+}
+
+case $1 in
+  start_boot) "$@"; exit;;
+esac
