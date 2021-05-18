@@ -11,6 +11,7 @@ class ChainSpecGenerator {
         this.generatePalletSession(spec, config);
         this.generatePalletElectionsPhragmen(spec, config);
         this.generatePalletSociety(spec, config);
+        this.generatePalletTechComm(spec, config);
     }
 
     private generateIds(spec, config) {
@@ -129,6 +130,14 @@ class ChainSpecGenerator {
         for (let i = 1; i <= config.network.pallet_society.amount; i++) {
             const societyAccount = this.readAccount(`society-${i}`);
             spec.genesis.runtime.palletSociety.members.push(societyAccount.ss58Address);
+        }
+    }
+
+    private generatePalletTechComm(spec, config) {
+        spec.genesis.runtime.palletCollectiveInstance2.members = [];
+        for (let i = 1; i <= config.network.pallet_tech_comm.amount; i++) {
+            const techCommAccount = this.readAccount(`tech-comm-${i}`);
+            spec.genesis.runtime.palletCollectiveInstance2.members.push(techCommAccount.ss58Address);
         }
     }
 
