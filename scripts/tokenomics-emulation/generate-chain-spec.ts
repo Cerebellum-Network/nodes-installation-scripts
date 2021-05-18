@@ -84,7 +84,11 @@ class ChainSpecGenerator {
         }
 
         const rootAccountBalance = config.network.total_supply - aliceBalance - totalGenesisValidatorsStake - totalValidatorsStake - totalNominatorsStake - totalGenesisCouncilsStake - treasuryStake - sudoStake;
-        spec.genesis.runtime.palletBalances.balances.push([rootAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
+        if (config.network.manual_bridge) {
+            spec.genesis.runtime.palletBalances.balances.push([config.network.manual_bridge.address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
+        } else {
+            spec.genesis.runtime.palletBalances.balances.push([rootAccount.ss58Address, (10 ** spec.properties.tokenDecimals) * rootAccountBalance]);
+        }
     }
 
     private generatePalletStaking(spec, config) {

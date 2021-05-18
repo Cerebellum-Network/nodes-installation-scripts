@@ -58,6 +58,9 @@
     "sudo": {
       "stake": 1
     },
+    "manual_bridge": {
+      "address": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"
+    },
     "pallet_society": {
       "max_members": 3,
       "amount": 2
