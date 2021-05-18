@@ -57,6 +57,10 @@
     },
     "sudo": {
       "stake": 1
+    },
+    "pallet_society": {
+      "max_members": 3,
+      "amount": 2
     }
   },
   "accounts": [

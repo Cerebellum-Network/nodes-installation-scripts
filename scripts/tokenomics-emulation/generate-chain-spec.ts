@@ -10,6 +10,7 @@ class ChainSpecGenerator {
         this.generatePalletStaking(spec, config);
         this.generatePalletSession(spec, config);
         this.generatePalletElectionsPhragmen(spec, config);
+        this.generatePalletSociety(spec, config);
     }
 
     private generateIds(spec, config) {
@@ -119,6 +120,15 @@ class ChainSpecGenerator {
         for (let i = 1; i <= config.network.genesis_councils_amount; i++) {
             const councilAccount = this.readAccount(`democracy-${i}`);
             spec.genesis.runtime.palletElectionsPhragmen.members.push([councilAccount.ss58Address, (10 ** config.network.decimals) * config.network.genesis_councils_stake]);
+        }
+    }
+
+    private generatePalletSociety(spec, config) {
+        spec.genesis.runtime.palletSociety.maxMembers = config.network.pallet_society.max_members;
+        spec.genesis.runtime.palletSociety.members = [];
+        for (let i = 1; i < config.network.pallet_society.amount; i++) {
+            const societyAccount = this.readAccount(`society-${i}`);
+            spec.genesis.runtime.palletSociety.members.push([societyAccount.ss58Address]);
         }
     }
 
