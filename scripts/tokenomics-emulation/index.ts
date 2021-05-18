@@ -19,7 +19,7 @@ import AddValidatorsEmulation from "./emulations/add-validators.emulation";
 import AddNominatorsEmulation from "./emulations/add-nominator.emulation";
 import StashAccountBalanceEmulation from "./emulations/stash-account-balance.emulation";
 import FetchTotalIssuanceEmulation from "./emulations/fetch-total-issuance.emulation";
-
+import GetBalancesEmulation from "./emulations/get-balances-emulation";
 
 class Emulations {
   constructor(
@@ -92,6 +92,8 @@ class EmulationsFactory {
         return new StashAccountBalanceEmulation(this.networkConfig, this.network, this.account);
       case "fetch-total-issuance":
         return new FetchTotalIssuanceEmulation(this.network);
+      case "get-balances":
+        return new GetBalancesEmulation(this.account, this.network, this.networkConfig.decimals, this.networkConfig.manual_bridge);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
