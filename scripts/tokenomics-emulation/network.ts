@@ -69,7 +69,7 @@ class Network {
     const {
       data: { free: balance },
     } = await this.api.query.system.account(address);
-    return formatBalance(balance, { decimals: this.decimals });
+    return formatBalance(balance, { decimals: this.decimals, withUnit: false, forceUnit: '-' });
   }
 
   /**
