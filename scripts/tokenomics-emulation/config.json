@@ -79,7 +79,7 @@
     "batch_count": 2,
     "sequence": [
       {
-        "name": "add-validator"
+        "name": "get-balances"
       }
     ]
   }
