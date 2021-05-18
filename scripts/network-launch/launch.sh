@@ -34,6 +34,16 @@ repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
 repoBranch="feature/launch"
 dirName="cere-network"
 
+generate_chain_spec () {
+  docker-compose down -t 0
+  rm -rf chain-data accounts spec-data scripts/keys
+
+  docker-compose up create_chain_spec
+  docker-compose up --build generate_accounts
+  docker-compose up --build generate_emulations_chain_spec
+  docker-compose up create_raw_chain_spec
+}
+
 start_boot () {
   ssh ${user}@${ips[0]} 'bash -s'  << EOT
     sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
@@ -46,5 +56,6 @@ EOT
 }
 
 case $1 in
+  generate_chain_spec) "$@"; exit;;
   start_boot) "$@"; exit;;
 esac
