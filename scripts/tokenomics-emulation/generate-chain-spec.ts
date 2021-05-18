@@ -126,9 +126,9 @@ class ChainSpecGenerator {
     private generatePalletSociety(spec, config) {
         spec.genesis.runtime.palletSociety.maxMembers = config.network.pallet_society.max_members;
         spec.genesis.runtime.palletSociety.members = [];
-        for (let i = 1; i < config.network.pallet_society.amount; i++) {
+        for (let i = 1; i <= config.network.pallet_society.amount; i++) {
             const societyAccount = this.readAccount(`society-${i}`);
-            spec.genesis.runtime.palletSociety.members.push([societyAccount.ss58Address]);
+            spec.genesis.runtime.palletSociety.members.push(societyAccount.ss58Address);
         }
     }
 
