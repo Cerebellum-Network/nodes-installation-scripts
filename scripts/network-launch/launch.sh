@@ -55,7 +55,19 @@ start_boot () {
 EOT
 }
 
+stop_network () {
+  for i in ${ips[@]}
+  do
+    echo "Stopping ${i}"
+    ssh ${user}@${i} 'bash -s'  << EOT
+    sudo su -c "cd ../../root/cere-network; docker-compose down;"
+    sudo su -c "cd ../../root; rm -rf cere-network;"
+EOT
+  done
+}
+
 case $1 in
   generate_chain_spec) "$@"; exit;;
   start_boot) "$@"; exit;;
+  stop_network) "$@"; exit;;
 esac
