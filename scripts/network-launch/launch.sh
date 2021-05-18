@@ -55,6 +55,53 @@ start_boot () {
 EOT
 }
 
+start_genesis_validators () {
+  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${ips[0]}:9933 -s | jq '.result')
+  while [ -z $bootNodeID ]; do
+      echo "*** bootNodeID is empty "
+      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${ips[0]}:9933 -s | jq '.result')
+      sleep 5
+  done
+  ssh ${user}@${ips[1]} 'bash -s'  << EOT
+    sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS=.*|BOOT_NODE_IP_ADDRESS=${ips[0]}|\" ./configs/.env.mainnet";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER=.*|NETWORK_IDENTIFIER=${bootNodeID}|\" ./configs/.env.mainnet";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=CereMainnetAlpha02|\" ./configs/.env.mainnet";
+    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ./configs/.env.mainnet up -d add_validation_node_custom"
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${hosts[1]}:9945 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9944|add_validation_node_custom:9944|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${hosts[1]}:9934 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9933|add_validation_node_custom:9933|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
+EOT
+}
+
+insert_keys () {
+  NODE_0_URL=http://${hosts[0]}:9933
+  NODE_1_URL=http://${hosts[1]}:9933
+
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_0_stash_gran.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_0_gran.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_0_babe.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_0_imol.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_0_audi.json"
+
+  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_1_stash_gran.json"
+  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_1_gran.json"
+  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_1_babe.json"
+  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_1_imol.json"
+  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_1_audi.json"
+}
+
+restart_genesis () {
+  ssh ${user}@${ips[0]} 'bash -s'  << EOT
+    sudo su -c "cd ${path}${dirName}; docker-compose restart boot_node"
+EOT
+  ssh ${user}@${ips[1]} 'bash -s'  << EOT
+    sudo su -c "cd ${path}${dirName}; docker-compose restart add_validation_node_custom"
+EOT
+}
+
 stop_network () {
   for i in ${ips[@]}
   do
@@ -69,5 +116,8 @@ EOT
 case $1 in
   generate_chain_spec) "$@"; exit;;
   start_boot) "$@"; exit;;
-  stop_network) "$@"; exit;;
+  start_genesis_validators) "$@"; exit;;
+  insert_keys) "$@"; exit;;
+  insert_keys) "$@"; exit;;
+  restart_genesis) "$@"; exit;;
 esac
