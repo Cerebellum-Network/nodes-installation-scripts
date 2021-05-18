@@ -80,6 +80,9 @@
     "sequence": [
       {
         "name": "get-balances"
+      },
+      {
+        "name": "fetch-total-issuance"
       }
     ]
   }
