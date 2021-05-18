@@ -5,18 +5,18 @@ ips=(164.90.155.170\
      104.236.193.202\
      167.99.188.91\
      167.99.131.218\
-     165.227.224.150\
-     134.209.192.121)
+     165.227.224.150)
 hosts=(testnet-node-1.dev1.cere.network\
 		   testnet-node-2.dev1.cere.network\
        testnet-node-3.dev1.cere.network\
        testnet-node-4.dev1.cere.network\
-       testnet-node-5.dev1.cere.network\
-       testnet-node-7.dev1.cere.network)
+       testnet-node-5.dev1.cere.network)
 bootNodeIP=${ips[0]}
 bootNodeHost=${hosts[0]}
 fullNodeIP=138.197.202.96
 fullNodeHost=testnet-node-6.dev1.cere.network
+archiveNodeIP=134.209.192.121
+archiveNodeHost=testnet-node-7.dev1.cere.network
 user="andrei"
 path="../../root/"
 
@@ -108,6 +108,10 @@ start_full () {
   start_node ${fullNodeIP} CereMainnetAlphaFull01 full_node cere_full_node ${fullNodeHost}
 }
 
+start_archive () {
+  start_node ${archiveNodeIP} CereMainnetAlphaArchive01 archive_node cere_archive_node ${archiveNodeHost}
+}
+
 start_node () {
   ip=${1}
   host=${5}
@@ -152,5 +156,6 @@ case $1 in
   insert_keys) "$@"; exit;;
   restart_genesis) "$@"; exit;;
   start_full) "$@"; exit;;
+  start_archive) "$@"; exit;;
   stop_network) "$@"; exit;;
 esac
