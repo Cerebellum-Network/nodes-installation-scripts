@@ -3,7 +3,7 @@
     "hosts": [
       {
         "name": "genesis-validator-1",
-        "url": "ws://164.90.155.170:9944"
+        "url": "wss://testnet-node-1.dev1.cere.network:9945"
       },
       {
         "name": "genesis-validator-2",
@@ -45,7 +45,7 @@
     "genesis_councils_stake": 11,
     "sync_wait_time": 15,
     "validators":{
-      "amount": 5,
+      "amount": 0,
       "stash_stake": 101,
       "controller_stake": 2,
       "commission": 0
