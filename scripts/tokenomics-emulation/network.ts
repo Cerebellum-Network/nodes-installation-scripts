@@ -213,7 +213,7 @@ class Network {
   public async totalIssuance() {
     console.log("Fetching total issuance");
     const totalIssuance = await this.api.query.balances.totalIssuance();
-    return formatBalance(totalIssuance, { decimals: this.decimals });
+    return formatBalance(totalIssuance, { decimals: this.decimals, withUnit: false, forceUnit: '-' });
   }
 
    /**
