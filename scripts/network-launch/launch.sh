@@ -118,6 +118,6 @@ case $1 in
   start_boot) "$@"; exit;;
   start_genesis_validators) "$@"; exit;;
   insert_keys) "$@"; exit;;
-  insert_keys) "$@"; exit;;
   restart_genesis) "$@"; exit;;
+  stop_network) "$@"; exit;;
 esac
