@@ -1,18 +1,16 @@
 #!/usr/bin/env bash
 
 #### DEV1 ####
-ips=(164.90.155.170\
-     104.236.193.202\
-     167.99.188.91\
-     167.99.131.218\
-     165.227.224.150)
-hosts=(testnet-node-1.dev1.cere.network\
-		   testnet-node-2.dev1.cere.network\
-       testnet-node-3.dev1.cere.network\
-       testnet-node-4.dev1.cere.network\
-       testnet-node-5.dev1.cere.network)
-bootNodeIP=${ips[0]}
-bootNodeHost=${hosts[0]}
+bootNodeIP=164.90.155.170
+bootNodeHost=testnet-node-1.dev1.cere.network
+genesisValidatorIP=104.236.193.202
+genesisValidatorHost=testnet-node-2.dev1.cere.network
+validatorsIPs=(167.99.188.91\
+               167.99.131.218\
+               165.227.224.150)
+validatorsHosts=(testnet-node-3.dev1.cere.network\
+                 testnet-node-4.dev1.cere.network\
+                 testnet-node-5.dev1.cere.network)
 fullNodeIP=138.197.202.96
 fullNodeHost=testnet-node-6.dev1.cere.network
 archiveNodeIP=134.209.192.121
@@ -76,6 +74,17 @@ start_genesis_validators () {
     sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9933|add_validation_node_custom:9933|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
 EOT
+}
+
+start_validators () {
+  for i in ${!validatorsIPs[@]}; do
+    let nodeIndex=$i+3
+    if (( ${nodeIndex} < 10 )); then
+      nodeIndex=0${nodeIndex}
+    fi
+    echo Starting Validator ${nodeIndex}
+    start_node ${validatorsIPs[i]} CereMainnetAlpha${nodeIndex} add_validation_node_custom add_validation_node_custom ${validatorsHosts[i]}
+  done
 }
 
 insert_keys () {
@@ -153,6 +162,7 @@ case $1 in
   generate_chain_spec) "$@"; exit;;
   start_boot) "$@"; exit;;
   start_genesis_validators) "$@"; exit;;
+  start_validators) "$@"; exit;;
   insert_keys) "$@"; exit;;
   restart_genesis) "$@"; exit;;
   start_full) "$@"; exit;;
