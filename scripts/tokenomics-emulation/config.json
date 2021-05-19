@@ -33,16 +33,28 @@
     "name": "Cerebellum Mainnet Alpha",
     "id": "cere_mainnet_alpha",
     "decimals": 10,
-    "ddc_sc_address": "",
-    "cere_sc_address": "",
-    "gas_limit": -1,
-    "smart_contract_cere_token_amount_default": 0,
-    "nodes_amount": 4,
     "total_supply": 10000000000,
     "genesis_validators_amount": 2,
     "genesis_validators_stake": 1,
     "genesis_councils_amount": 2,
     "genesis_councils_stake": 11,
+    "sudo": {
+      "stake": 99975
+    },
+    "manual_bridge": {
+    },
+    "pallet_society": {
+      "max_members": 3,
+      "amount": 2
+    },
+    "pallet_tech_comm": {
+      "amount": 2
+    },
+    "ddc_sc_address": "",
+    "cere_sc_address": "",
+    "gas_limit": -1,
+    "smart_contract_cere_token_amount_default": 0,
+    "nodes_amount": 4,
     "sync_wait_time": 15,
     "validators":{
       "amount": 0,
@@ -54,19 +66,6 @@
       "amount": 0,
       "stash_stake": 0,
       "controller_stake": 0
-    },
-    "sudo": {
-      "stake": 99975
-    },
-    "manual_bridge": {
-      "address": "5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY"
-    },
-    "pallet_society": {
-      "max_members": 3,
-      "amount": 2
-    },
-    "pallet_tech_comm": {
-      "amount": 2
     }
   },
   "accounts": [
