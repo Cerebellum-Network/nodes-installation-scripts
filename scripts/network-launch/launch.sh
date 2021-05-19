@@ -56,24 +56,7 @@ EOT
 }
 
 start_genesis_validators () {
-  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${bootNodeIP}:9933 -s | jq '.result')
-  while [ -z $bootNodeID ]; do
-      echo "*** bootNodeID is empty "
-      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${bootNodeIP}:9933 -s | jq '.result')
-      sleep 5
-  done
-  ssh ${user}@${ips[1]} 'bash -s'  << EOT
-    sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS=.*|BOOT_NODE_IP_ADDRESS=${bootNodeIP}|\" ./configs/.env.mainnet";
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER=.*|NETWORK_IDENTIFIER=${bootNodeID}|\" ./configs/.env.mainnet";
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=CereMainnetAlpha02|\" ./configs/.env.mainnet";
-    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ./configs/.env.mainnet up -d add_validation_node_custom"
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${hosts[1]}:9945 {|\" Caddyfile";
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9944|add_validation_node_custom:9944|\" Caddyfile";
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${hosts[1]}:9934 {|\" Caddyfile";
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9933|add_validation_node_custom:9933|\" Caddyfile";
-    sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
-EOT
+  start_node ${genesisValidatorIP} CereMainnetAlpha02 add_validation_node_custom add_validation_node_custom ${genesisValidatorHost}
 }
 
 start_validators () {
