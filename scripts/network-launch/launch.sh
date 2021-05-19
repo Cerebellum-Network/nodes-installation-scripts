@@ -148,14 +148,23 @@ EOT
 }
 
 stop_network () {
-  for i in ${ips[@]}
+  stop_node ${bootNodeIP}
+  stop_node ${genesisValidatorIP}
+  for i in ${validatorsIPs[@]}
   do
-    echo "Stopping ${i}"
-    ssh ${user}@${i} 'bash -s'  << EOT
-    sudo su -c "cd ../../root/cere-network; docker-compose down;"
-    sudo su -c "cd ../../root; rm -rf cere-network;"
-EOT
+    stop_node ${i}
   done
+  stop_node ${fullNodeIP}
+  stop_node ${archiveNodeIP}
+}
+
+stop_node () {
+  ip=${1}
+  echo "Stopping ${ip}"
+  ssh ${user}@${ip} 'bash -s' << EOT
+    sudo su -c "cd ${path}${dirName}; docker-compose down;"
+    sudo su -c "cd ${path}; rm -rf cere-network;"
+EOT
 }
 
 case $1 in
