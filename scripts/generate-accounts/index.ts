@@ -42,6 +42,12 @@ class Accounts {
     const generateNominatorAccount = await this.generateNominatorsAccounts();
     console.log(`\n`);
 
+    const generateRelayerAccount = await this.generateRelayerAccount();
+    console.log(`\n`);
+
+    const generateManualBridgeAccount = await this.generateManualBridgeAccount();
+    console.log(`\n`);
+
     this.generateFileWithPublicKeys(rootAccount, sudoAccount, validatorGenesisAccounts);
   }
 
@@ -173,6 +179,28 @@ class Accounts {
         `Tech Comm ${i} sr account has been written to the ${srFilename}`
       );
     }
+  }
+
+  private async generateRelayerAccount() {
+    console.log(`Generating Relayer Account...`);
+
+    const relayerAccount = await this.generateSrAccount();
+    const relayer = `relayer`;
+    this.writeKeyToFile(relayer, JSON.stringify(relayerAccount));
+    console.log(
+        `Relayer account has been written to the ${relayer}`
+    );
+  }
+
+  private async generateManualBridgeAccount() {
+    console.log(`Generating Manual Bridge Account...`);
+
+    const manualBridgeAccount = await this.generateSrAccount();
+    const manualBridge = `manual-bridge`;
+    this.writeKeyToFile(manualBridge, JSON.stringify(manualBridgeAccount));
+    console.log(
+        `Manual Bridge account has been written to the ${manualBridge}`
+    );
   }
 
   public generateFileWithPublicKeys(rootAccount: any, sudoAccount: any, validatorGenesisAccounts) {
