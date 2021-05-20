@@ -154,6 +154,11 @@ stop_node () {
 EOT
 }
 
+remove_accounts () {
+  rm -rf accounts
+  rm -rf scripts/keys
+}
+
 case $1 in
   generate_chain_spec) "$@"; exit;;
   start_boot) "$@"; exit;;
@@ -164,4 +169,5 @@ case $1 in
   start_full) "$@"; exit;;
   start_archive) "$@"; exit;;
   stop_network) "$@"; exit;;
+  remove_accounts) "$@"; exit;;
 esac
