@@ -1,34 +1,38 @@
 #!/usr/bin/env bash
 
 #### DEV1 ####
-bootNodeIP=164.90.155.170
-bootNodeHost=testnet-node-1.dev1.cere.network
-genesisValidatorIP=104.236.193.202
-genesisValidatorHost=testnet-node-2.dev1.cere.network
-validatorsIPs=(167.99.188.91\
-               167.99.131.218\
-               165.227.224.150)
-validatorsHosts=(testnet-node-3.dev1.cere.network\
-                 testnet-node-4.dev1.cere.network\
-                 testnet-node-5.dev1.cere.network)
-fullNodeIP=138.197.202.96
-fullNodeHost=testnet-node-6.dev1.cere.network
-archiveNodeIP=134.209.192.121
-archiveNodeHost=testnet-node-7.dev1.cere.network
-user="andrei"
-path="../../root/"
-
-#### DEV2 ####
-#ips=(157.230.113.121\
-#     139.59.164.220\
-#     165.227.57.154\
-#     104.236.108.211)
-#hosts=(tokenomic-node-1.dev.cere.network\
-#		    tokenomic-node-2.dev.cere.network\
-#       tokenomic-node-3.dev.cere.network\
-#       tokenomic-node-4.dev.cere.network)
+#bootNodeIP=164.90.155.170
+#bootNodeHost=testnet-node-1.dev1.cere.network
+#genesisValidatorIP=104.236.193.202
+#genesisValidatorHost=testnet-node-2.dev1.cere.network
+#validatorsIPs=(167.99.188.91\
+#               167.99.131.218\
+#               165.227.224.150)
+#validatorsHosts=(testnet-node-3.dev1.cere.network\
+#                 testnet-node-4.dev1.cere.network\
+#                 testnet-node-5.dev1.cere.network)
+#fullNodeIP=138.197.202.96
+#fullNodeHost=testnet-node-6.dev1.cere.network
+#archiveNodeIP=134.209.192.121
+#archiveNodeHost=testnet-node-7.dev1.cere.network
 #user="andrei"
 #path="../../root/"
+
+#### STAGE ####
+bootNodeIP=165.232.149.206
+bootNodeHost=mainnet-node-1.stage.cere.network
+genesisValidatorIP=45.55.62.114
+genesisValidatorHost=mainnet-node-2.stage.cere.network
+validatorsIPs=(159.203.13.16\
+               157.230.106.171)
+validatorsHosts=(mainnet-node-3.stage.cere.network\
+                 mainnet-node-4.stage.cere.network)
+fullNodeIP=143.198.130.232
+fullNodeHost=rpc.mainnet.stage.cere.network
+archiveNodeIP=178.128.250.106
+archiveNodeHost=archive.mainnet.stage.cere.network
+user="andrei"
+path="../../root/"
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
 repoBranch="feature/launch"
