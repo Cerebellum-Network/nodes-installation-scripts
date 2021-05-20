@@ -88,10 +88,10 @@ insert_keys () {
 }
 
 restart_genesis () {
-  ssh ${user}@${ips[0]} 'bash -s'  << EOT
+  ssh ${user}@${bootNodeIP} 'bash -s'  << EOT
     sudo su -c "cd ${path}${dirName}; docker-compose restart boot_node"
 EOT
-  ssh ${user}@${ips[1]} 'bash -s'  << EOT
+  ssh ${user}@${genesisValidatorIP} 'bash -s'  << EOT
     sudo su -c "cd ${path}${dirName}; docker-compose restart add_validation_node_custom"
 EOT
 }
