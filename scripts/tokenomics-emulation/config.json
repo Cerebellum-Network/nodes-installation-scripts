@@ -32,6 +32,7 @@
     ],
     "name": "Cerebellum Mainnet Alpha",
     "id": "cere_mainnet",
+    "chainType": "Live",
     "decimals": 10,
     "total_supply": 10000000000,
     "genesis_validators_amount": 2,

@@ -17,6 +17,7 @@ class ChainSpecGenerator {
     private generateIds(spec, config) {
         spec.name = config.network.name;
         spec.id = config.network.id;
+        spec.chainType = config.network.chainType;
     }
 
     private generateProperties(spec, config) {
