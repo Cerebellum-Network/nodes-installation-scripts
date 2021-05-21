@@ -1,14 +1,12 @@
 import {IEmulation} from "./emulation.interface";
 import Accounts from "../accounts";
 import Network from "../network";
-import { formatBalance } from "@polkadot/util";
 
 class GetBalancesEmulation implements IEmulation {
     constructor(
         private readonly account: Accounts,
         private readonly network: Network,
         private readonly decimals: number,
-        private readonly manualBridgeAddress: string,
     ) {
     }
 
@@ -17,13 +15,8 @@ class GetBalancesEmulation implements IEmulation {
         await this.getBalance('validator-2-stash-sr', 'Validator-2-stash');
         await this.getBalance('democracy-1', 'Council-1');
         await this.getBalance('democracy-2', 'Council-2');
-        await this.getBalance('society-1', 'Society-1');
-        await this.getBalance('society-2', 'Society-2');
         await this.getBalance('sudo', 'Sudo');
-        await this.getBalance('root', 'Root');
-        if (this.manualBridgeAddress) {
-            await this.getBalanceByAddress(this.manualBridgeAddress, 'Manual Bridge');
-        }
+        await this.getBalance('manual-bridge', 'Manual bridge');
     }
 
     private async getBalance(filename: string, walletName: string): Promise<void> {

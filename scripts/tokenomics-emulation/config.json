@@ -3,7 +3,7 @@
     "hosts": [
       {
         "name": "genesis-validator-1",
-        "url": "wss://testnet-node-1.dev1.cere.network:9945"
+        "url": "wss://archive.mainnet.stage.cere.network:9945"
       },
       {
         "name": "genesis-validator-2",
@@ -30,7 +30,7 @@
         "url": "ws://134.209.192.121:9944"
       }
     ],
-    "name": "Cerebellum Mainnet Alpha",
+    "name": "Cerebellum Mainnet Alpha Stage",
     "id": "cere_mainnet",
     "chainType": "Live",
     "decimals": 10,

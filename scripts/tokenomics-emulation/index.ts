@@ -93,7 +93,7 @@ class EmulationsFactory {
       case "fetch-total-issuance":
         return new FetchTotalIssuanceEmulation(this.network);
       case "get-balances":
-        return new GetBalancesEmulation(this.account, this.network, this.networkConfig.decimals, this.networkConfig.manual_bridge.address);
+        return new GetBalancesEmulation(this.account, this.network, this.networkConfig.decimals);
       default:
         throw new Error(`Unknown emulation '${config.name}'`);
     }
