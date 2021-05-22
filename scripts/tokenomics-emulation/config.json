@@ -28,7 +28,7 @@
     "genesis_validators_amount": 2,
     "genesis_validators_stake": 1,
     "genesis_councils_amount": 1,
-    "genesis_councils_stake": 11,
+    "genesis_councils_stake": 51,
     "sync_wait_time": 15,
     "validators":{
       "amount": 2,
