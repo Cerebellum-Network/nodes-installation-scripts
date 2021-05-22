@@ -26,20 +26,20 @@
     "nodes_amount": 4,
     "total_supply": 1000000000,
     "genesis_validators_amount": 2,
-    "genesis_validators_stake": 10000,
+    "genesis_validators_stake": 1,
     "genesis_councils_amount": 1,
-    "genesis_councils_stake": 100000,
+    "genesis_councils_stake": 11,
     "sync_wait_time": 15,
     "validators":{
       "amount": 2,
-      "stash_stake": 30000,
-      "controller_stake": 20000,
+      "stash_stake": 2,
+      "controller_stake": 2,
       "commission": 5
     },
     "nominators":{
       "amount": 2,
-      "stash_stake": 30000,
-      "controller_stake": 20000
+      "stash_stake": 2,
+      "controller_stake": 2
     },
     "sudo": {
       "stake": 50000
@@ -52,7 +52,7 @@
   ],
   "nodes_amount": 4,
   "emulations": {
-    "batch_count": 2,
+    "batch_count": 1,
     "sequence": [
       {
         "name": "add-validator"
@@ -62,12 +62,12 @@
       },
       {
         "name": "native-tokens-transfer",
-        "amount": 2,
+        "amount": 10,
         "tokens_range": [1, 2]
       },
       {
         "name": "existential-deposit-transfer",
-        "amount": 1
+        "amount": 10
       },
       {
         "name": "deploy-cere-smart-contract",
@@ -95,13 +95,13 @@
       },
       {
         "name": "send-ddc-transaction",
-        "amount": 2,
+        "amount": 10,
         "string_lenght": 128,
         "characters_to_generate_random_string": "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
       },
       {
         "name": "ddc-metrics-report",
-        "amount": 2,
+        "amount": 10,
         "data_rec": 1024,
         "data_rep": 1024,
         "req_rec": 10,
@@ -109,18 +109,18 @@
       },
       {
         "name": "ddc-subscribe",
-        "amount": 1,
+        "amount": 10,
         "tier_id": 10
       },
       {
         "name": "cere-app-to-user",
-        "amount": 2,
+        "amount": 10,
         "token_value": 1,
         "txn_fee": 0
       },
       {
         "name": "cere-user-to-app",
-        "amount": 2,
+        "amount": 10,
         "token_value": 1
       },
       {
