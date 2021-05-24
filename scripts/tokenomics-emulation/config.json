@@ -30,7 +30,7 @@
         "url": "ws://134.209.192.121:9944"
       }
     ],
-    "name": "Cerebellum Mainnet Alpha Stage",
+    "name": "Cerebellum Mainnet Alpha",
     "id": "cere_mainnet",
     "chainType": "Live",
     "decimals": 10,
