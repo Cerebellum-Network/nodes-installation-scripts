@@ -16,8 +16,8 @@ const config = {
     id: "TokenId",
     metadata: "Vec<u8>"
   },
-  Address: "AccountId",
-  LookupSource: "AccountId"
+  Address: "IndicesLookupSource",
+  LookupSource: "IndicesLookupSource"
 };
 
 export default config;
