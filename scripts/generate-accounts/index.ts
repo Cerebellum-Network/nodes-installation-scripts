@@ -74,6 +74,7 @@ class Accounts {
   private async generateGenesisValidatorsAccounts() {
     const accounts = [];
 
+    // @ts-ignore
     const number = +process.env.GENESIS_VALIDATOR_AMOUNT;
     for (let i = 1; i <= number; i++) {
       const validatorStashAccounts = await this.generateGenesisValidatorAccounts(i, 'stash');
@@ -86,6 +87,7 @@ class Accounts {
 
   private async generateValidatorsAccounts() {
     const accounts = [];
+    // @ts-ignore
     const number = +process.env.VALIDATOR_AMOUNT;
     console.log(`Generating Validator accounts of ${number}`);
     for (let i = 1; i <= number; i++) {
@@ -114,6 +116,7 @@ class Accounts {
 
   private async generateNominatorsAccounts() {
     const accounts = [];
+    // @ts-ignore
     const number = +process.env.NOMINATOR_AMOUNT;
     console.log(`Generating Nominator accounts of ${number}`);
     for (let i = 1; i <= number; i++) {
@@ -142,6 +145,7 @@ class Accounts {
   private async generateDemocracyAccounts() {
     console.log(`Generating Democracy Account...`);
 
+    // @ts-ignore
     const number = +process.env.DEMOCRACY_AMOUNT;
     for (let i = 1; i <= number; i++) {
       const srAccount = await this.generateSrAccount();
@@ -156,6 +160,7 @@ class Accounts {
   private async generateSocietyAccounts() {
     console.log(`Generating Society Account...`);
 
+    // @ts-ignore
     const number = +process.env.SOCIETY_AMOUNT;
     for (let i = 1; i <= number; i++) {
       const srAccount = await this.generateSrAccount();
@@ -170,6 +175,7 @@ class Accounts {
   private async generateTechCommAccounts() {
     console.log(`Generating Tech Comm Account...`);
 
+    // @ts-ignore
     const number = +process.env.TECH_COMM_AMOUNT;
     for (let i = 1; i <= number; i++) {
       const srAccount = await this.generateSrAccount();
@@ -203,7 +209,7 @@ class Accounts {
     );
   }
 
-  public generateFileWithPublicKeys(rootAccount: any, sudoAccount: any, validatorGenesisAccounts) {
+  public generateFileWithPublicKeys(rootAccount: any, sudoAccount: any, validatorGenesisAccounts: any) {
     const filename = 'accounts/public';
 
     if (fs.existsSync(filename)) {
@@ -286,11 +292,12 @@ class Keyfiles {
       const mnemonic = content.match(mnemonicRegex);
       let publicKeyRegex = /(?<="publicKey":")(.*)(?=","a)/;
       const publicKey = content.match(publicKeyRegex);
+      // @ts-ignore
       this.writeFile(key, key.slice(-4), mnemonic[0], publicKey[0]);
     }
   }
 
-  private writeFile(filename, firstParam, mnemonic, publicKey) {
+  private writeFile(filename: any, firstParam: any, mnemonic: any, publicKey: any) {
     const content = {
       jsonrpc: "2.0",
       id: 1,
