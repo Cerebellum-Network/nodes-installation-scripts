@@ -38,9 +38,9 @@
     "genesis_validators_amount": 2,
     "genesis_validators_stake": 1,
     "genesis_councils_amount": 2,
-    "genesis_councils_stake": 11,
+    "genesis_councils_stake": 101,
     "sudo": {
-      "stake": 99975
+      "stake": 99795
     },
     "manual_bridge": {
     },
