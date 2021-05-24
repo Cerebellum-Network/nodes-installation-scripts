@@ -7,10 +7,10 @@ import * as dotenv from "dotenv";
 dotenv.config();
 class Accounts {
   public async generate() {
-    if (!fs.existsSync('accounts')) {
-      fs.mkdirSync('accounts');
+    if (!fs.existsSync('./accounts')) {
+      fs.mkdirSync('./accounts');
     }
-    const dir = 'accounts/all';
+    const dir = './accounts/all';
     if (fs.existsSync(dir)) {
       fs.rmdirSync(dir, { recursive: true });
     }
@@ -204,7 +204,7 @@ class Accounts {
   }
 
   public generateFileWithPublicKeys(rootAccount: any, sudoAccount: any, validatorGenesisAccounts) {
-    const filename = 'accounts/public';
+    const filename = './accounts/public';
 
     if (fs.existsSync(filename)) {
       fs.writeFileSync(filename, '');
@@ -254,7 +254,7 @@ class Accounts {
   }
 
   private writeKeyToFile(filename: string, content: string) {
-    fs.writeFileSync(`accounts/all/${filename}`, content);
+    fs.writeFileSync(`./accounts/all/${filename}`, content);
   }
 }
 
@@ -272,8 +272,8 @@ class Keyfiles {
     node_1_audi: "validator-2-controller-sr",
   };
   public async generateKeyfiles() {
-    if (!fs.existsSync("/keys")) {
-      fs.mkdirSync("/keys");
+    if (!fs.existsSync("./keys")) {
+      fs.mkdirSync("./keys");
     }
 
     for (const [key, value] of Object.entries(this.mapping)) {
@@ -299,7 +299,7 @@ class Keyfiles {
     };
 
     const stringContent = JSON.stringify(content);
-    fs.writeFileSync(`/keys/${filename}.json`, stringContent);
+    fs.writeFileSync(`./keys/${filename}.json`, stringContent);
   }
 }
 
