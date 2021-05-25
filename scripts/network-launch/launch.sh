@@ -49,7 +49,7 @@ path="../../root/"
 #path="../../root/"
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
-repoBranch="master"
+repoBranch="feature/devnet"
 dirName="cere-network"
 conigFile="./configs/.env.testnet.dev"
 nodeNamePrefix="CereDevnet"
