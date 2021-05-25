@@ -49,7 +49,7 @@ path="../../root/"
 #path="../../root/"
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
-repoBranch="feature/launch"
+repoBranch="master"
 dirName="cere-network"
 
 generate_chain_spec () {
