@@ -6,6 +6,6 @@ scripts/keys
 scripts/add-validator/node_modules
 scripts/generate-accounts/node_modules
 scripts/generate-accounts/accounts
-scripts/tokenomics-emulation/node_modules
+scripts/emulations/node_modules
 .idea
 accounts

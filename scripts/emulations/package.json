@@ -1,5 +1,5 @@
 {
-  "name": "tokenomics-emulation",
+  "name": "emulations",
   "version": "1.0.0",
   "description": "This script will emulate the Network tokenomics.",
   "main": "index.js",

@@ -1,5 +1,4 @@
 export class Validator {
-
   /**
    * Fetch stash and controller account balance
    */
@@ -14,8 +13,9 @@ export class Validator {
     } = await api.query.system.account(controllerAccount);
     const controllerBalance = Number(cbalance);
     return {
-     stashBalance, controllerBalance
-   }
+      stashBalance,
+      controllerBalance,
+    };
   }
 
   /**
@@ -37,7 +37,12 @@ export class Validator {
    * @param bondValue The amount to be stashed
    * @param payee The rewards destination account
    */
-  public bondValue(api, controllerAccountAddress, stashAccount, bondValue: number) {
+  public bondValue(
+    api,
+    controllerAccountAddress,
+    stashAccount,
+    bondValue: number
+  ) {
     console.log(`\nAdding validator`);
     console.log(`Bond value is ${bondValue}`);
     // if (this.stashBalance <= Number(bondValue)) {
@@ -53,7 +58,7 @@ export class Validator {
     return new Promise((res, rej) => {
       transaction
         .signAndSend(
-         stashAccount,
+          stashAccount,
           this.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
@@ -69,9 +74,7 @@ export class Validator {
    */
   public async setController(api, controllerAccountAddress, stashAccount) {
     console.log(`\n Setting controller account`);
-    const transaction = api.tx.staking.setController(
-      controllerAccountAddress
-    );
+    const transaction = api.tx.staking.setController(controllerAccountAddress);
 
     return new Promise((res, rej) => {
       transaction
@@ -92,10 +95,7 @@ export class Validator {
   public async setSessionKey(api, sessionKey, controllerAccount) {
     console.log(`\nSetting session key`);
     const EMPTY_PROOF = new Uint8Array();
-    const transaction = api.tx.session.setKeys(
-      sessionKey,
-      EMPTY_PROOF
-    );
+    const transaction = api.tx.session.setKeys(sessionKey, EMPTY_PROOF);
 
     return new Promise((res, rej) => {
       transaction
@@ -130,6 +130,69 @@ export class Validator {
         )
         .catch((err) => rej(err));
     });
+  }
+
+  /**
+   * wait till node sync
+   * @param waitSeconds wait seconds
+   */
+  public async start(api,waitSeconds: string) {
+    console.log("Check if syncing...");
+    await this.callWithRetry(
+      this.isSyncing.bind(this, api),
+      {
+        maxDepth: 100,
+      },
+      0,
+      waitSeconds
+    );
+    console.log("Sync is complete!");
+  }
+
+  /**
+   * Check if node is syning or synced.
+   */
+  private async isSyncing(api) {
+    const response = await api.rpc.system.health();
+    if (response.isSyncing.valueOf()) {
+      throw new Error("Node is syncing");
+    }
+  }
+
+  /**
+   * Function to be looped
+   * @param fn function which needs to be looped
+   * @param options
+   * @param depth
+   * @returns
+   */
+  private async callWithRetry(
+    fn,
+    options = { maxDepth: 5 },
+    depth = 0,
+    waitSeconds: string
+  ) {
+    try {
+      return await fn();
+    } catch (e) {
+      if (depth > options.maxDepth) {
+        throw e;
+      }
+      const seconds = parseInt(waitSeconds, 10);
+      console.log(`Wait ${seconds}s.`);
+      await this.sleep(15 * 1000);
+
+      return this.callWithRetry(fn, options, depth + 1, waitSeconds);
+    }
+  }
+
+  /**
+   * Sleep
+   * @param ms Time in milli second
+   * @returns promise
+   */
+  private async sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   /**
