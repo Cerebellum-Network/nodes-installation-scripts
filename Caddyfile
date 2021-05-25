@@ -1,4 +1,4 @@
-testnet-node-1.cere.network:9945  {
+testnet-node-1.cere.network:9945 {
 	log stdout
 	errors stderr
 	gzip
@@ -6,4 +6,11 @@ testnet-node-1.cere.network:9945  {
 	proxy / boot_node:9944 {
 	     websocket
 	  }
+}
+testnet-node-1.cere.network:9934 {
+	log stdout
+	errors stderr
+	gzip
+	tls ab@cere.io
+	proxy / boot_node:9933
 }

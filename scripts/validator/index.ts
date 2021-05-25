@@ -3,6 +3,7 @@ import { mnemonicGenerate, decodeAddress } from "@polkadot/util-crypto";
 import { KeypairType } from "@polkadot/util-crypto/types";
 import { KeyringPair } from "@polkadot/keyring/types";
 import { EventRecord, ExtrinsicStatus } from "@polkadot/types/interfaces";
+import config from "./network-custom-types";
 import * as dotenv from "dotenv";
 import * as BN from 'bn.js';
 import axios from 'axios';
@@ -26,11 +27,7 @@ class Validator {
     const provider = process.env.PROVIDER;
     console.log(`Connecting to blockchain: ${provider}`);
     const wsProvider = new WsProvider(provider);
-    this.api = await ApiPromise.create({ provider: wsProvider, types: {
-        ChainId: 'u8',
-        ResourceId: '[u8; 32]',
-        TokenId: 'U256'
-      }});
+    this.api = await ApiPromise.create({ provider: wsProvider, types: config});
     await this.api.isReady;
     const chain = await this.api.rpc.system.chain();
     console.log(`Connected to: ${chain}\n`);
@@ -122,7 +119,7 @@ class Validator {
 
     return new Promise((res, rej) => {
       transaction
-        .signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej))
+        .signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej, undefined))
         .catch((err) => rej(err));
     });
   }
@@ -135,7 +132,7 @@ class Validator {
 
     return new Promise((res, rej) => {
       transaction
-        .signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej))
+        .signAndSend(this.stashAccount, this.sendStatusCb.bind(this, res, rej, undefined))
         .catch((err) => rej(err));
     });
   }
@@ -156,7 +153,7 @@ class Validator {
       transaction
         .signAndSend(
           this.controllerAccount,
-          this.sendStatusCb.bind(this, res, rej)
+          this.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });
@@ -179,7 +176,7 @@ class Validator {
       transaction
         .signAndSend(
           this.controllerAccount,
-          this.sendStatusCb.bind(this, res, rej)
+          this.sendStatusCb.bind(this, res, rej, undefined)
         )
         .catch((err) => rej(err));
     });

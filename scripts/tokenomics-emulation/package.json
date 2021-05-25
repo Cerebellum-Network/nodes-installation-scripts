@@ -1,0 +1,27 @@
+{
+  "name": "tokenomics-emulation",
+  "version": "1.0.0",
+  "description": "This script will emulate the Network tokenomics.",
+  "main": "index.js",
+  "scripts": {
+    "tokenomics-emulation": "npx ts-node index.ts",
+    "generate-chain-spec": "npx ts-node generate-chain-spec.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tokenomics"
+  ],
+  "author": "Team Cere",
+  "license": "ISC",
+  "dependencies": {
+    "@polkadot/api": "^3.11.1",
+    "@polkadot/api-contract": "^3.11.1",
+    "@polkadot/util": "^5.9.2",
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.168",
+    "typescript": "^4.2.3"
+  }
+}

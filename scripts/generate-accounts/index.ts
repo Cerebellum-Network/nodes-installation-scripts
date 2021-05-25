@@ -39,6 +39,15 @@ class Accounts {
     const generateTechCommAccount = await this.generateTechCommAccounts();
     console.log(`\n`);
 
+    const generateNominatorAccount = await this.generateNominatorsAccounts();
+    console.log(`\n`);
+
+    const generateRelayerAccount = await this.generateRelayerAccount();
+    console.log(`\n`);
+
+    const generateManualBridgeAccount = await this.generateManualBridgeAccount();
+    console.log(`\n`);
+
     this.generateFileWithPublicKeys(rootAccount, sudoAccount, validatorGenesisAccounts);
   }
 
@@ -65,6 +74,7 @@ class Accounts {
   private async generateGenesisValidatorsAccounts() {
     const accounts = [];
 
+    // @ts-ignore
     const number = +process.env.GENESIS_VALIDATOR_AMOUNT;
     for (let i = 1; i <= number; i++) {
       const validatorStashAccounts = await this.generateGenesisValidatorAccounts(i, 'stash');
@@ -77,10 +87,11 @@ class Accounts {
 
   private async generateValidatorsAccounts() {
     const accounts = [];
-
+    // @ts-ignore
     const number = +process.env.VALIDATOR_AMOUNT;
+    console.log(`Generating Validator accounts of ${number}`);
     for (let i = 1; i <= number; i++) {
-      const account = await this.generateValidatorAccounts(i);
+      const account = await this.generateStashAndControllerAccounts(i, 'validator');
       accounts.push(account);
     }
 
@@ -103,18 +114,30 @@ class Accounts {
     return {srAccount, edAccount};
   }
 
-  private async generateValidatorAccounts(id) {
-    console.log(`Generating Validator accounts...`);
+  private async generateNominatorsAccounts() {
+    const accounts = [];
+    // @ts-ignore
+    const number = +process.env.NOMINATOR_AMOUNT;
+    console.log(`Generating Nominator accounts of ${number}`);
+    for (let i = 1; i <= number; i++) {
+      const account = await this.generateStashAndControllerAccounts(i, 'nominator');
+      accounts.push(account);
+    }
+    return accounts;
+  }
+
+  private async generateStashAndControllerAccounts(id: number, name: string) {
+    console.log(`Generating stash and Controller accounts...`);
 
     const stashAccount = await this.generateSrAccount();
-    const stashFilename = `validator-${id}-stash`;
+    const stashFilename = `${name}-${id}-stash`;
     this.writeKeyToFile(stashFilename, JSON.stringify(stashAccount));
-    console.log(`Validator ${id} stash account has been written to the '${stashFilename}' file`);
+    console.log(`${name} ${id} stash account has been written to the '${stashFilename}' file`);
 
-    const controllerFilename = `validator-${id}-controller`;
+    const controllerFilename = `${name}-${id}-controller`;
     const controllerAccount = await this.generateSrAccount();
     this.writeKeyToFile(controllerFilename, JSON.stringify(controllerAccount));
-    console.log(`Validator ${id} controller account has been written to the '${controllerFilename}' file`);
+    console.log(`${name} ${id} controller account has been written to the '${controllerFilename}' file`);
 
     return {stashAccount, controllerAccount};
   }
@@ -122,6 +145,7 @@ class Accounts {
   private async generateDemocracyAccounts() {
     console.log(`Generating Democracy Account...`);
 
+    // @ts-ignore
     const number = +process.env.DEMOCRACY_AMOUNT;
     for (let i = 1; i <= number; i++) {
       const srAccount = await this.generateSrAccount();
@@ -136,6 +160,7 @@ class Accounts {
   private async generateSocietyAccounts() {
     console.log(`Generating Society Account...`);
 
+    // @ts-ignore
     const number = +process.env.SOCIETY_AMOUNT;
     for (let i = 1; i <= number; i++) {
       const srAccount = await this.generateSrAccount();
@@ -150,6 +175,7 @@ class Accounts {
   private async generateTechCommAccounts() {
     console.log(`Generating Tech Comm Account...`);
 
+    // @ts-ignore
     const number = +process.env.TECH_COMM_AMOUNT;
     for (let i = 1; i <= number; i++) {
       const srAccount = await this.generateSrAccount();
@@ -161,7 +187,29 @@ class Accounts {
     }
   }
 
-  public generateFileWithPublicKeys(rootAccount: any, sudoAccount: any, validatorGenesisAccounts) {
+  private async generateRelayerAccount() {
+    console.log(`Generating Relayer Account...`);
+
+    const relayerAccount = await this.generateSrAccount();
+    const relayer = `relayer`;
+    this.writeKeyToFile(relayer, JSON.stringify(relayerAccount));
+    console.log(
+        `Relayer account has been written to the ${relayer}`
+    );
+  }
+
+  private async generateManualBridgeAccount() {
+    console.log(`Generating Manual Bridge Account...`);
+
+    const manualBridgeAccount = await this.generateSrAccount();
+    const manualBridge = `manual-bridge`;
+    this.writeKeyToFile(manualBridge, JSON.stringify(manualBridgeAccount));
+    console.log(
+        `Manual Bridge account has been written to the ${manualBridge}`
+    );
+  }
+
+  public generateFileWithPublicKeys(rootAccount: any, sudoAccount: any, validatorGenesisAccounts: any) {
     const filename = 'accounts/public';
 
     if (fs.existsSync(filename)) {
@@ -244,11 +292,12 @@ class Keyfiles {
       const mnemonic = content.match(mnemonicRegex);
       let publicKeyRegex = /(?<="publicKey":")(.*)(?=","a)/;
       const publicKey = content.match(publicKeyRegex);
+      // @ts-ignore
       this.writeFile(key, key.slice(-4), mnemonic[0], publicKey[0]);
     }
   }
 
-  private writeFile(filename, firstParam, mnemonic, publicKey) {
+  private writeFile(filename: any, firstParam: any, mnemonic: any, publicKey: any) {
     const content = {
       jsonrpc: "2.0",
       id: 1,
