@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
 #### DEV ####
-bootNodeIP=164.90.173.129
-bootNodeHost=testnet-node-1.dev.cere.network
-genesisValidatorIP=138.68.136.162
-genesisValidatorHost=testnet-node-2.dev.cere.network
-validatorsIPs=(165.227.57.153)
-validatorsHosts=(testnet-node-3.dev.cere.network)
-fullNodeIP=167.71.6.56
-fullNodeHost=rpc.testnet.dev.cere.network
-archiveNodeIP=128.199.37.230
-archiveNodeHost=archive.testnet.dev.cere.network
-user="andrei"
-path="../../root/"
+#bootNodeIP=164.90.173.129
+#bootNodeHost=testnet-node-1.dev.cere.network
+#genesisValidatorIP=138.68.136.162
+#genesisValidatorHost=testnet-node-2.dev.cere.network
+#validatorsIPs=(165.227.57.153)
+#validatorsHosts=(testnet-node-3.dev.cere.network)
+#fullNodeIP=167.71.6.56
+#fullNodeHost=rpc.testnet.dev.cere.network
+#archiveNodeIP=128.199.37.230
+#archiveNodeHost=archive.testnet.dev.cere.network
+#user="andrei"
+#path="../../root/"
 
 #### DEV1 ####
 #bootNodeIP=164.90.155.170
@@ -32,27 +32,27 @@ path="../../root/"
 #user="andrei"
 #path="../../root/"
 
-#### STAGE ####
-#bootNodeIP=165.232.149.206
-#bootNodeHost=mainnet-node-1.stage.cere.network
-#genesisValidatorIP=45.55.62.114
-#genesisValidatorHost=mainnet-node-2.stage.cere.network
-#validatorsIPs=(159.203.13.16\
-#               157.230.106.171)
-#validatorsHosts=(mainnet-node-3.stage.cere.network\
-#                 mainnet-node-4.stage.cere.network)
-#fullNodeIP=143.198.130.232
-#fullNodeHost=rpc.mainnet.stage.cere.network
-#archiveNodeIP=178.128.250.106
-#archiveNodeHost=archive.mainnet.stage.cere.network
-#user="andrei"
-#path="../../root/"
+#### TESTNET ####
+bootNodeIP=165.232.149.206
+bootNodeHost=mainnet-node-1.stage.cere.network
+genesisValidatorIP=45.55.62.114
+genesisValidatorHost=mainnet-node-2.stage.cere.network
+validatorsIPs=(159.203.13.16\
+               157.230.106.171)
+validatorsHosts=(mainnet-node-3.stage.cere.network\
+                 mainnet-node-4.stage.cere.network)
+fullNodeIP=143.198.130.232
+fullNodeHost=rpc.mainnet.stage.cere.network
+archiveNodeIP=178.128.250.106
+archiveNodeHost=archive.mainnet.stage.cere.network
+user="andrei"
+path="../../root/"
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
-repoBranch="feature/devnet"
+repoBranch="feature/testnet"
 dirName="cere-network"
-conigFile="./configs/.env.testnet.dev"
-nodeNamePrefix="CereDevnet"
+configFile="./configs/.env.testnet"
+nodeNamePrefix="CereTestnet"
 
 generate_chain_spec () {
   docker-compose down -t 0
