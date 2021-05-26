@@ -30,8 +30,8 @@
         "url": "ws://134.209.192.121:9944"
       }
     ],
-    "name": "Cerebellum Devnet",
-    "id": "cere_devnet",
+    "name": "Cerebellum Testnet",
+    "id": "cere_testnet",
     "chainType": "Development",
     "decimals": 10,
     "total_supply": 10000000000,
