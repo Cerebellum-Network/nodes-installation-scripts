@@ -51,7 +51,7 @@ path="../../root/"
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
 repoBranch="feature/testnet"
 dirName="cere-network"
-conigFile="./configs/.env.testnet"
+configFile="./configs/.env.testnet"
 nodeNamePrefix="CereTestnet"
 
 generate_chain_spec () {
