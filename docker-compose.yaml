@@ -95,12 +95,12 @@ services:
       options:
         max-size: "20m"
     build:
-      context: ./
+      context: ./scripts/generate-accounts
       dockerfile: Dockerfile.generateAccounts
     volumes:
       - ./accounts:/app/accounts
       - ./scripts/keys:/keys
-    command: npm run generate-accounts
+    command: npx ts-node index.ts
   generate_emulations_chain_spec:
     container_name: generate_emulations_chain_spec
     image: generate_emulations_chain_spec
