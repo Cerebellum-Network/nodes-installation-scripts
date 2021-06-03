@@ -99,7 +99,7 @@ services:
       dockerfile: Dockerfile.generateAccounts
     volumes:
       - ./accounts:/app/accounts
-      - ./scripts/keys:/keys
+      - ./keys:/app/keys
     command: npx ts-node index.ts
   generate_emulations_chain_spec:
     container_name: generate_emulations_chain_spec
