@@ -1,7 +1,7 @@
 import { ApiPromise, Keyring, WsProvider } from "@polkadot/api";
 import { KeypairType } from "@polkadot/util-crypto/types";
 import { KeyringPair } from "@polkadot/keyring/types";
-import config from "./network-custom-types";
+import config from "../common/network-custom-types";
 import * as dotenv from "dotenv";
 import { Validator } from "../common/add-validator";
 dotenv.config();
