@@ -83,8 +83,8 @@ services:
       options:
         max-size: "20m"
     build:
-      context: ./
-      dockerfile: Dockerfile.addValidator
+      context: ./scripts
+      dockerfile: add-validator/Dockerfile.addValidator
     command: npm run add-validator
   generate_accounts:
     container_name: generate_accounts
