@@ -1,6 +1,0 @@
-FROM node:12.18.4-alpine
-
-WORKDIR /app
-COPY scripts/tokenomics-emulation/ .
-
-RUN npm install
