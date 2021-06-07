@@ -30,17 +30,17 @@
         "url": "ws://134.209.192.121:9944"
       }
     ],
-    "name": "Cerebellum Mainnet Alpha Stage",
-    "id": "cere_mainnet",
-    "chainType": "Live",
+    "name": "Cerebellum Testnet",
+    "id": "cere_testnet",
+    "chainType": "Development",
     "decimals": 10,
     "total_supply": 10000000000,
     "genesis_validators_amount": 2,
     "genesis_validators_stake": 1,
     "genesis_councils_amount": 2,
-    "genesis_councils_stake": 11,
+    "genesis_councils_stake": 101,
     "sudo": {
-      "stake": 99975
+      "stake": 99795
     },
     "manual_bridge": {
     },

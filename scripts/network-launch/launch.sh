@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+#### DEV ####
+#bootNodeIP=164.90.173.129
+#bootNodeHost=testnet-node-1.dev.cere.network
+#genesisValidatorIP=138.68.136.162
+#genesisValidatorHost=testnet-node-2.dev.cere.network
+#validatorsIPs=(165.227.57.153)
+#validatorsHosts=(testnet-node-3.dev.cere.network)
+#fullNodeIP=167.71.6.56
+#fullNodeHost=rpc.testnet.dev.cere.network
+#archiveNodeIP=128.199.37.230
+#archiveNodeHost=archive.testnet.dev.cere.network
+#user="andrei"
+#path="../../root/"
+
 #### DEV1 ####
 #bootNodeIP=164.90.155.170
 #bootNodeHost=testnet-node-1.dev1.cere.network
@@ -18,7 +32,7 @@
 #user="andrei"
 #path="../../root/"
 
-#### STAGE ####
+#### TESTNET ####
 bootNodeIP=165.232.149.206
 bootNodeHost=mainnet-node-1.stage.cere.network
 genesisValidatorIP=45.55.62.114
@@ -35,8 +49,10 @@ user="andrei"
 path="../../root/"
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
-repoBranch="feature/launch"
+repoBranch="feature/testnet"
 dirName="cere-network"
+configFile="./configs/.env.testnet"
+nodeNamePrefix="CereTestnet"
 
 generate_chain_spec () {
   docker-compose down -t 0
@@ -51,8 +67,8 @@ generate_chain_spec () {
 start_boot () {
   ssh ${user}@${bootNodeIP} 'bash -s'  << EOT
     sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=CereMainnetAlpha01|\" ./configs/.env.mainnet";
-    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ./configs/.env.mainnet up -d boot_node"
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeNamePrefix}01|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d boot_node"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${bootNodeHost}:9945 {|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${bootNodeHost}:9934 {|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
@@ -60,7 +76,7 @@ EOT
 }
 
 start_genesis_validators () {
-  start_node ${genesisValidatorIP} CereMainnetAlpha02 add_validation_node_custom add_validation_node_custom ${genesisValidatorHost}
+  start_node ${genesisValidatorIP} ${nodeNamePrefix}02 add_validation_node_custom add_validation_node_custom ${genesisValidatorHost}
 }
 
 start_validators () {
@@ -70,7 +86,7 @@ start_validators () {
       nodeIndex=0${nodeIndex}
     fi
     echo Starting Validator ${nodeIndex}
-    start_node ${validatorsIPs[i]} CereMainnetAlpha${nodeIndex} add_validation_node_custom add_validation_node_custom ${validatorsHosts[i]}
+    start_node ${validatorsIPs[i]} ${nodeNamePrefix}${nodeIndex} add_validation_node_custom add_validation_node_custom ${validatorsHosts[i]}
   done
 }
 
@@ -101,11 +117,11 @@ EOT
 }
 
 start_full () {
-  start_node ${fullNodeIP} CereMainnetAlphaFull01 full_node cere_full_node ${fullNodeHost}
+  start_node ${fullNodeIP} ${nodeNamePrefix}Full01 full_node cere_full_node ${fullNodeHost}
 }
 
 start_archive () {
-  start_node ${archiveNodeIP} CereMainnetAlphaArchive01 archive_node cere_archive_node ${archiveNodeHost}
+  start_node ${archiveNodeIP} ${nodeNamePrefix}Archive01 archive_node cere_archive_node ${archiveNodeHost}
 }
 
 start_node () {
@@ -122,10 +138,10 @@ start_node () {
   done
   ssh ${user}@${ip} 'bash -s'  << EOT
     sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS=.*|BOOT_NODE_IP_ADDRESS=${bootNodeIP}|\" ./configs/.env.mainnet";
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER=.*|NETWORK_IDENTIFIER=${bootNodeID}|\" ./configs/.env.mainnet";
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeName}|\" ./configs/.env.mainnet";
-    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ./configs/.env.mainnet up -d ${serviceName}"
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS=.*|BOOT_NODE_IP_ADDRESS=${bootNodeIP}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER=.*|NETWORK_IDENTIFIER=${bootNodeID}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeName}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d ${serviceName}"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${host}:9945 {|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9944|${containerName}:9944|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${host}:9934 {|\" Caddyfile";
