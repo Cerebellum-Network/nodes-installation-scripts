@@ -103,7 +103,7 @@ services:
     volumes:
       - ./scripts/generate-accounts/accounts:/app/accounts
       - ./scripts/generate-accounts/keys:/app/keys
-    command: npx ts-node index.ts
+    command: npm run generate-accounts
   generate_emulations_chain_spec:
     container_name: generate_emulations_chain_spec
     image: generate_emulations_chain_spec
