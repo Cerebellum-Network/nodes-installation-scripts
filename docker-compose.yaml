@@ -114,7 +114,7 @@ services:
         max-size: "20m"
     build:
       context: ./
-      dockerfile: Dockerfile.generateEmulationsChainSpec
+      dockerfile: scripts/emulations/Dockerfile.generateEmulationsChainSpec
     volumes:
       - ./scripts/generate-accounts/accounts:/app/accounts
       - ./spec-data:/app/spec-data
