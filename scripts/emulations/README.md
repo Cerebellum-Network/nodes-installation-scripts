@@ -1,6 +1,6 @@
-# Add Validator
+# Emulation
 
-This script will help us in emulating various feature in blockchain programmatically. 
+This script emulates various features in the Cere Network.
 
 <br />
 
@@ -10,7 +10,7 @@ This script will help us in emulating various feature in blockchain programmatic
 <br />
 
 ## Configure app
-Open `config.json` and update the with appropriate values to emulate any emulations.
+Open `config.json` and update it with the appropriate values to emulate.
 
 The emulation will run in the order it is given in sequence. 
 
@@ -19,5 +19,5 @@ The emulation will run in the order it is given in sequence.
 ## Running the project
 
 ```bash
-$ npm run emulations
+$ docker-compose up execute_emulations
 ```
