@@ -101,8 +101,8 @@ services:
       context: ./scripts/generate-accounts
       dockerfile: Dockerfile.generateAccounts
     volumes:
-      - ./accounts:/app/accounts
-      - ./keys:/app/keys
+      - ./scripts/generate-accounts/accounts:/app/accounts
+      - ./scripts/generate-accounts/keys:/app/keys
     command: npx ts-node index.ts
   generate_emulations_chain_spec:
     container_name: generate_emulations_chain_spec
