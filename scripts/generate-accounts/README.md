@@ -1,6 +1,6 @@
-# Add Validator
+# Generate Accounts
 
-This script will help us in generating accounts programmaticaly. 
+This script generates accounts. 
 
 <br />
 
@@ -10,7 +10,7 @@ This script will help us in generating accounts programmaticaly.
 <br />
 
 ## Configure app
-Open `.env` and update the with appropriate values.
+Open `.env` and update it with the appropriate values.
 
 |  Environment variable | Default value  | Description   |
 | ------------ | ------------ | ------------ |
@@ -26,7 +26,7 @@ Open `.env` and update the with appropriate values.
 ## Running the project
 
 ```bash
-$ npm run generate-accounts
+$ docker-compose up generate_accounts
 ```
 
 <br />
@@ -34,5 +34,5 @@ $ npm run generate-accounts
 ## cleaning the data
 
 ```bash
-$ sh clean.sh
+$ bash clean.sh
 ```
