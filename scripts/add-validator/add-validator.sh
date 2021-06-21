@@ -36,12 +36,12 @@ done
 echo $domain
 echo $id
 
-sed -i "" "s|PROVIDER=.*|PROVIDER=wss://$domain:9945|" scripts/add-validator/.env
-stash_mnemonic=`sed -e 's/^.*"mnemonic":"\([^"]*\)".*$/\1/' ./accounts/all/validator-$id-stash`
+sed -i "s|PROVIDER=.*|PROVIDER=wss://$domain:9945|" scripts/add-validator/.env
+stash_mnemonic=`sed -e 's/^.*"mnemonic":"\([^"]*\)".*$/\1/' scripts/generate-accounts/accounts/all/validator-$id-stash`
 echo $stash_mnemonic
-sed -i "" "s|STASH_ACCOUNT_MNEMONIC=.*|STASH_ACCOUNT_MNEMONIC=$stash_mnemonic|" scripts/add-validator/.env
-controller_mnemonic=`sed -e 's/^.*"mnemonic":"\([^"]*\)".*$/\1/' ./accounts/all/validator-$id-controller`
+sed -i  "s|STASH_ACCOUNT_MNEMONIC=.*|STASH_ACCOUNT_MNEMONIC=$stash_mnemonic|" scripts/add-validator/.env
+controller_mnemonic=`sed -e 's/^.*"mnemonic":"\([^"]*\)".*$/\1/' scripts/generate-accounts/accounts/all/validator-$id-controller`
 echo $controller_mnemonic
-sed -i "" "s|CONTROLLER_ACCOUNT_MNEMONIC=.*|CONTROLLER_ACCOUNT_MNEMONIC=$controller_mnemonic|" scripts/add-validator/.env
-docker-compose build add_validator
-docker-compose up add_validator
+sed -i "s|CONTROLLER_ACCOUNT_MNEMONIC=.*|CONTROLLER_ACCOUNT_MNEMONIC=$controller_mnemonic|" scripts/add-validator/.env
+# docker-compose build add_validator
+# docker-compose up add_validator

@@ -1,7 +1,6 @@
 # Add Validator
 
-This script will help us in adding the validator node to blockchain programmaticaly. 
-
+This script will add a Validator Node to the existing Cere Network programmatically.
 <br />
 
 ## Requirements
@@ -9,8 +8,8 @@ This script will help us in adding the validator node to blockchain programmatic
 
 <br />
 
-## Configure app
-Open `.env` and update the with appropriate values.
+## Configuring app
+Open `.env` and update it with the appropriate values.
 
 |  Environment variable | Default value  | Description   |
 | ------------ | ------------ | ------------ |
@@ -26,13 +25,17 @@ Open `.env` and update the with appropriate values.
 ## Running the project
 
 ```bash
-$ npm run add-validator
+$ bash add-validator.sh --domain=<NETWORK-DOMAIN> --id=<VALIDATOR-ID>
 ```
+NETWORK-URL  -->  Validator node domain name, Eg: node-1.cere.network
+
+VALIDATOR-ID -->  Validator Id, for using it as stash and controller account. 
 
 <br />
 
-## cleaning the data
+## Cleaning the data
 
+This script will update .env file with default values.
 ```bash
-$ sh clean.sh
+$ bash clean.sh
 ```
