@@ -116,7 +116,7 @@ services:
       context: ./
       dockerfile: Dockerfile.generateEmulationsChainSpec
     volumes:
-      - ./accounts:/app/accounts
+      - ./scripts/generate-accounts/accounts:/app/accounts
       - ./spec-data:/app/spec-data
     command: npm run generate-chain-spec
   execute_emulations:
@@ -131,7 +131,7 @@ services:
       context: ./scripts
       dockerfile: emulations/Dockerfile.emulations
     volumes:
-      - ./accounts:/app/accounts
+      - ./scripts/generate-accounts/accounts:/app/accounts
     command: npm run emulations
   full_node:
     container_name: cere_full_node
