@@ -5,7 +5,7 @@ This script generates accounts.
 <br />
 
 ## Requirements
-[NodeJs (v14.17.0 lts)](https://nodejs.org/en/download/ "NodeJs (v14.17.0 lts)")
+[NodeJs (v12.18.4)](https://nodejs.org/en/download/ "NodeJs (v12.18.4)")
 
 <br />
 

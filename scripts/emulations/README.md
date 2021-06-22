@@ -1,20 +1,19 @@
-# Emulation
+# Emulations
 
 This script emulates various features in the Cere Network.
 
 <br />
 
 ## Requirements
-[NodeJs (v14.17.0 lts)](https://nodejs.org/en/download/ "NodeJs (v14.17.0 lts)")
 
+- [NodeJs (v12.18.4)](https://nodejs.org/en/download/ "NodeJs (v12.18.4)")
 <br />
 
 ## Configure app
-Open `config.json` and update it with the appropriate values to emulate.
 
+Open `config.json` and update it with the appropriate values to emulate. <br>
 The emulation will run in the order it is given in sequence. 
 
-<br />
 
 ## Running the project
 
