@@ -1,12 +1,11 @@
 # Add Validator
 
 This script will add a Validator Node to the existing Cere Network programmatically.
-<br />
+
 
 ## Requirements
 [NodeJs (v12.18.4)](https://nodejs.org/en/download/ "NodeJs (v12.18.4)")
 
-<br />
 
 ## Configuring app
 Open `.env` and update it with the appropriate values.
@@ -20,7 +19,6 @@ Open `.env` and update it with the appropriate values.
 | REWARD_COMMISSION  | 5  | Reward commission  |
 | DECIMAL  | 10  | Decimal value  |
 
-<br />
 
 ## Running the project
 
@@ -31,7 +29,6 @@ NETWORK-URL  -->  Validator node domain name, Eg: node-1.cere.network
 
 VALIDATOR-ID -->  Validator Id, for using it as stash and controller account. 
 
-<br />
 
 ## Cleaning the data
 

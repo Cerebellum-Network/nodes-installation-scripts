@@ -2,12 +2,11 @@
 
 This script emulates various features in the Cere Network.
 
-<br />
 
 ## Requirements
 
 - [NodeJs (v12.18.4)](https://nodejs.org/en/download/ "NodeJs (v12.18.4)")
-<br />
+
 
 ## Configure app
 

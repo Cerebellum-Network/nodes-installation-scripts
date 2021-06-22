@@ -2,12 +2,10 @@
 
 This script generates accounts. 
 
-<br />
 
 ## Requirements
 [NodeJs (v12.18.4)](https://nodejs.org/en/download/ "NodeJs (v12.18.4)")
 
-<br />
 
 ## Configure app
 Open `.env` and update it with the appropriate values.
@@ -21,7 +19,6 @@ Open `.env` and update it with the appropriate values.
 | TECH_COMM_AMOUNT  | 2  | No. of Tech comm accounts |
 | NOMINATOR_AMOUNT  | 0  | No. of nominator accounts |
 
-<br />
 
 ## Running the project
 
@@ -29,7 +26,6 @@ Open `.env` and update it with the appropriate values.
 $ docker-compose up generate_accounts
 ```
 
-<br />
 
 ## cleaning the data
 
