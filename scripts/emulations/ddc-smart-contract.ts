@@ -8,7 +8,7 @@ import {
 } from "@polkadot/api-contract";
 import cere02Abi from "./contracts/cere02-metadata.json";
 import fs from "fs";
-const cere02Wasm = fs.readFileSync("./contract/cere02.wasm");
+const cere02Wasm = fs.readFileSync("./contracts/cere02.wasm");
 import EventHandlers from "./event-handlers";
 
 class DdcSmartContract {
