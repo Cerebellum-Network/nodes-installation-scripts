@@ -86,8 +86,8 @@ services:
       options:
         max-size: "20m"
     build:
-      context: ./
-      dockerfile: Dockerfile.addValidator
+      context: ./scripts
+      dockerfile: add-validator/Dockerfile.addValidator
     command: npm run add-validator
   generate_accounts:
     container_name: generate_accounts
@@ -98,11 +98,11 @@ services:
       options:
         max-size: "20m"
     build:
-      context: ./
+      context: ./scripts/generate-accounts
       dockerfile: Dockerfile.generateAccounts
     volumes:
-      - ./accounts:/app/accounts
-      - ./scripts/keys:/keys
+      - ./scripts/generate-accounts/accounts:/app/accounts
+      - ./scripts/generate-accounts/keys:/app/keys
     command: npm run generate-accounts
   generate_emulations_chain_spec:
     container_name: generate_emulations_chain_spec
@@ -114,9 +114,9 @@ services:
         max-size: "20m"
     build:
       context: ./
-      dockerfile: Dockerfile.generateEmulationsChainSpec
+      dockerfile: scripts/emulations/Dockerfile.generateEmulationsChainSpec
     volumes:
-      - ./accounts:/app/accounts
+      - ./scripts/generate-accounts/accounts:/app/accounts
       - ./spec-data:/app/spec-data
     command: npm run generate-chain-spec
   execute_emulations:
@@ -128,11 +128,11 @@ services:
       options:
         max-size: "20m"
     build:
-      context: ./
-      dockerfile: Dockerfile.emulations
+      context: ./scripts
+      dockerfile: emulations/Dockerfile.emulations
     volumes:
-      - ./accounts:/app/accounts
-    command: npm run tokenomics-emulation
+      - ./scripts/generate-accounts/accounts:/app/accounts
+    command: npm run emulations
   full_node:
     container_name: cere_full_node
     image: cerebellumnetwork/pos-node:${VERSION}

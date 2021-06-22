@@ -1,10 +1,10 @@
 {
-  "name": "tokenomics-emulation",
+  "name": "emulations",
   "version": "1.0.0",
   "description": "This script will emulate the Network tokenomics.",
   "main": "index.js",
   "scripts": {
-    "tokenomics-emulation": "npx ts-node index.ts",
+    "emulations": "npx ts-node index.ts",
     "generate-chain-spec": "npx ts-node generate-chain-spec.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

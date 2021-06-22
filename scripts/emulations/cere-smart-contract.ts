@@ -6,9 +6,9 @@ import {
   CodePromise,
   ContractPromise,
 } from "@polkadot/api-contract";
-import cere02Abi from "./contract/cere01-metadata.json";
+import cere02Abi from "./contracts/cere01-metadata.json";
 import fs from "fs";
-const cere01Wasm = fs.readFileSync("./contract/cere01.wasm");
+const cere01Wasm = fs.readFileSync("./contracts/cere01.wasm");
 import EventHandlers from "./event-handlers";
 
 class CereSmartContract {
