@@ -15,6 +15,7 @@ The emulation will run in the order it is given in sequence.
 
 
 ## Running the project
+Run from the root:
 
 ```bash
 $ docker-compose up execute_emulations

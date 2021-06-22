@@ -21,6 +21,7 @@ Open `.env` and update it with the appropriate values.
 
 
 ## Running the project
+Run from the root:
 
 ```bash
 $ docker-compose up generate_accounts

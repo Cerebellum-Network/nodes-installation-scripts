@@ -21,6 +21,7 @@ Open `.env` and update it with the appropriate values.
 
 
 ## Running the project
+Run from the root:
 
 ```bash
 $ bash add-validator.sh --domain=<NETWORK-DOMAIN> --id=<VALIDATOR-ID>
