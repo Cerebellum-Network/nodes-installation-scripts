@@ -56,7 +56,7 @@ nodeNamePrefix="CereTestnet"
 
 generate_chain_spec () {
   docker-compose down -t 0
-  rm -rf chain-data accounts spec-data scripts/keys
+  rm -rf chain-data spec-data scripts/generate-accounts/accounts scripts/generate-accounts/keys
 
   docker-compose up create_chain_spec
   docker-compose up --build generate_accounts
@@ -94,17 +94,17 @@ insert_keys () {
   NODE_0_URL=http://${bootNodeHost}:9933
   NODE_1_URL=http://${genesisValidatorHost}:9933
 
-  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_0_stash_gran.json"
-  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_0_gran.json"
-  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_0_babe.json"
-  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_0_imol.json"
-  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_0_audi.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_stash_gran.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_gran.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_babe.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_imol.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_audi.json"
 
-  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_1_stash_gran.json"
-  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_1_gran.json"
-  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_1_babe.json"
-  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_1_imol.json"
-  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/keys/node_1_audi.json"
+  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_stash_gran.json"
+  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_gran.json"
+  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_babe.json"
+  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_imol.json"
+  curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_audi.json"
 }
 
 restart_genesis () {
@@ -171,8 +171,7 @@ EOT
 }
 
 remove_accounts () {
-  rm -rf accounts
-  rm -rf scripts/keys
+  scripts/generate-accounts/clean.sh
 }
 
 case $1 in
