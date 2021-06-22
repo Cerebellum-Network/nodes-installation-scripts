@@ -2,5 +2,5 @@
 
 ### remove account data related to generate-accounts
 
-rm -rf accounts
-rm -rf keys
+rm -rf scripts/generate-accounts/accounts
+rm -rf scripts/generate-accounts/keys
