@@ -25,12 +25,12 @@ function print_ok {
 
 # ============ Use proper config file based on "network" parameter ============ 
 function define_config_file {
-  if [[ $1 == "testnet" ]]; then
-    export CONFIG_FILE=".env.testnet"
-  elif [[ $1 == "devnet" ]]; then
+  if [[ $1 == "devnet" ]]; then
     export CONFIG_FILE=".env.devnet"
   elif [[ $1 == "qanet" ]]; then
     export CONFIG_FILE=".env.qanet"
+  elif [[ $1 == "testnet" ]]; then
+    export CONFIG_FILE=".env.testnet"
   elif [[ $1 == "mainnet" ]]; then
     export CONFIG_FILE=".env.mainnet"
   else
@@ -84,16 +84,15 @@ function become_a_validator {
 function launch_nodes {
   define_config_file $NETWORK
 
-  start_validator_node
-
   sed -i "s|NODE_NAME=.*|NODE_NAME=$NODE_NAME|" configs/${CONFIG_FILE}
+
+  start_validator_node
 
   # update scripts/add-validator/.env
   update_add_validator_configs
   
   # add-validator node
   become_a_validator
-
 }
 
 # ============ Check number of arguments ============ 
