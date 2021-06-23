@@ -34,7 +34,7 @@ function define_config_file {
   elif [[ $1 == "mainnet" ]]; then
     export CONFIG_FILE=".env.mainnet"
   else
-    print_error "Incorrect --network parameter, should be \"testnet\" or \"devnet\" or \"qanet\" or \"mainnet\""
+    print_error "Incorrect --network parameter, should be \"devnet\" or \"qanet\" or \"testnet\" or \"mainnet\""
     exit 1
   fi
 }
@@ -49,7 +49,7 @@ function validate_and_update_reward_commission {
 }
 
 
-function update_configs {
+function update_add_validator_configs {
   [[ -z "$BOND_VALUE" ]] &&  echo "Use default bond value" || sed -i "s|BOND_VALUE=.*|BOND_VALUE=$BOND_VALUE|" scripts/add-validator/.env
   [[ -z "$REWARD_COMMISSION" ]] && echo "Use default reward commission" || validate_and_update_reward_commission $REWARD_COMMISSION
 }
@@ -84,13 +84,12 @@ function become_a_validator {
 function launch_nodes {
   define_config_file $NETWORK
 
-  # start validator node
   start_validator_node
 
   sed -i "s|NODE_NAME=.*|NODE_NAME=$NODE_NAME|" configs/${CONFIG_FILE}
 
   # update scripts/add-validator/.env
-  update_configs
+  update_add_validator_configs
   
   # add-validator node
   become_a_validator
