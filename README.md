@@ -5,6 +5,7 @@ The scripts will help the community to up and run Cere Nodes (Validator, Full). 
 ## Running the validator node
 
 Start validator node by running the following script:
+
 For MacOS
 ```shell
 sh ./scripts/launch_validator_node.sh --node-name=TEST_NODE --network=testnet
