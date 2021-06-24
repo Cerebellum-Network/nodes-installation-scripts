@@ -33,26 +33,40 @@
 #path="../../root/"
 
 #### TESTNET ####
-bootNodeIP=165.232.149.206
-bootNodeHost=mainnet-node-1.stage.cere.network
-genesisValidatorIP=45.55.62.114
-genesisValidatorHost=mainnet-node-2.stage.cere.network
-validatorsIPs=(159.203.13.16\
-               157.230.106.171)
-validatorsHosts=(mainnet-node-3.stage.cere.network\
-                 mainnet-node-4.stage.cere.network)
-fullNodeIP=143.198.130.232
-fullNodeHost=rpc.mainnet.stage.cere.network
-archiveNodeIP=178.128.250.106
-archiveNodeHost=archive.mainnet.stage.cere.network
+#bootNodeIP=165.232.149.206
+#bootNodeHost=mainnet-node-1.stage.cere.network
+#genesisValidatorIP=45.55.62.114
+#genesisValidatorHost=mainnet-node-2.stage.cere.network
+#validatorsIPs=(159.203.13.16\
+#               157.230.106.171)
+#validatorsHosts=(mainnet-node-3.stage.cere.network\
+#                 mainnet-node-4.stage.cere.network)
+#fullNodeIP=143.198.130.232
+#fullNodeHost=rpc.mainnet.stage.cere.network
+#archiveNodeIP=178.128.250.106
+#archiveNodeHost=archive.mainnet.stage.cere.network
+#user="andrei"
+#path="../../root/"
+
+### EXT DEVS CLUSTER 1 ###
+bootNodeIP=143.198.145.104
+bootNodeHost=ext-devs-node-1.cluster-1.cere.network
+genesisValidatorIP=161.35.140.182
+genesisValidatorHost=ext-devs-node-2.cluster-1.cere.network
+validatorsIPs=(159.203.31.45)
+validatorsHosts=(ext-devs-node-3.cluster-1.cere.network)
+fullNodeIP=""
+fullNodeHost=""
+archiveNodeIP=""
+archiveNodeHost=""
 user="andrei"
 path="../../root/"
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
-repoBranch="feature/testnet"
+repoBranch="feature/batch-5"
 dirName="cere-network"
-configFile="./configs/.env.testnet"
-nodeNamePrefix="CereTestnet"
+configFile="./configs/.env.ext-devs-cluster-1"
+nodeNamePrefix="ExtDevsCluster1"
 
 generate_chain_spec () {
   docker-compose down -t 0
