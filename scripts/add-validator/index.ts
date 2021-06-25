@@ -149,13 +149,10 @@ class AddValidator {
   private async requestAssets(account: KeyringPair) {
     try {
       const network = process.env.NETWORK;
-      console.log(network);
-      console.log(network.toUpperCase());
       return await axios.post(
         process.env.REQUEST_ASSETS_ENDPOINT,
         { destination: account.address, network: network.toUpperCase() },
         {
-          timeout: 15000,
           withCredentials: false,
           headers: {
             Accept: "application/json",
@@ -174,14 +171,13 @@ class AddValidator {
     console.log("Requesting balance");
     const validator = new Validator();
     // Fetch account balance
-    const { stashBalance } = await validator.accountBalance(
+    const { stashBalance, controllerBalance } = await validator.accountBalance(
       this.api,
       this.stashAccount.address,
       this.controllerAccount.address
     );
-
-    if (stashBalance <= 0) {
-      throw new Error("Stash balance should be above 0");
+    if (stashBalance <= 0 && controllerBalance <=0) {
+      throw new Error("Stash  and Controller balance should be above 0");
     }
   }
 
