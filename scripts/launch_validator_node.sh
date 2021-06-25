@@ -33,8 +33,10 @@ function define_config_file {
     export CONFIG_FILE=".env.testnet"
   elif [[ $1 == "mainnet" ]]; then
     export CONFIG_FILE=".env.mainnet"
+  elif [[ $1 == "ext-devs-cluster-1" ]]; then
+    export CONFIG_FILE=".env.ext-devs-cluster-1"
   else
-    print_error "Incorrect --network parameter, should be \"devnet\" or \"qanet\" or \"testnet\" or \"mainnet\""
+    print_error "Incorrect --network parameter, should be \"devnet\" or \"qanet\" or \"testnet\" or \"mainnet\" or \"ext-devs-cluster-1\""
     exit 1
   fi
 }
