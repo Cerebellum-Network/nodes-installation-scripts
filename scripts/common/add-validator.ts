@@ -59,7 +59,7 @@ export class Validator {
       transaction
         .signAndSend(
           stashAccount,
-          this.sendStatusCb.bind(this, res, rej, undefined)
+          this.sendStatusCb.bind(this, res, rej)
         )
         .catch((err) => rej(err));
     });
@@ -80,7 +80,7 @@ export class Validator {
       transaction
         .signAndSend(
           stashAccount,
-          this.sendStatusCb.bind(this, res, rej, undefined)
+          this.sendStatusCb.bind(this, res, rej)
         )
         .catch((err) => rej(err));
     });
@@ -101,7 +101,7 @@ export class Validator {
       transaction
         .signAndSend(
           controllerAccount,
-          this.sendStatusCb.bind(this, res, rej, undefined)
+          this.sendStatusCb.bind(this, res, rej)
         )
         .catch((err) => rej(err));
     });

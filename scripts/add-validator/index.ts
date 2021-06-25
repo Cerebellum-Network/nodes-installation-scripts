@@ -134,9 +134,11 @@ class AddValidator {
   }
 
   private generateAccount(type: string) {
-    const keyring = new Keyring({ type: "sr25519", ss58Format: 2 });
     const mnemonic = mnemonicGenerate(12);
-    const pair = keyring.addFromUri(mnemonic, {}, "ed25519");
+    const keyring = new Keyring({ type: "sr25519" });
+    const pair = keyring.addFromMnemonic(
+      mnemonic
+    );
 
     console.log("=====================================================");
     console.log(`GENERATED 12-WORD MNEMONIC SEED (${type}):`);
