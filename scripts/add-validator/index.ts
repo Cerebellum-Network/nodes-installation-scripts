@@ -27,6 +27,11 @@ class AddValidator {
     console.log(`Connected to: ${chain}\n`);
   }
 
+  public async syncNode(): Promise<void> {
+    const validator = new Validator();
+    return await validator.start(this.api, process.env.WAIT_SECONDS);
+  }
+
   /**
    * Load stash and controller accounts.
    */
@@ -199,6 +204,7 @@ class AddValidator {
 async function main() {
   const addValidator = new AddValidator();
   await addValidator.init();
+  await addValidator.syncNode();
   if (Boolean(process.env.GENERATE_ACCOUNTS)) {
     await addValidator.createAccounts();
   } else {
