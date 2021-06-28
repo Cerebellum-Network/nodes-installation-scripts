@@ -66,7 +66,7 @@ function start_validator_node {
 
 # ============ Become a Validator ============ 
 function become_a_validator {
-  GENERATE_ACCOUNTS="$GENERATE_ACCOUNTS" NETWORK="$NETWORK" docker-compose --env-file ./scripts/validator/.env up --build --force-recreate $VALIDATOR_CONTAINER_NAME
+  GENERATE_ACCOUNTS="$GENERATE_ACCOUNTS" NETWORK="$NETWORK" docker-compose --env-file ./scripts/add-validator/.env up --build --force-recreate $VALIDATOR_CONTAINER_NAME
   IS_SUCCESS=$(docker-compose logs --tail="all" | grep "Validator added successfully")
 
   [[ -z "$GENERATE_ACCOUNTS" ]]  || [ -z "$IS_SUCCESS" ]  && : || 
