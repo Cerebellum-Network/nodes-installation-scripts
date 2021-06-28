@@ -42,7 +42,7 @@ function define_config_file {
 # ============ Reward commission validator ============ 
 function validate_and_update_reward_commission {
   if [ "$1" -ge 0 ] && [ "$1" -le 100 ]; then
-    sed -i "s|REWARD_COMMISSION=.*|REWARD_COMMISSION=$1|" scripts/add-validator/.env
+    update_config_value "s|REWARD_COMMISSION=.*|REWARD_COMMISSION=$1|" scripts/add-validator/.env
   else 
     print_error "Reward commission should be in the range of 0..100"
   fi
@@ -50,7 +50,7 @@ function validate_and_update_reward_commission {
 
 
 function update_add_validator_configs {
-  [[ -z "$BOND_VALUE" ]] &&  echo "Use default bond value" || sed -i "s|BOND_VALUE=.*|BOND_VALUE=$BOND_VALUE|" scripts/add-validator/.env
+  [[ -z "$BOND_VALUE" ]] &&  echo "Use default bond value" || update_config_value "s|BOND_VALUE=.*|BOND_VALUE=$BOND_VALUE|" scripts/add-validator/.env
   [[ -z "$REWARD_COMMISSION" ]] && echo "Use default reward commission" || validate_and_update_reward_commission $REWARD_COMMISSION
 }
 
@@ -84,7 +84,7 @@ function become_a_validator {
 function launch_nodes {
   define_config_file $NETWORK
 
-  sed -i "s|NODE_NAME=.*|NODE_NAME=$NODE_NAME|" configs/${CONFIG_FILE}
+  update_config_value "s|NODE_NAME=.*|NODE_NAME=$NODE_NAME|" configs/${CONFIG_FILE}
 
   start_validator_node
 
@@ -93,6 +93,25 @@ function launch_nodes {
   
   # add-validator node
   become_a_validator
+}
+
+function update_config_value {
+  value=${1}
+  where=${2}
+  case "$(uname -s)" in
+    # For Mac OS
+    Darwin)
+      sed -i "" $value $where
+      ;;
+    # For Ubuntu
+    Linux)
+      sed -i $value $where
+      ;;
+    # Other OS
+    *)
+      print_error "Can not update value."
+      ;;
+  esac
 }
 
 # ============ Check number of arguments ============ 
@@ -131,7 +150,6 @@ echo Network = ${NETWORK}
 [[ -z "$GENERATE_ACCOUNTS" ]] && : || echo Generate accounts = ${GENERATE_ACCOUNTS}
 [[ -z "$BOND_VALUE" ]] && : || echo Bond value = ${BOND_VALUE}
 [[ -z "$REWARD_COMMISSION" ]] && : || echo Reward commission = ${REWARD_COMMISSION}
-
 
 if [ "$( docker container inspect -f '{{.State.Status}}' ${VALIDATOR_CONTAINER_NAME} )" == "running" ]; then
   while true; do
