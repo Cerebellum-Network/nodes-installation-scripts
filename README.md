@@ -19,9 +19,9 @@ bash ./scripts/launch_validator_node.sh --node-name=TEST_NODE --network=testnet
 |-------------------|----------|------------------------------|----------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | node-name         | Yes      | Any string.                  | `--node-name=my-test-node` | A node name.                                                                                                                                               |
 | network           | Yes      | `devnet`, `qanet`, `testnet`, `mainnet`     | `--network=testnet`        | A network name.                                                                                                                                            |
-| generate-accounts | No       | Any value.                   | `--generate-accounts=1`    | If it is set, Stash and Controller accounts will be generated automatically and shared with user as a result. By default it will be taken from [parameters](./scripts/add-validator/.env). |
+| generate-accounts | No       | `1`                   | `--generate-accounts=1`    | If it is set, Stash and Controller accounts will be generated automatically and shared with user as a result. By default it will be taken from [parameters](./scripts/add-validator/.env). |
 | bond-value        | No       | Any number.                  | `--bond-value=999`         | By default it will be taken from [parameters](./scripts/add-validator/.env). |
-| reward-commission | No       | Any number in range 0 - 100. | `--reward-commission=10`   | By default it will be taken from [parameters](./scripts/add-validator/.env.) |
+| reward-commission | No       | Any number in range from 0 to 100. | `--reward-commission=10`   | By default it will be taken from [parameters](./scripts/add-validator/.env.). |
 
 ## Clean created nodes by running the following script:
 
