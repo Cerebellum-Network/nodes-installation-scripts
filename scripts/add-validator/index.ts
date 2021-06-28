@@ -154,13 +154,6 @@ class AddValidator {
       return await axios.post(
         process.env.REQUEST_ASSETS_ENDPOINT,
         { destination: account.address, network: network.toUpperCase() },
-        {
-          withCredentials: false,
-          headers: {
-            Accept: "application/json",
-            Authority: "laboratory-api.cere.network",
-          },
-        }
       );
     } catch (err) {
       console.log("Error requesting assets:", err.message);
