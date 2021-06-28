@@ -58,8 +58,6 @@ function update_add_validator_configs {
 function start_validator_node {
   # Add permission to the chain-data folder for the container:
   chmod -R 777 ./chain-data
-  # Run the script to confirm your environment is ready for Node:
-  ./scripts/env-host-check.sh --validator
   # Run the command to add a custom validator
   docker-compose --env-file ./configs/${CONFIG_FILE} up -d add_validation_node_custom
 }
