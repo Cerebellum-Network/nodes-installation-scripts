@@ -215,6 +215,7 @@ export class Validator {
       console.info("Transaction has been broadcasted");
     } else if (status.isInBlock) {
       const hash = status.asInBlock.toHex();
+      res(hash);
       console.info(`Transaction is in block: ${hash}`);
     } else if (status.isFinalized) {
       const hash = status.asFinalized.toHex();
@@ -227,7 +228,6 @@ export class Validator {
           throw new Error("Transaction failed");
         }
       });
-
       res(hash);
     }
   }
