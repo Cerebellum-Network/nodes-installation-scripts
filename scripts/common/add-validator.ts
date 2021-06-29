@@ -138,7 +138,7 @@ export class Validator {
     await this.callWithRetry(
       this.isSyncing.bind(this, api),
       {
-        maxDepth: 100,
+        maxDepth: 5760,
       },
       0,
       waitSeconds
