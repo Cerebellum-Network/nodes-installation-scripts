@@ -104,7 +104,9 @@ class AddValidator {
 
   public async createAccounts() {
     console.log("Creating Stash and Controller accounts");
-    if (process.env.NETWORK === "mainnet") {
+    const testNetwork = process.env.TEST_NETWORKS;
+
+    if (!testNetwork.includes(process.env.NETWORK)) {
       throw new Error("Couldn't create new account for Mainnet");
     }
     this.stashAccount = this.generateAccount("Stash");

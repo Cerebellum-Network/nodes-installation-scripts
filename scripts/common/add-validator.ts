@@ -45,9 +45,6 @@ export class Validator {
   ) {
     console.log(`\nAdding validator`);
     console.log(`Bond value is ${bondValue}`);
-    // if (this.stashBalance <= Number(bondValue)) {
-    //   throw new Error("Bond value needs to be lesser than balance.");
-    // }
 
     const transaction = api.tx.staking.bond(
       controllerAccountAddress,
