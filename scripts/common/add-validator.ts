@@ -45,9 +45,6 @@ export class Validator {
   ) {
     console.log(`\nAdding validator`);
     console.log(`Bond value is ${bondValue}`);
-    // if (this.stashBalance <= Number(bondValue)) {
-    //   throw new Error("Bond value needs to be lesser than balance.");
-    // }
 
     const transaction = api.tx.staking.bond(
       controllerAccountAddress,
@@ -59,7 +56,7 @@ export class Validator {
       transaction
         .signAndSend(
           stashAccount,
-          this.sendStatusCb.bind(this, res, rej, undefined)
+          this.sendStatusCb.bind(this, res, rej)
         )
         .catch((err) => rej(err));
     });
@@ -80,7 +77,7 @@ export class Validator {
       transaction
         .signAndSend(
           stashAccount,
-          this.sendStatusCb.bind(this, res, rej, undefined)
+          this.sendStatusCb.bind(this, res, rej)
         )
         .catch((err) => rej(err));
     });
@@ -101,7 +98,7 @@ export class Validator {
       transaction
         .signAndSend(
           controllerAccount,
-          this.sendStatusCb.bind(this, res, rej, undefined)
+          this.sendStatusCb.bind(this, res, rej)
         )
         .catch((err) => rej(err));
     });
@@ -126,7 +123,7 @@ export class Validator {
       transaction
         .signAndSend(
           controllerAccount,
-          this.sendStatusCb.bind(this, res, rej, undefined)
+          this.sendStatusCb.bind(this, res, rej)
         )
         .catch((err) => rej(err));
     });
@@ -141,7 +138,7 @@ export class Validator {
     await this.callWithRetry(
       this.isSyncing.bind(this, api),
       {
-        maxDepth: 100,
+        maxDepth: 5760,
       },
       0,
       waitSeconds
@@ -218,6 +215,7 @@ export class Validator {
       console.info("Transaction has been broadcasted");
     } else if (status.isInBlock) {
       const hash = status.asInBlock.toHex();
+      res(hash);
       console.info(`Transaction is in block: ${hash}`);
     } else if (status.isFinalized) {
       const hash = status.asFinalized.toHex();
@@ -230,7 +228,6 @@ export class Validator {
           throw new Error("Transaction failed");
         }
       });
-
       res(hash);
     }
   }

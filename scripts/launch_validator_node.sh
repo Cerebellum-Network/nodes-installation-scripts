@@ -25,12 +25,16 @@ function print_ok {
 
 # ============ Use proper config file based on "network" parameter ============ 
 function define_config_file {
-  if [[ $1 == "testnet" ]]; then
+  if [[ $1 == "devnet" ]]; then
+    export CONFIG_FILE=".env.devnet"
+  elif [[ $1 == "qanet" ]]; then
+    export CONFIG_FILE=".env.qanet"
+  elif [[ $1 == "testnet" ]]; then
     export CONFIG_FILE=".env.testnet"
-  elif [[ $1 == "testnet-dev" ]]; then
-    export CONFIG_FILE=".env.testnet.dev"
+  elif [[ $1 == "mainnet" ]]; then
+    export CONFIG_FILE=".env.mainnet"
   else
-    print_error "Incorrect --network parameter, should be \"testnet\" or \"testnet-dev\""
+    print_error "Incorrect --network parameter, should be \"devnet\" or \"qanet\" or \"testnet\" or \"mainnet\""
     exit 1
   fi
 }
@@ -38,15 +42,15 @@ function define_config_file {
 # ============ Reward commission validator ============ 
 function validate_and_update_reward_commission {
   if [ "$1" -ge 0 ] && [ "$1" -le 100 ]; then
-    echo "REWARD_COMMISSION=$1" >> scripts/validator/.env
+    update_config_value "s|REWARD_COMMISSION=.*|REWARD_COMMISSION=$1|" scripts/add-validator/.env
   else 
     print_error "Reward commission should be in the range of 0..100"
   fi
 }
 
 
-function update_configs {
-  [[ -z "$BOND_VALUE" ]] &&  echo "Use default bond value" || echo "BOND_VALUE=$BOND_VALUE" >> scripts/validator/.env
+function update_add_validator_configs {
+  [[ -z "$BOND_VALUE" ]] &&  echo "Use default bond value" || update_config_value "s|BOND_VALUE=.*|BOND_VALUE=$BOND_VALUE|" scripts/add-validator/.env
   [[ -z "$REWARD_COMMISSION" ]] && echo "Use default reward commission" || validate_and_update_reward_commission $REWARD_COMMISSION
 }
 
@@ -54,19 +58,13 @@ function update_configs {
 function start_validator_node {
   # Add permission to the chain-data folder for the container:
   chmod -R 777 ./chain-data
-  # Run the script to confirm your environment is ready for Node:
-  ./scripts/env-host-check.sh --validator
-
-  # Specify NODE_NAME parameter in the configs/[CONFIG_FILE]
-  update_configs
-
   # Run the command to add a custom validator
   docker-compose --env-file ./configs/${CONFIG_FILE} up -d add_validation_node_custom
 }
 
 # ============ Become a Validator ============ 
 function become_a_validator {
-  GENERATE_ACCOUNTS="$GENERATE_ACCOUNTS" NETWORK="$NETWORK" docker-compose --env-file ./scripts/validator/.env up --build --force-recreate $VALIDATOR_CONTAINER_NAME
+  GENERATE_ACCOUNTS="$GENERATE_ACCOUNTS" NETWORK="$NETWORK" docker-compose --env-file ./scripts/add-validator/.env up --build --force-recreate $VALIDATOR_CONTAINER_NAME
   IS_SUCCESS=$(docker-compose logs --tail="all" | grep "Validator added successfully")
 
   [[ -z "$GENERATE_ACCOUNTS" ]]  || [ -z "$IS_SUCCESS" ]  && : || 
@@ -83,9 +81,35 @@ function become_a_validator {
 
 function launch_nodes {
   define_config_file $NETWORK
+
+  update_config_value "s|NODE_NAME=.*|NODE_NAME=$NODE_NAME|" configs/${CONFIG_FILE}
+
   start_validator_node
-  echo "NODE_NAME=$NODE_NAME" >> configs/${CONFIG_FILE}
+
+  # update scripts/add-validator/.env
+  update_add_validator_configs
+  
+  # add-validator node
   become_a_validator
+}
+
+function update_config_value {
+  value=${1}
+  where=${2}
+  case "$(uname -s)" in
+    # For Mac OS
+    Darwin)
+      sed -i "" $value $where
+      ;;
+    # For Ubuntu
+    Linux)
+      sed -i $value $where
+      ;;
+    # Other OS
+    *)
+      print_error "Can not update value."
+      ;;
+  esac
 }
 
 # ============ Check number of arguments ============ 
@@ -102,7 +126,7 @@ do
     --node-name=*)
       export NODE_NAME=`echo $arg | sed -e 's/^[^=]*=//g'`
       ;;
-    --network*)
+    --network=*)
       export NETWORK=`echo $arg | sed -e 's/^[^=]*=//g'`
       ;;
     --generate-accounts=*)
@@ -124,7 +148,6 @@ echo Network = ${NETWORK}
 [[ -z "$GENERATE_ACCOUNTS" ]] && : || echo Generate accounts = ${GENERATE_ACCOUNTS}
 [[ -z "$BOND_VALUE" ]] && : || echo Bond value = ${BOND_VALUE}
 [[ -z "$REWARD_COMMISSION" ]] && : || echo Reward commission = ${REWARD_COMMISSION}
-
 
 if [ "$( docker container inspect -f '{{.State.Status}}' ${VALIDATOR_CONTAINER_NAME} )" == "running" ]; then
   while true; do
