@@ -207,7 +207,7 @@ async function main() {
   const addValidator = new AddValidator();
   await addValidator.init();
   await addValidator.syncNode();
-  if (Boolean(process.env.GENERATE_ACCOUNTS)) {
+  if (process.env.GENERATE_ACCOUNTS) {
     await addValidator.createAccounts();
   } else {
     await addValidator.loadAccounts();
