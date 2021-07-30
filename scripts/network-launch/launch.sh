@@ -195,7 +195,9 @@ start_node () {
   ssh ${user}@${ip} 'bash -s'  << EOT
     sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS=.*|BOOT_NODE_IP_ADDRESS=${bootNodeIP}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS_2=.*|BOOT_NODE_IP_ADDRESS_2=${bootNodeIP}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER=.*|NETWORK_IDENTIFIER=${bootNodeID}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER_2=.*|NETWORK_IDENTIFIER_2=${bootNodeID}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeName}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d ${serviceName}"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${host}:9945 {|\" Caddyfile";
