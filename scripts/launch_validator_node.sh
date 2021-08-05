@@ -91,6 +91,9 @@ function launch_nodes {
   
   # add-validator node
   become_a_validator
+
+  # Remove docker logs
+  docker-compose rm add_validator
 }
 
 function update_config_value {
