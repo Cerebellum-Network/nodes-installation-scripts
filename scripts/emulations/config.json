@@ -3,31 +3,19 @@
     "hosts": [
       {
         "name": "genesis-validator-1",
-        "url": "wss://archive.mainnet.stage.cere.network:9945"
+        "url": "wss://tokenomic-node-1.dev.cere.network:9945"
       },
       {
         "name": "genesis-validator-2",
-        "url": "ws://104.236.193.202:9944"
+        "url": "wss://tokenomic-node-2.dev.cere.network:9945"
       },
       {
         "name": "validator-1",
-        "url": "ws://167.99.188.91:9944"
+        "url": "wss://tokenomic-node-3.dev.cere.network:9945"
       },
       {
         "name": "validator-2",
-        "url": "ws://167.99.131.218:9944"
-      },
-      {
-        "name": "validator-3",
-        "url": "ws://165.227.224.150:9944"
-      },
-      {
-        "name": "validator-4",
-        "url": "ws://138.197.202.96:9944"
-      },
-      {
-        "name": "validator-5",
-        "url": "ws://134.209.192.121:9944"
+        "url": "wss://tokenomic-node-4.dev.cere.network:9945"
       }
     ],
     "name": "Cerebellum Ext Devs Network 4",
