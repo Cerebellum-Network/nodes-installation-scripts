@@ -44,5 +44,4 @@ controller_mnemonic=`sed -e 's/^.*"mnemonic":"\([^"]*\)".*$/\1/' scripts/generat
 echo $controller_mnemonic
 sed -i "" "s|CONTROLLER_ACCOUNT_MNEMONIC=.*|CONTROLLER_ACCOUNT_MNEMONIC=$controller_mnemonic|" scripts/add-validator/.env
 docker-compose build add_validator
-docker-compose up add_validator
-docker-compose rm add_validator
+docker-compose run --rm add_validator
