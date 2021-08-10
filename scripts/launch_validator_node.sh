@@ -91,7 +91,6 @@ function launch_nodes {
   
   # add-validator node
   become_a_validator
-
 }
 
 function update_config_value {
