@@ -50,8 +50,8 @@ services:
       options:
         max-size: "20m"
     ports:
-      - "9944:9944"
-      - "9933:9933"
+      - "127.0.0.1:9944:9944"
+      - "127.0.0.1:9933:9933"
       - "30333:30333"
     volumes:
       - ./spec-data:/cereio/spec-data
@@ -66,8 +66,8 @@ services:
       options:
         max-size: "20m"
     ports:
-      - "9944:9944"
-      - "9933:9933"
+      - "127.0.0.1:9944:9944"
+      - "127.0.0.1:9933:9933"
       - "30333:30333"
     volumes:
       - ./spec-data:/cereio/spec-data
