@@ -91,12 +91,26 @@
 #path="../../root/"
 
 ### EXT DEVS CLUSTER 4 ###
-bootNodeIP=143.110.234.113
-bootNodeHost=ext-devs-node-1.cluster-4.cere.network
-genesisValidatorIP=159.65.191.43
-genesisValidatorHost=ext-devs-node-2.cluster-4.cere.network
-validatorsIPs=(165.22.225.139)
-validatorsHosts=(ext-devs-node-3.cluster-4.cere.network)
+#bootNodeIP=143.110.234.113
+#bootNodeHost=ext-devs-node-1.cluster-4.cere.network
+#genesisValidatorIP=159.65.191.43
+#genesisValidatorHost=ext-devs-node-2.cluster-4.cere.network
+#validatorsIPs=(165.22.225.139)
+#validatorsHosts=(ext-devs-node-3.cluster-4.cere.network)
+#fullNodeIP=""
+#fullNodeHost=""
+#archiveNodeIP=""
+#archiveNodeHost=""
+#user="root"
+#path="../../root/"
+
+### EXT DEVS CLUSTER 5 ###
+bootNodeIP=137.184.32.213
+bootNodeHost=ext-devs-node-1.cluster-5.cere.network
+genesisValidatorIP=138.197.97.48
+genesisValidatorHost=ext-devs-node-2.cluster-5.cere.network
+validatorsIPs=(143.198.37.140)
+validatorsHosts=(ext-devs-node-3.cluster-5.cere.network)
 fullNodeIP=""
 fullNodeHost=""
 archiveNodeIP=""
@@ -105,10 +119,10 @@ user="root"
 path="../../root/"
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
-repoBranch="feature/ext-dev-cluster-4"
+repoBranch="feature/ext-devs-cluster-5"
 dirName="cere-network"
-configFile="./configs/.env.ext-devs-cluster-4"
-nodeNamePrefix="ExtDevsCluster4"
+configFile="./configs/.env.ext-devs-cluster-5"
+nodeNamePrefix="ExtDevsCluster5"
 
 generate_chain_spec () {
   docker-compose down -t 0
