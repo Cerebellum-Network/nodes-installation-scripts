@@ -32,6 +32,24 @@
 #user="andrei"
 #path="../../root/"
 
+### QANET ####
+bootNodeIP=161.35.229.40
+bootNodeHost=node-1.qanet.cere.network
+genesisValidatorIP=159.203.161.219
+genesisValidatorHost=node-2.qanet.cere.network
+validatorsIPs=(134.122.45.69\
+               64.225.98.192\
+               138.68.132.196)
+validatorsHosts=(node-3.qanet.cere.network\
+                 node-4.qanet.cere.network\
+                 node-5.qanet.cere.network)
+fullNodeIP=143.198.66.9
+fullNodeHost=rpc.qanet.cere.network
+archiveNodeIP=104.248.91.35
+archiveNodeHost=archive.qanet.cere.network
+user="andrei"
+path="../../root/"
+
 #### TESTNET ####
 #bootNodeIP=165.232.149.206
 #bootNodeHost=mainnet-node-1.stage.cere.network
@@ -105,24 +123,24 @@
 #path="../../root/"
 
 ### EXT DEVS CLUSTER 5 ###
-bootNodeIP=137.184.32.213
-bootNodeHost=ext-devs-node-1.cluster-5.cere.network
-genesisValidatorIP=138.197.97.48
-genesisValidatorHost=ext-devs-node-2.cluster-5.cere.network
-validatorsIPs=(143.198.37.140)
-validatorsHosts=(ext-devs-node-3.cluster-5.cere.network)
-fullNodeIP=""
-fullNodeHost=""
-archiveNodeIP=""
-archiveNodeHost=""
-user="root"
-path="../../root/"
+#bootNodeIP=137.184.32.213
+#bootNodeHost=ext-devs-node-1.cluster-5.cere.network
+#genesisValidatorIP=138.197.97.48
+#genesisValidatorHost=ext-devs-node-2.cluster-5.cere.network
+#validatorsIPs=(143.198.37.140)
+#validatorsHosts=(ext-devs-node-3.cluster-5.cere.network)
+#fullNodeIP=""
+#fullNodeHost=""
+#archiveNodeIP=""
+#archiveNodeHost=""
+#user="root"
+#path="../../root/"
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
-repoBranch="feature/ext-devs-cluster-5"
+repoBranch="feature/qanet"
 dirName="cere-network"
-configFile="./configs/.env.ext-devs-cluster-5"
-nodeNamePrefix="ExtDevsCluster5"
+configFile="./configs/.env.qanet"
+nodeNamePrefix="QANet"
 
 generate_chain_spec () {
   docker-compose down -t 0
