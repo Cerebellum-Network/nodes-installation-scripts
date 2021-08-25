@@ -33,38 +33,38 @@
 #path="../../root/"
 
 ### QANET ####
-bootNodeIP=161.35.229.40
-bootNodeHost=node-1.qanet.cere.network
-genesisValidatorIP=159.203.161.219
-genesisValidatorHost=node-2.qanet.cere.network
-validatorsIPs=(134.122.45.69\
-               64.225.98.192\
-               138.68.132.196)
-validatorsHosts=(node-3.qanet.cere.network\
-                 node-4.qanet.cere.network\
-                 node-5.qanet.cere.network)
-fullNodeIP=143.198.66.9
-fullNodeHost=rpc.qanet.cere.network
-archiveNodeIP=104.248.91.35
-archiveNodeHost=archive.qanet.cere.network
-user="andrei"
-path="../../root/"
-
-#### TESTNET ####
-#bootNodeIP=165.232.149.206
-#bootNodeHost=mainnet-node-1.stage.cere.network
-#genesisValidatorIP=45.55.62.114
-#genesisValidatorHost=mainnet-node-2.stage.cere.network
-#validatorsIPs=(159.203.13.16\
-#               157.230.106.171)
-#validatorsHosts=(mainnet-node-3.stage.cere.network\
-#                 mainnet-node-4.stage.cere.network)
-#fullNodeIP=143.198.130.232
-#fullNodeHost=rpc.mainnet.stage.cere.network
-#archiveNodeIP=178.128.250.106
-#archiveNodeHost=archive.mainnet.stage.cere.network
+#bootNodeIP=161.35.229.40
+#bootNodeHost=node-1.qanet.cere.network
+#genesisValidatorIP=159.203.161.219
+#genesisValidatorHost=node-2.qanet.cere.network
+#validatorsIPs=(134.122.45.69\
+#               64.225.98.192\
+#               138.68.132.196)
+#validatorsHosts=(node-3.qanet.cere.network\
+#                 node-4.qanet.cere.network\
+#                 node-5.qanet.cere.network)
+#fullNodeIP=143.198.66.9
+#fullNodeHost=rpc.qanet.cere.network
+#archiveNodeIP=104.248.91.35
+#archiveNodeHost=archive.qanet.cere.network
 #user="andrei"
 #path="../../root/"
+
+### TESTNET ####
+bootNodeIP=165.232.149.206
+bootNodeHost=node-1.testnet.cere.network
+genesisValidatorIP=45.55.62.114
+genesisValidatorHost=node-2.testnet.cere.network
+validatorsIPs=(159.203.13.16\
+               157.230.106.171)
+validatorsHosts=(node-3.testnet.cere.network\
+                 node-4.testnet.cere.network)
+fullNodeIP=143.198.130.232
+fullNodeHost=rpc.testnet.cere.network
+archiveNodeIP=178.128.250.106
+archiveNodeHost=archive.testnet.cere.network
+user="andrei"
+path="../../root/"
 
 ### EXT DEVS CLUSTER 1 ###
 #bootNodeIP=143.198.145.104
@@ -137,10 +137,10 @@ path="../../root/"
 #path="../../root/"
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
-repoBranch="feature/qanet"
+repoBranch="feature/relaunch-testnet"
 dirName="cere-network"
-configFile="./configs/.env.qanet"
-nodeNamePrefix="QANet"
+configFile="./configs/.env.testnet"
+nodeNamePrefix="CereTestnet"
 
 generate_chain_spec () {
   docker-compose down -t 0
