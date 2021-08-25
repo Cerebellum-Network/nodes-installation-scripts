@@ -137,10 +137,10 @@ path="../../root/"
 #path="../../root/"
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
-repoBranch="feature/relaunch-testnet"
+repoBranch="master"
 dirName="cere-network"
-configFile="./configs/.env.testnet"
-nodeNamePrefix="CereTestnet"
+configFile="./configs/.env.{NETWORK_NAME}"
+nodeNamePrefix="Cere{NETWORK_NAME}"
 
 generate_chain_spec () {
   docker-compose down -t 0
