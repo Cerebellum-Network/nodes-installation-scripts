@@ -1,0 +1,12 @@
+bootNodeIP="161.35.229.40"
+bootNodeHost="node-1.qanet.cere.network"
+genesisValidatorIP="159.203.161.219"
+genesisValidatorHost="node-2.qanet.cere.network"
+validatorsIPs=("134.122.45.69" "64.225.98.192" "138.68.132.196")
+validatorsHosts=("node-3.qanet.cere.network" "node-4.qanet.cere.network" "node-5.qanet.cere.network")
+fullNodeIP="143.198.66.9"
+fullNodeHost="rpc.qanet.cere.network"
+archiveNodeIP="104.248.91.35"
+archiveNodeHost="archive.qanet.cere.network"
+user="andrei"
+path="../../root/"

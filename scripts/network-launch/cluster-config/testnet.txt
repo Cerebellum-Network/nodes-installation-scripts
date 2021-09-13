@@ -1,0 +1,12 @@
+bootNodeIP="165.232.149.206"
+bootNodeHost="node-1.testnet.cere.network"
+genesisValidatorIP="45.55.62.114"
+genesisValidatorHost="node-2.testnet.cere.network"
+validatorsIPs=("159.203.13.16" "157.230.106.171" "159.65.26.196" "138.68.20.192")
+validatorsHosts=("node-3.testnet.cere.network" "node-4.testnet.cere.network" "node-5.testnet.cere.network" "node-6.testnet.cere.network")
+fullNodeIP="143.198.130.232"
+fullNodeHost="rpc.testnet.cere.network"
+archiveNodeIP="178.128.250.106"
+archiveNodeHost="archive.testnet.cere.network"
+user="andrei"
+path="../../root/"
