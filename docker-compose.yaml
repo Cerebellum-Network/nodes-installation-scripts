@@ -8,6 +8,7 @@ services:
     environment:
       ACME_AGREE: "true"
     ports:
+      - 9934:9934
       - 9945:9945
       - 80:80
       - 443:443
