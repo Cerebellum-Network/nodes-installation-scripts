@@ -144,7 +144,7 @@ esac
 for arg in "$@"
 do
   case $arg in
-    --file=*)
+    --cluster=*)
       path=`echo $arg | sed -e 's/^[^=]*=//g'`
       echo "Loading cluster config from ${path}"
       . $path
