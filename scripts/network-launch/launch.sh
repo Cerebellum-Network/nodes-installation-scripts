@@ -82,10 +82,10 @@ start_node () {
   nodeName=${2}
   serviceName=${3}
   containerName=${4}
-  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${bootNodeIP}:9933 -s | jq '.result')
+  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' https://${bootNodeHost}:9934 -s | jq '.result')
   while [ -z $bootNodeID ]; do
       echo "*** bootNodeID is empty "
-      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${bootNodeIP}:9933 -s | jq '.result')
+      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' https://${bootNodeHost}:9934 -s | jq '.result')
       sleep 5
   done
   ssh ${user}@${ip} 'bash -s'  << EOT
