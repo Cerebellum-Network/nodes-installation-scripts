@@ -128,6 +128,19 @@ remove_accounts () {
   scripts/generate-accounts/clean.sh
 }
 
+for arg in "$@"
+do
+  case $arg in
+    --cluster=*)
+      path=`echo $arg | sed -e 's/^[^=]*=//g'`
+      echo "Loading cluster config from ${path}"
+      . $path
+      ;;
+    *)
+      echo "Skipped option ${arg}" ;;
+  esac
+done
+
 case $1 in
   generate_chain_spec) "$@"; exit;;
   start_boot) "$@"; exit;;
@@ -140,16 +153,3 @@ case $1 in
   stop_network) "$@"; exit;;
   remove_accounts) "$@"; exit;;
 esac
-
-for arg in "$@"
-do
-  case $arg in
-    --cluster=*)
-      path=`echo $arg | sed -e 's/^[^=]*=//g'`
-      echo "Loading cluster config from ${path}"
-      . $path
-      ;;
-    *)
-      echo "Unexpected option ${arg}" ;;
-  esac
-done
