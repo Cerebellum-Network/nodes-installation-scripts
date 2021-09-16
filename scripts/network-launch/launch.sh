@@ -3,8 +3,6 @@
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
 repoBranch="master"
 dirName="cere-network"
-configFile="./configs/.env.{NETWORK_NAME}"
-nodeNamePrefix="Cere{NETWORK_NAME}"
 
 generate_chain_spec () {
   docker-compose down -t 0
