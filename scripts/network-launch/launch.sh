@@ -41,8 +41,8 @@ start_validators () {
 }
 
 insert_keys () {
-  NODE_0_URL=http://${bootNodeHost}:9933
-  NODE_1_URL=http://${genesisValidatorHost}:9933
+  NODE_0_URL=https://${bootNodeHost}:9934
+  NODE_1_URL=https://${genesisValidatorHost}:9934
 
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_stash_gran.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_gran.json"
