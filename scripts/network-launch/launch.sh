@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
-repoBranch="master"
+repoBranch="feature/deploy-ext-6-cluster"
 dirName="cere-network"
 
 generate_chain_spec () {
