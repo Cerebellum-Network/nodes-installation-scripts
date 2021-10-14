@@ -2,7 +2,7 @@
 
 The scripts will help the community to up and run Cere Nodes (Validator, Full). How to use details can be found in the [Cere Gitbook](https://cere-network.gitbook.io/cere-network/node/install-and-update/start-a-node).
 
-## Running the validator node
+## [BETA] Running the validator node
 
 Start validator node by running the following script:
 
