@@ -1,0 +1,22 @@
+sources:
+  validator_logs:
+    type: docker_logs
+    include_containers:
+      - add_validation_node_custom
+
+transforms:
+  remap_field:
+    type: remap
+    inputs:
+      - validator_logs
+    source: |-
+      del(.label)   
+
+sinks:
+  elasticsearch:
+    type: elasticsearch
+    inputs:
+      - remap_field
+    endpoint: http://es-do.observer.cere.network/
+    index: "{{ host }}-%F"
+    compression: gzip

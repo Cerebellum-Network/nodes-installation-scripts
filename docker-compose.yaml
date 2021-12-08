@@ -164,4 +164,17 @@ services:
       - ./spec-data:/cereio/spec-data
       - ./chain-data:/data
     command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --pruning archive --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --rpc-methods=Unsafe --ws-external  --unsafe-ws-external --rpc-cors all --rpc-external"
-    
+
+  vector:
+    container_name: vector
+    image: timberio/vector:0.18.1-alpine
+    restart: always
+    hostname: ${HOSTNAME}
+    entrypoint:
+      - /usr/local/bin/vector
+    command:
+      - --config-yaml
+      - /etc/vector/vector.yaml
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./vector.yaml:/etc/vector/vector.yaml
