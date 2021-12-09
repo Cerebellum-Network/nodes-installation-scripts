@@ -3,7 +3,9 @@ sources:
     type: docker_logs
     include_containers:
       - add_validation_node_custom
-
+      - boot_node
+      - cere_archive_node
+      - cere_full_node
 transforms:
   remap_field:
     type: remap
