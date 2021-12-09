@@ -62,13 +62,6 @@ function start_validator_node {
   docker-compose --env-file ./configs/${CONFIG_FILE} up -d add_validation_node_custom
 }
 
-# ============ Start a Vector(log collector) ============
-function start_logging {
-  # Run the command for launch vector with custom hostname
-  HOSTNAME=$(hostname) docker-compose up -d vector
-}
-
-
 # ============ Become a Validator ============ 
 function become_a_validator {
   GENERATE_ACCOUNTS="$GENERATE_ACCOUNTS" NETWORK="$NETWORK" docker-compose --env-file ./scripts/add-validator/.env up --build --force-recreate $VALIDATOR_CONTAINER_NAME
