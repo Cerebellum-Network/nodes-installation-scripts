@@ -29,7 +29,7 @@ services:
     command: bash -c "subkey inspect --scheme ed25519 ''"
   create_chain_spec:
     container_name: create_chain_spec
-    image: cerebellumnetwork/pos-node:v2.3.1
+    image: cerebellumnetwork/pos-node:v0.0.1-rc1
     user: root
     volumes:
       - ./spec-data:/cereio/spec-data
@@ -37,7 +37,7 @@ services:
 
   create_raw_chain_spec:
     container_name: create_raw_chain_spec
-    image: cerebellumnetwork/pos-node:v2.3.1
+    image: cerebellumnetwork/pos-node:v0.0.1-rc1
     user: root
     volumes:
       - ./spec-data:/cereio/spec-data
@@ -156,7 +156,7 @@ services:
       driver: "json-file"
       options:
         max-size: "20m"
-    ports: 
+    ports:
       - "9944:9944"
       - "9933:9933"
       - "30333:30333"
@@ -164,4 +164,4 @@ services:
       - ./spec-data:/cereio/spec-data
       - ./chain-data:/data
     command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --pruning archive --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --rpc-methods=Unsafe --ws-external  --unsafe-ws-external --rpc-cors all --rpc-external"
-    
+
