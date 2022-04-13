@@ -1,20 +1,80 @@
 version: "2.4"
 
 services:
-  caddy:
-    image: abiosoft/caddy:no-stats
-    container_name: caddy
+  nginx:
+    image: nginx:1.21.6-alpine
+    container_name: nginx
     restart: always
-    environment:
-      ACME_AGREE: "true"
     ports:
-      - 9934:9934
-      - 9945:9945
-      - 80:80
-      - 443:443
+      - "80:80"
+      - "443:443"
     volumes:
-      - ./Caddyfile:/etc/Caddyfile
-      - ./caddy:/root/.caddy
+      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - /etc/letsencrypt/:/etc/letsencrypt/:ro
+  boot_node:
+    container_name: cere_boot_node
+    image: cerebellumnetwork/pos-node:v2.3.1
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+    ports:
+      - "127.0.0.1:9944:9944"
+      - "127.0.0.1:9933:9933"
+      - "30333:30333"
+    volumes:
+      - ./spec-data:/cereio/spec-data
+      - ./chain-data:/data
+    command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --validator --ws-port 9944 --rpc-methods=Unsafe --ws-external --unsafe-ws-external --rpc-cors all --rpc-external"
+  full_node:
+    container_name: cere_rpc_node
+    image: cerebellumnetwork/pos-node:v2.3.1
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+    ports:
+      - "9944:9944"
+      - "9933:9933"
+      - "30333:30333"
+    volumes:
+      - ./spec-data:/cereio/spec-data
+      - ./chain-data:/data
+    command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --ws-external --rpc-methods=Auto --rpc-cors all --rpc-external"
+  archive_node:
+    container_name: cere_archive_node
+    image: cerebellumnetwork/pos-node:v2.3.1
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+    ports: 
+      - "9944:9944"
+      - "9933:9933"
+      - "30333:30333"
+    volumes:
+      - ./spec-data:/cereio/spec-data
+      - ./chain-data:/data
+    command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --pruning archive --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --rpc-methods=Unsafe --ws-external  --unsafe-ws-external --rpc-cors all --rpc-external"
+  validator_node:
+    container_name: cere_validator_node
+    image: cerebellumnetwork/pos-node:v2.3.1
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+    ports:
+      - "127.0.0.1:9944:9944"
+      - "127.0.0.1:9933:9933"
+      - "30333:30333"
+    volumes:
+      - ./spec-data:/cereio/spec-data
+      - ./chain-data:/data
+    command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --validator --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --rpc-methods=Unsafe --ws-external  --unsafe-ws-external --rpc-cors all --rpc-external"
   generate_sr_key:
     container_name: generate_sr_key
     build:
@@ -34,7 +94,6 @@ services:
     volumes:
       - ./spec-data:/cereio/spec-data
     command: bash -c "mkdir -p ~/spec && /usr/local/bin/cere build-spec --disable-default-bootnode --chain local > /cereio/spec-data/customSpec.json"
-
   create_raw_chain_spec:
     container_name: create_raw_chain_spec
     image: cerebellumnetwork/pos-node:v2.3.1
@@ -42,25 +101,9 @@ services:
     volumes:
       - ./spec-data:/cereio/spec-data
     command: bash -c "/usr/local/bin/cere build-spec --chain=/cereio/spec-data/customSpec.json --raw --disable-default-bootnode > /cereio/spec-data/customSpecRaw.json"
-  boot_node:
-    container_name: boot_node
-    image: cerebellumnetwork/pos-node:${VERSION}
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "20m"
-    ports:
-      - "127.0.0.1:9944:9944"
-      - "127.0.0.1:9933:9933"
-      - "30333:30333"
-    volumes:
-      - ./spec-data:/cereio/spec-data
-      - ./chain-data:/data
-    command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --validator --ws-port 9944 --rpc-methods=Unsafe --ws-external --unsafe-ws-external --rpc-cors all --rpc-external"
   add_validation_node_custom:
     container_name: add_validation_node_custom
-    image: cerebellumnetwork/pos-node:${VERSION}
+    image: cerebellumnetwork/pos-node:v2.3.1
     restart: always
     logging:
       driver: "json-file"
@@ -132,36 +175,3 @@ services:
     volumes:
       - ./scripts/generate-accounts/accounts:/app/accounts
     command: npm run emulations
-  full_node:
-    container_name: cere_full_node
-    image: cerebellumnetwork/pos-node:${VERSION}
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "20m"
-    ports:
-      - "9944:9944"
-      - "9933:9933"
-      - "30333:30333"
-    volumes:
-      - ./spec-data:/cereio/spec-data
-      - ./chain-data:/data
-    command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --ws-external --rpc-methods=Auto --rpc-cors all --rpc-external"
-  archive_node:
-    container_name: cere_archive_node
-    image: cerebellumnetwork/pos-node:${VERSION}
-    restart: always
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "20m"
-    ports: 
-      - "9944:9944"
-      - "9933:9933"
-      - "30333:30333"
-    volumes:
-      - ./spec-data:/cereio/spec-data
-      - ./chain-data:/data
-    command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --pruning archive --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --rpc-methods=Unsafe --ws-external  --unsafe-ws-external --rpc-cors all --rpc-external"
-    
