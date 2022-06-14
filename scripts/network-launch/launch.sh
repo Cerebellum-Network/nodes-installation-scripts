@@ -41,8 +41,10 @@ start_validators () {
 }
 
 insert_keys () {
-  NODE_0_URL=https://${bootNodeHost}:9934
-  NODE_1_URL=https://${genesisValidatorHost}:9934
+#  NODE_0_URL=https://${bootNodeHost}:9934
+#  NODE_1_URL=https://${genesisValidatorHost}:9934
+  NODE_0_URL=http://${bootNodeIp}:9933
+  NODE_1_URL=http://${genesisValidatorIp}:9933
 
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_stash_gran.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_gran.json"
@@ -80,10 +82,16 @@ start_node () {
   nodeName=${2}
   serviceName=${3}
   containerName=${4}
-  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' https://${bootNodeHost}:9934 -s | jq '.result')
+#  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' https://${bootNodeHost}:9934 -s | jq '.result')
+#  while [ -z $bootNodeID ]; do
+#      echo "*** bootNodeID is empty "
+#      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' https://${bootNodeHost}:9934 -s | jq '.result')
+#      sleep 5
+#  done
+  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' http://${bootNodeIp}:9933 -s | jq '.result')
   while [ -z $bootNodeID ]; do
       echo "*** bootNodeID is empty "
-      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' https://${bootNodeHost}:9934 -s | jq '.result')
+      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' http://${bootNodeIp}:9933 -s | jq '.result')
       sleep 5
   done
   ssh ${user}@${ip} 'bash -s'  << EOT
