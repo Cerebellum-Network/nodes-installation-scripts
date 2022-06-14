@@ -6,10 +6,10 @@ dirName="cere-network"
 
 generate_chain_spec () {
   docker-compose down -t 0
-  rm -rf chain-data spec-data scripts/generate-accounts/accounts scripts/generate-accounts/keys
+#  rm -rf chain-data spec-data scripts/generate-accounts/accounts scripts/generate-accounts/keys
 
   docker-compose up create_chain_spec
-  docker-compose up --build generate_accounts
+#  docker-compose up --build generate_accounts
   docker-compose up --build generate_emulations_chain_spec
   docker-compose up create_raw_chain_spec
 }
