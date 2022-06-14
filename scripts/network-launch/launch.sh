@@ -21,7 +21,7 @@ start_boot () {
     sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d boot_node"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${bootNodeHost}:9945 {|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${bootNodeHost}:9934 {|\" Caddyfile";
-    sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
+#    sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
 EOT
 }
 
@@ -106,7 +106,7 @@ start_node () {
     sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9944|${containerName}:9944|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${host}:9934 {|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9933|${containerName}:9933|\" Caddyfile";
-    sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
+#    sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
 EOT
 }
 
