@@ -134,6 +134,31 @@ remove_accounts () {
   scripts/generate-accounts/clean.sh
 }
 
+update_clients () {
+  echo Updating genesis validators...
+  update_client ${genesisValidatorIP} ${tag} add_validation_node_custom
+
+  echo Updating validators...
+  for i in ${!validatorsIPs[@]}; do
+    echo Updating client ${validatorsIPs[i]}
+    update_client ${validatorsIPs[i]} ${tag} add_validation_node_custom
+  done
+
+  echo Updating boot validator...
+  update_client ${bootNodeIP} ${tag} boot_node
+}
+
+update_client () {
+  ip=${1}
+  clientTag=${2}
+  serviceName=${3}
+  echo Updating client on ${ip}
+  ssh ${user}@${ip} 'bash -s'  << EOT
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|VERSION=.*|VERSION=${clientTag}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d ${serviceName}"
+EOT
+}
+
 for arg in "$@"
 do
   case $arg in
@@ -141,6 +166,10 @@ do
       path=`echo $arg | sed -e 's/^[^=]*=//g'`
       echo "Loading cluster config from ${path}"
       . $path
+      ;;
+    --tag=*)
+      tag=`echo $arg | sed -e 's/^[^=]*=//g'`
+      echo "Tag is ${tag}"
       ;;
     *)
       echo "Skipped option ${arg}" ;;
@@ -158,4 +187,5 @@ case $1 in
   start_archive) "$@"; exit;;
   stop_network) "$@"; exit;;
   remove_accounts) "$@"; exit;;
+  update_clients) "$@"; exit;;
 esac
