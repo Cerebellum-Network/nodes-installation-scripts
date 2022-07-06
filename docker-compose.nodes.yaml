@@ -27,7 +27,7 @@ services:
     volumes:
       - ./spec-data:/cereio/spec-data
       - ~/cere-data:/data
-    command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --ws-external --rpc-methods=Auto --rpc-cors all --rpc-external"
+    command: bash -c "/usr/local/bin/cere --prometheus-external --prometheus-port 9615 -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --ws-external --rpc-methods=Auto --rpc-cors all --rpc-external"
   archive_node:
     container_name: cere_archive_node
     image: cerebellumnetwork/pos-node:v2.3.1
@@ -36,7 +36,7 @@ services:
       driver: "json-file"
       options:
         max-size: "20m"
-    ports: 
+    ports:
       - "9615:9615"
       - "9944:9944"
       - "9933:9933"
@@ -44,7 +44,7 @@ services:
     volumes:
       - ./spec-data:/cereio/spec-data
       - ~/cere-data:/data
-    command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --pruning archive --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --rpc-methods=Unsafe --ws-external  --unsafe-ws-external --rpc-cors all --rpc-external"
+    command: bash -c "/usr/local/bin/cere --prometheus-external --prometheus-port 9615 -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --pruning archive --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --rpc-methods=Unsafe --ws-external  --unsafe-ws-external --rpc-cors all --rpc-external"
   validator_node:
     container_name: cere_validator_node
     image: cerebellumnetwork/pos-node:v2.3.1
