@@ -51,8 +51,8 @@ services:
       options:
         max-size: "20m"
     ports:
-      - "$HOST:9944:9944"
-      - "$HOST:9933:9933"
+      - ${HOST}:9944:9944
+      - ${HOST}:9933:9933
       - "30333:30333"
     volumes:
       - ./spec-data:/cereio/spec-data
@@ -67,8 +67,8 @@ services:
       options:
         max-size: "20m"
     ports:
-      - "$HOST:9944:9944"
-      - "$HOST:9933:9933"
+      - ${HOST}:9944:9944
+      - ${HOST}:9933:9933
       - "30333:30333"
     volumes:
       - ./spec-data:/cereio/spec-data
