@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+cd /root/cere-network/scripts
+
 docker_image_id=$(docker ps -aqf "name=boot_node")
 echo "Node docker id is ${docker_image_id}.About to stop the node."
 

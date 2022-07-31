@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-repo=http://github.com/Cerebellum-Network/nodes-installation-scripts.git
+protocol=${3:-https}
+host=$([ $protocol == https ] && echo "127.0.0.1" || echo "0.0.0.0")
+repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
 repoBranch="feature/http-support"
 dirName="cere-network"
 
@@ -70,8 +72,8 @@ start_validators_backup () {
 }
 
 insert_keys () {
-  NODE_0_URL=http://${bootNodeHost}:9933
-  NODE_1_URL=http://${genesisValidatorHost}:9933
+  NODE_0_URL=${protocol}://${bootNodeHost}:9933
+  NODE_1_URL=${protocol}://${genesisValidatorHost}:9933
 
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_stash_gran.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_gran.json"
@@ -119,10 +121,10 @@ start_node () {
   nodeName=${2}
   serviceName=${3}
   containerName=${4}
-  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' http://${bootNodeHost}:9933 -s | jq '.result')
+  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootNodeHost}:9933 -s | jq '.result')
   while [ -z $bootNodeID ]; do
       echo "*** bootNodeID is empty "
-      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' http://${bootNodeHost}:9933 -s | jq '.result')
+      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootNodeHost}:9933 -s | jq '.result')
       sleep 5
   done
   ssh ${user}@${ip} 'bash -s'  << EOT
@@ -132,7 +134,7 @@ start_node () {
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER=.*|NETWORK_IDENTIFIER=${bootNodeID}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER_2=.*|NETWORK_IDENTIFIER_2=${bootNodeID}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeName}|\" ${configFile}";
-    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d ${serviceName}"
+    sudo su -c "cd ${path}${dirName}; HOST=${host} docker-compose --env-file ${configFile} up -d ${serviceName}"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${host}:9945 {|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9944|${containerName}:9944|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${host}:9934 {|\" Caddyfile";
@@ -147,10 +149,10 @@ start_node_backup () {
   nodeName=${2}
   serviceName=${3}
   containerName=${4}
-  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' http://${bootNodeBackupHost}:9933 -s | jq '.result')
+  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootNodeBackupHost}:9933 -s | jq '.result')
   while [ -z $bootNodeID ]; do
       echo "*** bootNodeID is empty "
-      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' http://${bootNodeBackupHost}:9933 -s | jq '.result')
+      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootNodeBackupHost}:9933 -s | jq '.result')
       sleep 5
   done
   ssh ${user}@${ip} 'bash -s'  << EOT
@@ -160,7 +162,7 @@ start_node_backup () {
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER=.*|NETWORK_IDENTIFIER=${bootNodeID}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER_2=.*|NETWORK_IDENTIFIER_2=${bootNodeID}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeName}|\" ${configFile}";
-    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d ${serviceName}"
+    sudo su -c "cd ${path}${dirName}; HOST=${host} docker-compose --env-file ${configFile} up -d ${serviceName}"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${host}:9945 {|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9944|${containerName}:9944|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${host}:9934 {|\" Caddyfile";
