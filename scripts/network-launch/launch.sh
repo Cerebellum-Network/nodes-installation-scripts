@@ -25,8 +25,22 @@ start_boot () {
 EOT
 }
 
+start_boot_backup () {
+  ssh ${user}@${bootNodeIPBackup} 'bash -s'  << EOT
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeNamePrefix}01|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d boot_node"
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${bootNodeBackupHost}:9945 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${bootNodeBackupHost}:9934 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
+EOT
+}
+
 start_genesis_validators () {
   start_node ${genesisValidatorIP} ${nodeNamePrefix}02 add_validation_node_custom add_validation_node_custom ${genesisValidatorHost}
+}
+
+start_genesis_validators_backup () {
+  start_node_backup ${genesisValidatorIP} ${nodeNamePrefix}02 add_validation_node_custom add_validation_node_custom ${genesisValidatorHost}
 }
 
 start_validators () {
@@ -37,6 +51,17 @@ start_validators () {
     fi
     echo Starting Validator ${nodeIndex}
     start_node ${validatorsIPs[i]} ${nodeNamePrefix}${nodeIndex} add_validation_node_custom add_validation_node_custom ${validatorsHosts[i]}
+  done
+}
+
+start_validators_backup () {
+  for i in ${!validatorsIPs[@]}; do
+    let nodeIndex=$i+3
+    if (( ${nodeIndex} < 10 )); then
+      nodeIndex=0${nodeIndex}
+    fi
+    echo Starting Validator ${nodeIndex}
+    start_node_backup ${validatorsIPs[i]} ${nodeNamePrefix}${nodeIndex} add_validation_node_custom add_validation_node_custom ${validatorsHosts[i]}
   done
 }
 
@@ -55,6 +80,16 @@ insert_keys () {
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_babe.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_imol.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_audi.json"
+}
+
+insert_keys_backup () {
+  NODE_0_URL=http://${bootNodeBackupHost}:9933
+
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_stash_gran.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_gran.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_babe.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_imol.json"
+  curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_audi.json"
 }
 
 restart_genesis () {
@@ -94,6 +129,34 @@ start_node () {
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER_2=.*|NETWORK_IDENTIFIER_2=${bootNodeID}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeName}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d ${serviceName}"
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${host}:9945 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9944|${containerName}:9944|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${host}:9934 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9933|${containerName}:9933|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
+EOT
+}
+
+start_node_backup () {
+  ip=${1}
+  host=${5}
+  nodeName=${2}
+  serviceName=${3}
+  containerName=${4}
+  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootNodeBackupHost}:9933 -s | jq '.result')
+  while [ -z $bootNodeID ]; do
+      echo "*** bootNodeID is empty "
+      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootNodeBackupHost}:9933 -s | jq '.result')
+      sleep 5
+  done
+  ssh ${user}@${ip} 'bash -s'  << EOT
+    sudo su -c "cd ${path}${dirName}; docker-compose down;"
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS=.*|BOOT_NODE_IP_ADDRESS=${bootNodeIPBackup}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS_2=.*|BOOT_NODE_IP_ADDRESS_2=${bootNodeIPBackup}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER=.*|NETWORK_IDENTIFIER=${bootNodeID}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER_2=.*|NETWORK_IDENTIFIER_2=${bootNodeID}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeName}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; HOST=${hosts} docker-compose --env-file ${configFile} up -d ${serviceName}"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${host}:9945 {|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9944|${containerName}:9944|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${host}:9934 {|\" Caddyfile";
@@ -142,9 +205,13 @@ done
 case $1 in
   generate_chain_spec) "$@"; exit;;
   start_boot) "$@"; exit;;
+  start_boot_backup) "$@"; exit;;
   start_genesis_validators) "$@"; exit;;
+  start_genesis_validators_backup) "$@"; exit;;
   start_validators) "$@"; exit;;
+  start_validators_backup) "$@"; exit;;
   insert_keys) "$@"; exit;;
+  insert_keys_backup) "$@"; exit;;
   restart_genesis) "$@"; exit;;
   start_full) "$@"; exit;;
   start_archive) "$@"; exit;;
