@@ -156,7 +156,7 @@ start_node_backup () {
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER=.*|NETWORK_IDENTIFIER=${bootNodeID}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER_2=.*|NETWORK_IDENTIFIER_2=${bootNodeID}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeName}|\" ${configFile}";
-    sudo su -c "cd ${path}${dirName}; HOST=${hosts} docker-compose --env-file ${configFile} up -d ${serviceName}"
+    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d ${serviceName}"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${host}:9945 {|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|boot_node:9944|${containerName}:9944|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${host}:9934 {|\" Caddyfile";
