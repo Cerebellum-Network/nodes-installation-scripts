@@ -113,11 +113,11 @@ start_node () {
   sleep 5
   fi
 
-  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}//${boot_host}:9934 -s | jq '.result')
+  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${boot_host}:${port} -s | jq '.result')
   while [ -z $bootNodeID ]; do
-      echo "*** bootNodeID is empty "
-      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}//${boot_host}:9934 -s | jq '.result')
-      sleep 5
+    echo "*** bootNodeID is empty "
+    bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${boot_host}:${port} -s | jq '.result')
+    sleep 5
   done
 
   if [ $protocol == "http" ]; then
