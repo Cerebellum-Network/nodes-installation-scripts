@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 protocol=${3:-https}
+boot_host=$([ $protocol == https ] && echo ${bootNodeHost} || echo "127.0.0.1")
+port=$([ $protocol == https ] && echo "9934" || echo "9933")
+
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
 repoBranch="master"
 dirName="cere-network"
@@ -42,8 +45,15 @@ start_validators () {
 }
 
 insert_keys () {
-  NODE_0_URL=${protocol}//${bootNodeHost}:9934
-  NODE_1_URL=${protocol}//${genesisValidatorHost}:9934
+  NODE_0_URL=https://${bootNodeHost}:9933
+  NODE_1_URL=https://${genesisValidatorHost}:9933
+
+  if [ $protocol == "http" ]; then
+  ssh -L ${port}:${boot_host}:${port} -N root@${bootNodeIP} &
+  pid=$!
+  sleep 5
+  NODE_0_URL=http://localhost:9933
+  fi
 
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_stash_gran.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_gran.json"
@@ -51,11 +61,26 @@ insert_keys () {
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_imol.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_audi.json"
 
+  if [ $protocol == "http" ]; then
+  kill $pid
+  fi
+
+  if [ $protocol == "http" ]; then
+  ssh -L ${port}:${boot_host}:${port} -N root@${genesisValidatorIP} &
+  pid=$!
+  sleep 5
+  NODE_1_URL=http://localhost:9933
+  fi
+
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_stash_gran.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_gran.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_babe.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_imol.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_audi.json"
+
+  if [ $protocol == "http" ]; then
+  kill $pid
+  fi
 }
 
 restart_genesis () {
@@ -81,12 +106,24 @@ start_node () {
   nodeName=${2}
   serviceName=${3}
   containerName=${4}
-  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}//${bootNodeHost}:9934 -s | jq '.result')
+
+  if [ $protocol == "http" ]; then
+  ssh -L ${port}:${boot_host}:${port} -N root@${bootNodeIP} &
+  pid=$!
+  sleep 5
+  fi
+
+  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}//${boot_host}:9934 -s | jq '.result')
   while [ -z $bootNodeID ]; do
       echo "*** bootNodeID is empty "
-      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}//${bootNodeHost}:9934 -s | jq '.result')
+      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}//${boot_host}:9934 -s | jq '.result')
       sleep 5
   done
+
+  if [ $protocol == "http" ]; then
+  kill $pid
+  fi
+
   ssh ${user}@${ip} 'bash -s'  << EOT
     sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS=.*|BOOT_NODE_IP_ADDRESS=${bootNodeIP}|\" ${configFile}";
