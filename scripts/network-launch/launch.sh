@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 protocol=${3:-https}
-boot_host=$([ $protocol == https ] && echo ${bootNodeHost} || echo "127.0.0.1")
+bootHost=$([ $protocol == https ] && echo ${bootNodeHost} || echo "127.0.0.1")
 port=$([ $protocol == https ] && echo "9934" || echo "9933")
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
@@ -45,11 +45,11 @@ start_validators () {
 }
 
 insert_keys () {
-  NODE_0_URL=https://${bootNodeHost}:9933
-  NODE_1_URL=https://${genesisValidatorHost}:9933
+  NODE_0_URL=https://${bootNodeHost}:9934
+  NODE_1_URL=https://${genesisValidatorHost}:9934
 
   if [ $protocol == "http" ]; then
-  ssh -L ${port}:${boot_host}:${port} -N root@${bootNodeIP} &
+  ssh -L ${port}:${bootHost}:${port} -N root@${bootNodeIP} &
   pid=$!
   sleep 5
   NODE_0_URL=http://localhost:9933
@@ -63,10 +63,10 @@ insert_keys () {
 
   if [ $protocol == "http" ]; then
   kill $pid
-  fi
+  fi 
 
   if [ $protocol == "http" ]; then
-  ssh -L ${port}:${boot_host}:${port} -N root@${genesisValidatorIP} &
+  ssh -L ${port}:${bootHost}:${port} -N root@${genesisValidatorIP} &
   pid=$!
   sleep 5
   NODE_1_URL=http://localhost:9933
@@ -108,15 +108,15 @@ start_node () {
   containerName=${4}
 
   if [ $protocol == "http" ]; then
-  ssh -L ${port}:${boot_host}:${port} -N root@${bootNodeIP} &
+  ssh -L ${port}:${bootHost}:${port} -N root@${bootNodeIP} &
   pid=$!
   sleep 5
   fi
 
-  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${boot_host}:${port} -s | jq '.result')
+  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootHost}:${port} -s | jq '.result')
   while [ -z $bootNodeID ]; do
     echo "*** bootNodeID is empty "
-    bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${boot_host}:${port} -s | jq '.result')
+    bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootHost}:${port} -s | jq '.result')
     sleep 5
   done
 
