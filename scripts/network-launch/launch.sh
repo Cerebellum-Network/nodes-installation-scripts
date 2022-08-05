@@ -49,11 +49,11 @@ insert_keys () {
   NODE_1_URL=https://${genesisValidatorHost}:9934
 
   if [ $protocol == "http" ]; then
-  ssh -L ${port}:${bootHost}:${port} -N root@${bootNodeIP} &
-  pid=$!
-  sleep 5
   NODE_0_URL=http://localhost:9933
+  NODE_1_URL=http://localhost:9933
   fi
+
+  enableProxyIfNeeded ${bootNodeIP}
 
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_stash_gran.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_gran.json"
@@ -61,16 +61,9 @@ insert_keys () {
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_imol.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_audi.json"
 
-  if [ $protocol == "http" ]; then
-  kill $pid
-  fi 
+  disableProxyIfNeeded
 
-  if [ $protocol == "http" ]; then
-  ssh -L ${port}:${bootHost}:${port} -N root@${genesisValidatorIP} &
-  pid=$!
-  sleep 5
-  NODE_1_URL=http://localhost:9933
-  fi
+  enableProxyIfNeeded ${genesisValidatorIP}
 
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_stash_gran.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_gran.json"
@@ -78,9 +71,7 @@ insert_keys () {
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_imol.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_audi.json"
 
-  if [ $protocol == "http" ]; then
-  kill $pid
-  fi
+  disableProxyIfNeeded
 }
 
 restart_genesis () {
@@ -107,11 +98,7 @@ start_node () {
   serviceName=${3}
   containerName=${4}
 
-  if [ $protocol == "http" ]; then
-  ssh -L ${port}:${bootHost}:${port} -N root@${bootNodeIP} &
-  pid=$!
-  sleep 5
-  fi
+  enableProxyIfNeeded ${bootNodeIP}
 
   bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootHost}:${port} -s | jq '.result')
   while [ -z $bootNodeID ]; do
@@ -120,9 +107,7 @@ start_node () {
     sleep 5
   done
 
-  if [ $protocol == "http" ]; then
-  kill $pid
-  fi
+  disableProxyIfNeeded
 
   ssh ${user}@${ip} 'bash -s'  << EOT
     sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
@@ -162,6 +147,20 @@ EOT
 
 remove_accounts () {
   scripts/generate-accounts/clean.sh
+}
+
+enableProxyIfNeeded() {
+  if [ $protocol == "http" ]; then
+  ssh -L ${port}:${bootHost}:${port} -N root@${1} &
+  pid=$!
+  sleep 5
+  fi
+}
+
+disableProxyIfNeeded() {
+  if [ $protocol == "http" ]; then
+  kill $pid
+  fi
 }
 
 for arg in "$@"
