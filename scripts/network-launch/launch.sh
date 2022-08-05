@@ -18,7 +18,7 @@ generate_chain_spec () {
 
 start_boot () {
   ip=${bootNodeIP}
-  clone
+  clone_scripts ip
   
   ssh ${user}@${bootNodeIP} 'bash -s'  << EOT
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeNamePrefix}01|\" ${configFile}";
@@ -91,7 +91,8 @@ start_node () {
       sleep 5
   done
 
-  clone
+  clone_scripts ${ip}
+  stop_node_partially ${ip}
 
   ssh ${user}@${ip} 'bash -s'  << EOT
     sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS=.*|BOOT_NODE_IP_ADDRESS=${bootNodeIP}|\" ${configFile}";
@@ -108,10 +109,20 @@ start_node () {
 EOT
 }
 
-clone () {
+clone_scripts () {
+  ip=$1
   if [ $mode == "normal" ]; then
   ssh ${user}@${ip} 'bash -s'  << EOT
     sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"  
+EOT
+  fi
+}
+
+stop_node_partially () {
+  ip=$1
+  if [ $mode == "backup" ]; then
+  ssh ${user}@${ip} 'bash -s'  << EOT
+    sudo su -c "cd ${path}${dirName}; docker-compose down;"
 EOT
   fi
 }
