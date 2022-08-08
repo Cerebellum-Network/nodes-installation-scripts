@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-mode=${3:-normal}
+protocol=${3:-https}
+mode=${4:-normal}
+bootHost=$([ $protocol == https ] && echo ${bootNodeHost} || echo "127.0.0.1")
+port=$([ $protocol == https ] && echo "9934" || echo "9933")
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
 repoBranch="master"
@@ -48,17 +51,30 @@ insert_keys () {
   NODE_0_URL=https://${bootNodeHost}:9934
   NODE_1_URL=https://${genesisValidatorHost}:9934
 
+  if [ $protocol == "http" ]; then
+  NODE_0_URL=http://localhost:9933
+  NODE_1_URL=http://localhost:9933
+  fi
+
+  enable_proxy_if_needed ${bootNodeIP}
+
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_stash_gran.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_gran.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_babe.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_imol.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_audi.json"
 
+  disable_proxy_if_needed
+
+  enable_proxy_if_needed ${genesisValidatorIP}
+
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_stash_gran.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_gran.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_babe.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_imol.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_audi.json"
+
+  disable_proxy_if_needed
 }
 
 restart_genesis () {
@@ -84,13 +100,17 @@ start_node () {
   nodeName=${2}
   serviceName=${3}
   containerName=${4}
-  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' https://${bootNodeHost}:9934 -s | jq '.result')
+
+  enable_proxy_if_needed ${bootNodeIP}
+
+  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootHost}:${port} -s | jq '.result')
   while [ -z $bootNodeID ]; do
-      echo "*** bootNodeID is empty "
-      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' https://${bootNodeHost}:9934 -s | jq '.result')
-      sleep 5
+    echo "*** bootNodeID is empty "
+    bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootHost}:${port} -s | jq '.result')
+    sleep 5
   done
 
+  disable_proxy_if_needed
   clone_scripts_if_necessary ${ip}
   stop_node ${ip}
 
@@ -149,6 +169,20 @@ EOT
 
 remove_accounts () {
   scripts/generate-accounts/clean.sh
+}
+
+enable_proxy_if_needed() {
+  if [ $protocol == "http" ]; then
+  ssh -L ${port}:${bootHost}:${port} -N root@${1} &
+  pid=$!
+  sleep 5
+  fi
+}
+
+disable_proxy_if_needed() {
+  if [ $protocol == "http" ]; then
+  kill $pid
+  fi
 }
 
 for arg in "$@"
