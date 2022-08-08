@@ -149,7 +149,7 @@ remove_accounts () {
   scripts/generate-accounts/clean.sh
 }
 
-enableProxyIfNeeded() {
+enable_proxy_if_needed() {
   if [ $protocol == "http" ]; then
   ssh -L ${port}:${bootHost}:${port} -N root@${1} &
   pid=$!
@@ -157,7 +157,7 @@ enableProxyIfNeeded() {
   fi
 }
 
-disableProxyIfNeeded() {
+disable_proxy_if_needed() {
   if [ $protocol == "http" ]; then
   kill $pid
   fi
