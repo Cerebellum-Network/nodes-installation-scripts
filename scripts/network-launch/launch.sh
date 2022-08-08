@@ -53,7 +53,7 @@ insert_keys () {
   NODE_1_URL=http://localhost:9933
   fi
 
-  enableProxyIfNeeded ${bootNodeIP}
+  enable_proxy_if_needed ${bootNodeIP}
 
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_stash_gran.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_gran.json"
@@ -61,9 +61,9 @@ insert_keys () {
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_imol.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_audi.json"
 
-  disableProxyIfNeeded
+  disable_proxy_if_needed
 
-  enableProxyIfNeeded ${genesisValidatorIP}
+  enable_proxy_if_needed ${genesisValidatorIP}
 
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_stash_gran.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_gran.json"
@@ -71,7 +71,7 @@ insert_keys () {
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_imol.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_audi.json"
 
-  disableProxyIfNeeded
+  disable_proxy_if_needed
 }
 
 restart_genesis () {
@@ -98,7 +98,7 @@ start_node () {
   serviceName=${3}
   containerName=${4}
 
-  enableProxyIfNeeded ${bootNodeIP}
+  enable_proxy_if_needed ${bootNodeIP}
 
   bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootHost}:${port} -s | jq '.result')
   while [ -z $bootNodeID ]; do
@@ -107,7 +107,7 @@ start_node () {
     sleep 5
   done
 
-  disableProxyIfNeeded
+  disable_proxy_if_needed
 
   ssh ${user}@${ip} 'bash -s'  << EOT
     sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
