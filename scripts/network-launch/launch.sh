@@ -18,7 +18,7 @@ generate_chain_spec () {
 
 start_boot () {
   ip=${bootNodeIP}
-  clone_scripts ip
+  clone_scripts_if_necessary ip
   
   ssh ${user}@${bootNodeIP} 'bash -s'  << EOT
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeNamePrefix}01|\" ${configFile}";
@@ -91,7 +91,7 @@ start_node () {
       sleep 5
   done
 
-  clone_scripts ${ip}
+  clone_scripts_if_necessary ${ip}
   stop_node_partially ${ip}
 
   ssh ${user}@${ip} 'bash -s'  << EOT
@@ -109,7 +109,7 @@ start_node () {
 EOT
 }
 
-clone_scripts () {
+clone_scripts_if_necessary () {
   ip=$1
   if [ $mode == "normal" ]; then
   ssh ${user}@${ip} 'bash -s'  << EOT
