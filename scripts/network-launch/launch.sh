@@ -23,8 +23,8 @@ start_boot () {
   ssh ${user}@${bootNodeIP} 'bash -s'  << EOT
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeNamePrefix}01|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d boot_node"
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${bootNodeHost}:9945 {|\" Caddyfile";
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${bootNodeHost}:9934 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${bootNodeIP}:9945 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${bootNodeIP}:9934 {|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
 EOT
 }
@@ -92,7 +92,7 @@ start_node () {
   done
 
   clone_scripts_if_necessary ${ip}
-  stop_node_partially ${ip}
+  stop_node ${ip}
 
   ssh ${user}@${ip} 'bash -s'  << EOT
     sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS=.*|BOOT_NODE_IP_ADDRESS=${bootNodeIP}|\" ${configFile}";
@@ -118,7 +118,7 @@ EOT
   fi
 }
 
-stop_node_partially () {
+stop_node () {
   ip=$1
   if [ $mode == "backup" ]; then
   ssh ${user}@${ip} 'bash -s'  << EOT
@@ -128,17 +128,17 @@ EOT
 }
 
 stop_network () {
-  stop_node ${bootNodeIP}
-  stop_node ${genesisValidatorIP}
+  stop_node_and_clean_up ${bootNodeIP}
+  stop_node_and_clean_up ${genesisValidatorIP}
   for i in ${validatorsIPs[@]}
   do
-    stop_node ${i}
+    stop_node_and_clean_up ${i}
   done
-  stop_node ${fullNodeIP}
-  stop_node ${archiveNodeIP}
+  stop_node_and_clean_up ${fullNodeIP}
+  stop_node_and_clean_up ${archiveNodeIP}
 }
 
-stop_node () {
+stop_node_and_clean_up () {
   ip=${1}
   echo "Stopping ${ip}"
   ssh ${user}@${ip} 'bash -s' << EOT
