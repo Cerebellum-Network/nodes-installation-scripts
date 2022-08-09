@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-protocol=${3:-https}
-mode=${4:-normal}
-bootHost=$([ $protocol == https ] && echo ${bootNodeHost} || echo "127.0.0.1")
-port=$([ $protocol == https ] && echo "9934" || echo "9933")
-
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
 repoBranch="master"
 dirName="cere-network"
@@ -21,8 +16,8 @@ generate_chain_spec () {
 
 start_boot () {
   ip=${bootNodeIP}
-  clone_scripts_if_necessary ip
-  
+  clone_scripts_if_necessary ${ip}
+
   ssh ${user}@${ip} 'bash -s'  << EOT
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeNamePrefix}01|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d boot_node"
@@ -133,7 +128,7 @@ clone_scripts_if_necessary () {
   ip=$1
   if [ $mode == "normal" ]; then
   ssh ${user}@${ip} 'bash -s'  << EOT
-    sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"  
+    sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
 EOT
   fi
 }
@@ -197,6 +192,11 @@ do
       echo "Skipped option ${arg}" ;;
   esac
 done
+
+protocol=${3:-https}
+mode=${4:-normal}
+bootHost=$([ $protocol == https ] && echo ${bootNodeHost} || echo "127.0.0.1")
+port=$([ $protocol == https ] && echo "9934" || echo "9933")
 
 case $1 in
   generate_chain_spec) "$@"; exit;;
