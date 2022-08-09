@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+protocol=${3:-https}
+mode=${4:-normal}
+bootHost=$([ $protocol == https ] && echo ${bootNodeHost} || echo "127.0.0.1")
+port=$([ $protocol == https ] && echo "9934" || echo "9933")
+
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
 repoBranch="master"
 dirName="cere-network"
@@ -15,8 +20,10 @@ generate_chain_spec () {
 }
 
 start_boot () {
-  ssh ${user}@${bootNodeIP} 'bash -s'  << EOT
-    sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
+  ip=${bootNodeIP}
+  clone_scripts_if_necessary ip
+  
+  ssh ${user}@${ip} 'bash -s'  << EOT
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeNamePrefix}01|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d boot_node"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${bootNodeHost}:9945 {|\" Caddyfile";
@@ -44,17 +51,30 @@ insert_keys () {
   NODE_0_URL=https://${bootNodeHost}:9934
   NODE_1_URL=https://${genesisValidatorHost}:9934
 
+  if [ $protocol == "http" ]; then
+  NODE_0_URL=http://localhost:9933
+  NODE_1_URL=http://localhost:9933
+  fi
+
+  enable_proxy_if_needed ${bootNodeIP}
+
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_stash_gran.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_gran.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_babe.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_imol.json"
   curl ${NODE_0_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_0_audi.json"
 
+  disable_proxy_if_needed
+
+  enable_proxy_if_needed ${genesisValidatorIP}
+
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_stash_gran.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_gran.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_babe.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_imol.json"
   curl ${NODE_1_URL} -H "Content-Type:application/json;charset=utf-8" -d "@scripts/generate-accounts/keys/node_1_audi.json"
+
+  disable_proxy_if_needed
 }
 
 restart_genesis () {
@@ -80,14 +100,21 @@ start_node () {
   nodeName=${2}
   serviceName=${3}
   containerName=${4}
-  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' https://${bootNodeHost}:9934 -s | jq '.result')
+
+  enable_proxy_if_needed ${bootNodeIP}
+
+  bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootHost}:${port} -s | jq '.result')
   while [ -z $bootNodeID ]; do
-      echo "*** bootNodeID is empty "
-      bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' https://${bootNodeHost}:9934 -s | jq '.result')
-      sleep 5
+    echo "*** bootNodeID is empty "
+    bootNodeID=$(curl -H 'Content-Type: application/json' --data '{ "jsonrpc":"2.0", "method":"system_localPeerId", "id":1 }' ${protocol}://${bootHost}:${port} -s | jq '.result')
+    sleep 5
   done
+
+  disable_proxy_if_needed
+  clone_scripts_if_necessary ${ip}
+  stop_node ${ip}
+
   ssh ${user}@${ip} 'bash -s'  << EOT
-    sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"
     sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS=.*|BOOT_NODE_IP_ADDRESS=${bootNodeIP}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|BOOT_NODE_IP_ADDRESS_2=.*|BOOT_NODE_IP_ADDRESS_2=${bootNodeIP}|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NETWORK_IDENTIFIER=.*|NETWORK_IDENTIFIER=${bootNodeID}|\" ${configFile}";
@@ -102,18 +129,36 @@ start_node () {
 EOT
 }
 
-stop_network () {
-  stop_node ${bootNodeIP}
-  stop_node ${genesisValidatorIP}
-  for i in ${validatorsIPs[@]}
-  do
-    stop_node ${i}
-  done
-  stop_node ${fullNodeIP}
-  stop_node ${archiveNodeIP}
+clone_scripts_if_necessary () {
+  ip=$1
+  if [ $mode == "normal" ]; then
+  ssh ${user}@${ip} 'bash -s'  << EOT
+    sudo su -c "cd ${path}; git clone ${repo} ${dirName}; cd ${dirName}; git checkout ${repoBranch}; chmod -R 777 chain-data"  
+EOT
+  fi
 }
 
 stop_node () {
+  ip=$1
+  if [ $mode == "backup" ]; then
+  ssh ${user}@${ip} 'bash -s'  << EOT
+    sudo su -c "cd ${path}${dirName}; docker-compose down;"
+EOT
+  fi
+}
+
+stop_network () {
+  stop_node_and_clean_up ${bootNodeIP}
+  stop_node_and_clean_up ${genesisValidatorIP}
+  for i in ${validatorsIPs[@]}
+  do
+    stop_node_and_clean_up ${i}
+  done
+  stop_node_and_clean_up ${fullNodeIP}
+  stop_node_and_clean_up ${archiveNodeIP}
+}
+
+stop_node_and_clean_up () {
   ip=${1}
   echo "Stopping ${ip}"
   ssh ${user}@${ip} 'bash -s' << EOT
@@ -124,6 +169,20 @@ EOT
 
 remove_accounts () {
   scripts/generate-accounts/clean.sh
+}
+
+enable_proxy_if_needed() {
+  if [ $protocol == "http" ]; then
+  ssh -L ${port}:${bootHost}:${port} -N root@${1} &
+  pid=$!
+  sleep 5
+  fi
+}
+
+disable_proxy_if_needed() {
+  if [ $protocol == "http" ]; then
+  kill $pid
+  fi
 }
 
 for arg in "$@"
