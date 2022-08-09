@@ -23,11 +23,11 @@ start_boot () {
   ip=${bootNodeIP}
   clone_scripts_if_necessary ip
   
-  ssh ${user}@${bootNodeIP} 'bash -s'  << EOT
+  ssh ${user}@${ip} 'bash -s'  << EOT
     sudo su -c "cd ${path}${dirName}; sed -i \"s|NODE_NAME=NODE_NAME|NODE_NAME=${nodeNamePrefix}01|\" ${configFile}";
     sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d boot_node"
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${bootNodeIP}:9945 {|\" Caddyfile";
-    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${bootNodeIP}:9934 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9945.*|${bootNodeHost}:9945 {|\" Caddyfile";
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|testnet-node-1.cere.network:9934.*|${bootNodeHost}:9934 {|\" Caddyfile";
     sudo su -c "cd ${path}${dirName}; docker-compose up -d caddy";
 EOT
 }
