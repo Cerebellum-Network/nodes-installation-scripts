@@ -22,6 +22,12 @@ $ bash launch.sh start_boot --cluster=<CLUSTER-CONFIG-PATH> http backup
 ```
 
 # Backup and Restore Network
+
+Install lz4 before using scripts:
+```
+sudo apt install liblz4-tool
+```
+
 The scripts allow to backup / restore node (this is used for all cases)
 Also the scripts allow to operate the network (case 3-4), when the db has been replaced for target nodes and the network is about to be restarted with the boot_node, which has a different IP.
 
