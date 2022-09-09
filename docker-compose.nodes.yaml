@@ -13,6 +13,7 @@ services:
       - /etc/letsencrypt/:/etc/letsencrypt/:ro
   full_node:
     container_name: cere_full_node
+    hostname: ${NODE_NAME}
     image: cerebellumnetwork/pos-node:v2.3.1
     restart: always
     logging:
