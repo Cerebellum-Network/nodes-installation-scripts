@@ -3,6 +3,9 @@
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
 repoBranch="master"
 dirName="cere-network"
+protocol="https"
+mode="normal"
+tag=""
 
 generate_chain_spec () {
   docker-compose down -t 0
@@ -166,6 +169,29 @@ remove_accounts () {
   scripts/generate-accounts/clean.sh
 }
 
+update_node_clients () {
+  update_node_client ${bootNodeIP} boot_node ${tag}
+  update_node_client ${genesisValidatorIP} add_validation_node_custom ${tag}
+  for i in ${validatorsIPs[@]}
+  do
+    update_node_client ${i} add_validation_node_custom ${tag}
+  done
+  update_node_client ${fullNodeIP} cere_full_node ${tag}
+  update_node_client ${archiveNodeIP} cere_archive_node ${tag}
+}
+
+update_node_client () {
+  ip=${1}
+  serviceName=${2}
+  tag=${3}
+
+  echo "Updating node client ${ip} to ${tag}"
+  ssh ${user}@${ip} 'bash -s' << EOT
+    sudo su -c "cd ${path}${dirName}; sed -i \"s|VERSION=.*|VERSION=${tag}|\" ${configFile}";
+    sudo su -c "cd ${path}${dirName}; docker-compose --env-file ${configFile} up -d ${serviceName}";
+EOT
+}
+
 enable_proxy_if_needed() {
   if [ $protocol == "http" ]; then
   ssh -L ${port}:${bootHost}:${port} -N root@${1} &
@@ -188,13 +214,23 @@ do
       echo "Loading cluster config from ${path}"
       . $path
       ;;
+    --protocol=*)
+      protocol=`echo $arg | sed -e 's/^[^=]*=//g'`
+      echo "Protocol ${protocol} will be used"
+      ;;
+    --mode=*)
+      mode=`echo $arg | sed -e 's/^[^=]*=//g'`
+      echo "Mode ${mode} will be used"
+      ;;
+    --tag=*)
+      tag=`echo $arg | sed -e 's/^[^=]*=//g'`
+      echo "Tag ${tag} will be used"
+      ;;
     *)
       echo "Skipped option ${arg}" ;;
   esac
 done
 
-protocol=${3:-https}
-mode=${4:-normal}
 bootHost=$([ $protocol == https ] && echo ${bootNodeHost} || echo "127.0.0.1")
 port=$([ $protocol == https ] && echo "9934" || echo "9933")
 
@@ -209,4 +245,5 @@ case $1 in
   start_archive) "$@"; exit;;
   stop_network) "$@"; exit;;
   remove_accounts) "$@"; exit;;
+  update_node_clients) "$@"; exit;;
 esac
