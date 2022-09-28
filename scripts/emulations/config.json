@@ -30,11 +30,11 @@
         "url": "ws://134.209.192.121:9944"
       }
     ],
-    "name": "Cerebellum Ext Devs Network 5",
-    "id": "cere_ext_devs_5",
+    "name": "Cerebellum Ext Devs Network 3",
+    "id": "cere_ext_devs_3",
     "chainType": "Development",
-    "decimals": 10,
-    "total_supply": 10000000000,
+    "decimals": 15,
+    "total_supply": 1000000000000000,
     "genesis_validators_amount": 2,
     "genesis_validators_stake": 1,
     "genesis_councils_amount": 2,
