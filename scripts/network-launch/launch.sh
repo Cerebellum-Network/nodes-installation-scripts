@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 repo=https://github.com/Cerebellum-Network/nodes-installation-scripts.git
-repoBranch="master"
+repoBranch="feature/substrate"
 dirName="cere-network"
 protocol="https"
 mode="normal"
