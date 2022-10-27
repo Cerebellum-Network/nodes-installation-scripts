@@ -57,7 +57,8 @@ services:
       - "127.0.0.1:9944:9944"
       - "127.0.0.1:9933:9933"
       - "30333:30333"
+      - "9615:9615"
     volumes:
       - ./spec-data:/cereio/spec-data
       - ~/cere-data:/data
-    command: bash -c "/usr/local/bin/cere -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --validator --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --rpc-methods=Unsafe --ws-external  --unsafe-ws-external --rpc-cors all --rpc-external"
+    command: bash -c "/usr/local/bin/cere --prometheus-external --prometheus-port 9615 -l${LOG_LEVEL} --name ${NODE_NAME} --chain /cereio/spec-data/${SPEC_PATH}/customSpecRaw.json --telemetry-url 'wss://telemetry.polkadot.io/submit/ 0' --validator --bootnodes /ip4/${BOOT_NODE_IP_ADDRESS}/tcp/30333/p2p/${NETWORK_IDENTIFIER} /ip4/${BOOT_NODE_IP_ADDRESS_2}/tcp/30333/p2p/${NETWORK_IDENTIFIER_2} --ws-port 9944 --rpc-methods=Unsafe --ws-external  --unsafe-ws-external --rpc-cors all --rpc-external"
