@@ -29,7 +29,7 @@ services:
     command: bash -c "subkey inspect --scheme ed25519 ''"
   create_chain_spec:
     container_name: create_chain_spec
-    image: cerebellumnetwork/pos-node:v0.2.13-rc2
+    image: cerebellumnetwork/pos-node:v2.13.0-st1
     user: root
     volumes:
       - ./spec-data:/cereio/spec-data
@@ -37,7 +37,7 @@ services:
 
   create_raw_chain_spec:
     container_name: create_raw_chain_spec
-    image: cerebellumnetwork/pos-node:v0.2.13-rc2
+    image: cerebellumnetwork/pos-node:v2.13.0-st1
     user: root
     volumes:
       - ./spec-data:/cereio/spec-data
