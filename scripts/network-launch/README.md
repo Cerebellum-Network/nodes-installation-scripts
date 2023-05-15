@@ -18,7 +18,7 @@ backup config is only relevant to start_boot, start_genesis_validators, and star
 
 Example (the boot node has been moved to new IP and db replaced; for other cases simply the node's db has been already replaced):
 ```
-$ bash launch.sh start_boot --cluster=<CLUSTER-CONFIG-PATH> http backup
+$ bash launch.sh start_boot --cluster=<CLUSTER-CONFIG-PATH> --protocol=http --mode=backup
 ```
 
 # Backup and Restore Network
