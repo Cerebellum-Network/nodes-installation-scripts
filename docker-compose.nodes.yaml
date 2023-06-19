@@ -9,7 +9,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/conf/:/etc/nginx/conf.d/:ro
+      - ./nginx/conf/:/etc/nginx/sites-available/:ro
       - /etc/letsencrypt/:/etc/letsencrypt/:ro
   full_node:
     container_name: cere_full_node
