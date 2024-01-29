@@ -1,6 +1,6 @@
 ﻿# Scripts to simplify Cere Nodes launch
 
-The scripts to up and run Cere Nodes (Validator, Full, Archive). How to use details can be found in the [Cere Gitbook](https://cere-network.gitbook.io/cere-network/node/install-and-update/start-a-node).
+The scripts to up and run Cere Nodes (Validator, Full, Archive). How to use details can be found in the [Cere Gitbook]([https://docs.cere.network/node/install-and-update/start-a-node]).
 
 ## [BETA] Running the validator node
 
