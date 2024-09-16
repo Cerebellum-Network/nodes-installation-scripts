@@ -2,7 +2,7 @@ version: "2.4"
 
 services:
   caddy:
-    image: abiosoft/caddy:no-stats
+    image: caddy:2.4.6
     container_name: caddy
     restart: always
     environment:
@@ -13,7 +13,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./Caddyfile:/etc/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile
       - ./caddy:/root/.caddy
   generate_sr_key:
     container_name: generate_sr_key
