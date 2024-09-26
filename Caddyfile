@@ -1,16 +1,11 @@
-testnet-node-1.cere.network:9945 {
-	log stdout
-	errors stderr
-	gzip
-	tls ab@cere.io
-	proxy / boot_node:9944 {
-	     websocket
-	  }
+{
+	acme_ca https://acme-v02.api.letsencrypt.org/directory
 }
+
+testnet-node-1.cere.network:9945 {
+	reverse_proxy / boot_node:9944
+}
+
 testnet-node-1.cere.network:9934 {
-	log stdout
-	errors stderr
-	gzip
-	tls ab@cere.io
-	proxy / boot_node:9933
+	reverse_proxy / boot_node:9933
 }
